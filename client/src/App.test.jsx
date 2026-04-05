@@ -3,7 +3,7 @@ import App from './App';
 import { describe, it, expect, vi } from 'vitest';
 
 describe('App', () => {
-    it('renders ShopSmart title', () => {
+    it('renders CareSmart title', () => {
         // Mock fetch
         global.fetch = vi.fn(() =>
             Promise.resolve({
@@ -12,7 +12,7 @@ describe('App', () => {
         );
 
         render(<App />);
-        const linkElement = screen.getByText(/ShopSmart/i);
-        expect(linkElement).toBeInTheDocument();
+        const linkElement = screen.getAllByText(/CareSmart/i)[0];
+        expect(linkElement).toBeDefined();
     });
 });

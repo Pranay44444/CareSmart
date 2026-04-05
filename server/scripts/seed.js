@@ -1,82 +1,105 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const Product = require('../src/models/Product');
 const User = require('../src/models/User');
+const Product = require('../src/models/Product');
+const connectDB = require('../src/config/db');
 
-const sampleProducts = [
+// Sample products for CareSmart AI testing
+const products = [
   {
-    name: "Rugged Armor Case",
-    description: "Shockproof case for iPhone 15 with carbon fiber finish.",
-    price: 24.99,
-    category: "smartphone",
-    subCategory: "cases",
-    compatibleBrands: ["Apple"],
-    stock: 100,
-    image: "https://example.com/images/rugged-case.jpg"
-  },
-  {
-    name: "4-Port USB-C Hub",
-    description: "Aluminum 4-in-1 USB-C hub with HDMI and PD charging.",
-    price: 39.99,
-    category: "laptop",
-    subCategory: "hubs",
-    compatibleBrands: ["Apple", "Dell", "HP"],
+    name: 'Anker PowerCore 20000mAh',
+    description: 'High-Capacity Power Bank, compact and safe for fast charging.',
+    price: 49.99,
+    category: 'smartphone',
+    subCategory: 'power bank',
+    compatibleBrands: ['apple', 'samsung', 'google'],
     stock: 50,
-    image: "https://example.com/images/usb-hub.jpg"
+    image: 'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=500&q=80',
   },
   {
-    name: "Fast Wireless Charger",
-    description: "15W Qi-certified wireless charging pad with LED indicator.",
+    name: 'Spigen Tough Armor Case',
+    description: 'Slim & Ventilated Protective Case built for extreme drop protection and heat dissipation.',
+    price: 19.99,
+    category: 'smartphone',
+    subCategory: 'case',
+    compatibleBrands: ['apple', 'samsung'],
+    stock: 120,
+    image: 'https://images.unsplash.com/photo-1541560052-77ec1bbc09f7?w=500&q=80',
+  },
+  {
+    name: 'Belkin BoostCharge Pro 30W',
+    description: 'Certified USB-C Fast Charger with GaN technology for cooler, faster charging.',
     price: 29.99,
-    category: "smartphone",
-    subCategory: "chargers",
-    compatibleBrands: ["Apple", "Samsung", "Google"],
-    stock: 75,
-    image: "https://example.com/images/wireless-charger.jpg"
+    category: 'smartphone',
+    subCategory: 'charger',
+    compatibleBrands: ['apple', 'samsung', 'google'],
+    stock: 200,
+    image: 'https://images.unsplash.com/photo-1583863788434-e58f3fc434c0?w=500&q=80',
   },
   {
-    name: "Laptop Cooling Pad",
-    description: "Ergonomic cooling stand with 5 quiet fans and RGB lighting.",
-    price: 45.00,
-    category: "laptop",
-    subCategory: "cooling",
-    compatibleBrands: ["Any"],
-    stock: 30,
-    image: "https://example.com/images/cooling-pad.jpg"
+    name: 'amFilm Tempered Glass Screen Protector',
+    description: 'Ultra-clear, scratch-resistant tempered glass for max protection.',
+    price: 9.99,
+    category: 'smartphone',
+    subCategory: 'screen protector',
+    compatibleBrands: ['apple'],
+    stock: 300,
+    image: 'https://images.unsplash.com/photo-1601524909162-ae8725290836?w=500&q=80',
+  },
+  {
+    name: 'Logitech MX Master 3S',
+    description: 'Advanced Wireless Mouse with ergonomic design and ultra-fast scrolling.',
+    price: 99.99,
+    category: 'laptop',
+    subCategory: 'mouse',
+    compatibleBrands: ['apple', 'dell', 'hp', 'lenovo'],
+    stock: 45,
+    image: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=500&q=80',
+  },
+  {
+    name: 'Laptop Cooling Pad with RGB',
+    description: '5 high-speed quiet fans to prevent laptop overheating during gaming or heavy workloads.',
+    price: 34.99,
+    category: 'laptop',
+    subCategory: 'cooling',
+    compatibleBrands: ['dell', 'hp', 'lenovo', 'asus'],
+    stock: 60,
+    image: 'https://images.unsplash.com/photo-1616423640778-28d1b53229bd?w=500&q=80',
   }
 ];
 
-const seedDB = async () => {
+const seedData = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log('Connected to MongoDB for seeding...');
+    await connectDB();
+    console.log('Connected to target DB...');
 
-    // Clear existing products
+    // Delete existing standard mock data to prevent duplicates upon multiple runs
     await Product.deleteMany({});
-    console.log('Cleared existing products.');
+    console.log('🧹 Cleared existing Products.');
 
-    // Insert new products
-    await Product.insertMany(sampleProducts);
-    console.log('Sample products seeded successfully!');
-
-    // Check if an admin exists, if not create one
-    const adminExists = await User.findOne({ role: 'admin' });
+    // Look for existing admin, if not create one
+    const adminExists = await User.findOne({ email: 'admin@caresmart.com' });
     if (!adminExists) {
-        await User.create({
-            name: "Default Admin",
-            email: "admin@caresmart.com",
-            password: "adminpassword123",
-            role: "admin"
-        });
-        console.log('Created default admin: admin@caresmart.com / adminpassword123');
+      await User.create({
+        name: 'Super Admin',
+        email: 'admin@caresmart.com',
+        password: 'admin123',
+        role: 'admin',
+      });
+      console.log('✅ Created default Admin account (admin@caresmart.com / admin123).');
+    } else {
+      console.log('✅ Admin account already exists.');
     }
 
-    mongoose.connection.close();
-    console.log('Seeding complete. Database connection closed.');
+    // Insert mock products
+    await Product.insertMany(products);
+    console.log(`✅ successfully seeded ${products.length} mock products!`);
+
+    process.exit();
   } catch (error) {
-    console.error('Error seeding database:', error);
+    console.error('Error seeding data:', error);
     process.exit(1);
   }
 };
 
-seedDB();
+seedData();

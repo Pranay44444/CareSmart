@@ -66,10 +66,10 @@ const getProductById = async (req, res) => {
 
     res.status(200).json({ product });
   } catch (error) {
-    console.error('getProductById error:', error);
     if (error.name === 'CastError') {
       return res.status(400).json({ message: 'Invalid product ID format' });
     }
+    console.error('getProductById error:', error);
     res.status(500).json({ message: 'Server error fetching product' });
   }
 };
@@ -149,7 +149,6 @@ const updateProduct = async (req, res) => {
     const updated = await product.save();
     res.status(200).json({ message: 'Product updated successfully', product: updated });
   } catch (error) {
-    console.error('updateProduct error:', error);
     if (error.name === 'CastError') {
       return res.status(400).json({ message: 'Invalid product ID format' });
     }
@@ -157,6 +156,7 @@ const updateProduct = async (req, res) => {
       const messages = Object.values(error.errors).map((e) => e.message);
       return res.status(400).json({ message: messages.join(', ') });
     }
+    console.error('updateProduct error:', error);
     res.status(500).json({ message: 'Server error updating product' });
   }
 };
@@ -177,10 +177,10 @@ const deleteProduct = async (req, res) => {
 
     res.status(200).json({ message: 'Product deleted successfully' });
   } catch (error) {
-    console.error('deleteProduct error:', error);
     if (error.name === 'CastError') {
       return res.status(400).json({ message: 'Invalid product ID format' });
     }
+    console.error('deleteProduct error:', error);
     res.status(500).json({ message: 'Server error deleting product' });
   }
 };

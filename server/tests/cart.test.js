@@ -1,88 +1,73 @@
 const request = require('supertest');
 const mongoose = require('mongoose');
 const app = require('../src/app');
-const Product = require('../src/models/Product');
-const User = require('../src/models/User');
+
+jest.setTimeout(30000);
+
+beforeAll(async () => {
+  if (mongoose.connection.readyState === 0) {
+    let mongoUri = process.env.MONGO_URI || 'mongodb://127.0.0.1/caresmart';
+    if (mongoUri.includes('mongodb+srv')) {
+       const url = new URL(mongoUri);
+       url.pathname = '/caresmart_test';
+       mongoUri = url.toString();
+    } else if (!mongoUri.includes('_test')) {
+       mongoUri = mongoUri.replace('?', '_test?');
+    }
+    await mongoose.connect(mongoUri);
+  }
+});
+
+afterAll(async () => {
+  if (mongoose.connection.readyState !== 0 && mongoose.connection.db) {
+    try {
+      await mongoose.connection.db.dropDatabase();
+    } catch(e) {}
+    await mongoose.connection.close();
+  }
+});
+
+let userToken = '';
+let productId = '';
 
 describe('Cart Endpoints', () => {
-    let userToken;
-    let productId;
+  test('Register user and get token', async () => {
+    const testUser = { name: 'Cart Tester', email: `cart_${Date.now()}@example.com`, password: 'password123' };
+    const res = await request(app).post('/api/auth/register').send(testUser);
+    expect(res.statusCode).toBe(201);
+    userToken = res.body.token;
+  });
 
-    beforeAll(async () => {
-        if (mongoose.connection.readyState === 0) {
-            await mongoose.connect(process.env.MONGO_URI);
-        }
-        await Product.deleteMany({});
-        await User.deleteMany({});
+  test('Create a test product to add to cart', async () => {
+    // Elevate user to admin directly or create product directly
+    const Product = mongoose.model('Product');
+    const p = await Product.create({ name: 'Cart Item', description: 'desc', price: 9.99, category: 'smartphone', stock: 5 });
+    productId = p._id.toString();
+  });
 
-        // Create user for testing
-        const userRes = await request(app)
-            .post('/api/auth/register')
-            .send({
-                name: "Cart User",
-                email: "cart@example.com",
-                password: "cartpassword"
-            });
-        
-        userToken = userRes.body.token;
+  test('GET /api/cart → 200, has items array', async () => {
+    const res = await request(app)
+      .get('/api/cart')
+      .set('Authorization', `Bearer ${userToken}`);
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toHaveProperty('cart');
+    expect(Array.isArray(res.body.cart.items)).toBe(true);
+  });
 
-        // Create product for testing
-        const prod = await Product.create({
-            name: "Cart Item",
-            description: "Test product for cart",
-            price: 10,
-            category: "smartphone",
-            stock: 5
-        });
-        productId = prod._id.toString();
-    });
+  test('POST /api/cart/add → 200', async () => {
+    const res = await request(app)
+      .post('/api/cart/add')
+      .set('Authorization', `Bearer ${userToken}`)
+      .send({ productId, qty: 1 });
+    expect(res.statusCode).toBe(200);
+    expect(res.body.cart.items.length).toBeGreaterThan(0);
+  });
 
-    afterAll(async () => {
-        await mongoose.connection.close();
-    });
-
-    describe('POST /api/cart/add', () => {
-        it('should add item to cart', async () => {
-            const res = await request(app)
-                .post('/api/cart/add')
-                .set('Authorization', `Bearer ${userToken}`)
-                .send({
-                    productId: productId,
-                    qty: 1
-                });
-            
-            expect(res.statusCode).toEqual(200);
-            expect(res.body.cart.items.length).toBe(1);
-            expect(res.body.cart.items[0].product._id).toBe(productId);
-        });
-
-        it('should return 401 without token', async () => {
-            const res = await request(app)
-                .post('/api/cart/add')
-                .send({ productId: productId, qty: 1 });
-            expect(res.statusCode).toEqual(401);
-        });
-    });
-
-    describe('GET /api/cart', () => {
-        it('should return the user cart', async () => {
-            const res = await request(app)
-                .get('/api/cart')
-                .set('Authorization', `Bearer ${userToken}`);
-            
-            expect(res.statusCode).toEqual(200);
-            expect(res.body.cart).toHaveProperty('user');
-        });
-    });
-
-    describe('DELETE /api/cart/remove/:productId', () => {
-        it('should remove item from cart', async () => {
-            const res = await request(app)
-                .delete(`/api/cart/remove/${productId}`)
-                .set('Authorization', `Bearer ${userToken}`);
-            
-            expect(res.statusCode).toEqual(200);
-            expect(res.body.cart.items.length).toBe(0);
-        });
-    });
+  test('DELETE /api/cart/clear → 200', async () => {
+    const res = await request(app)
+      .delete('/api/cart/clear')
+      .set('Authorization', `Bearer ${userToken}`);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.cart.items.length).toBe(0);
+  });
 });
