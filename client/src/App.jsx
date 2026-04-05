@@ -1,36 +1,84 @@
-import { useState, useEffect } from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import Navbar from './components/Navbar';
+import AIAdvisor from './components/AIAdvisor';
+import {
+  Home,
+  Login,
+  Register,
+  Products,
+  ProductDetail,
+  Cart,
+  Orders,
+  Profile,
+  AdminDashboard,
+} from './pages/index';
 
-function App() {
-    const [data, setData] = useState(null);
+// ── Route Guards ──────────────────────────────────────────────────────────────
 
-    useEffect(() => {
-        const apiUrl = import.meta.env.VITE_API_URL || '';
-        fetch(`${apiUrl}/api/health`)
-            .then(res => res.json())
-            .then(data => setData(data))
-            .catch(err => console.error('Error fetching health check:', err));
-    }, []);
+/**
+ * ProtectedRoute — redirects unauthenticated users to /login.
+ */
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? children : <Navigate to="/login" replace />;
+};
 
-    return (
-        <div className="container">
-            <h1>ShopSmart</h1>
-            <div className="card">
-                <h2>Backend Status</h2>
-                {data ? (
-                    <div>
-                        <p>Status: <span className="status-ok">{data.status}</span></p>
-                        <p>Message: {data.message}</p>
-                        <p>Timestamp: {data.timestamp}</p>
-                    </div>
-                ) : (
-                    <p>Loading backend status...</p>
-                )}
-            </div>
-            <p className="hint">
-                Edit <code>src/App.jsx</code> and save to test HMR
-            </p>
-        </div>
-    )
-}
+/**
+ * AdminRoute — redirects non-admin users to /.
+ */
+const AdminRoute = ({ children }) => {
+  const { isAuthenticated, isAdmin } = useAuth();
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  if (!isAdmin) return <Navigate to="/" replace />;
+  return children;
+};
 
-export default App
+// ── AI Advisor page wrapper ─────────────────────────────────────────────────────
+const AIAdvisorPage = () => (
+  <div style={{ minHeight: '100vh', background: '#0f0f1a', padding: '48px 24px' }}>
+    <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+      <AIAdvisor />
+    </div>
+  </div>
+);
+
+// ── App Shell ─────────────────────────────────────────────────────────────────
+const AppRoutes = () => (
+  <>
+  <Navbar />
+  <Routes>
+    {/* Public */}
+    <Route path="/"            element={<Home />} />
+    <Route path="/login"       element={<Login />} />
+    <Route path="/register"    element={<Register />} />
+    <Route path="/products"    element={<Products />} />
+    <Route path="/products/:id" element={<ProductDetail />} />
+
+    {/* Protected — require login */}
+    <Route path="/cart"    element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+    <Route path="/orders"  element={<ProtectedRoute><Orders /></ProtectedRoute>} />
+    <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+
+    {/* AI Advisor */}
+    <Route path="/ai-advisor" element={<AIAdvisorPage />} />
+
+    {/* Admin only */}
+    <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+
+    {/* Fallback */}
+    <Route path="*" element={<Navigate to="/" replace />} />
+  </Routes>
+  </>
+);
+
+// ── Root — providers wrap everything ─────────────────────────────────────────
+const App = () => (
+  <AuthProvider>
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
+  </AuthProvider>
+);
+
+export default App;
