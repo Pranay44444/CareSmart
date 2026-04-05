@@ -5,3 +5,9 @@ dist
 build
 coverage
 .vercel
+
+# AI assistant context — local only, do NOT commit
+.agent
+
+# VS Code workspace settings — local only
+.vscode

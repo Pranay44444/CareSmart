@@ -5,77 +5,62 @@ import { getProducts } from '../services/api';
 import AIAdvisor from '../components/AIAdvisor';
 import ProductCard from '../components/ProductCard';
 
+import { Bot, Fingerprint, Lock, Lightbulb, Search, Package } from 'lucide-react';
+
 const s = {
-  page: {
-    minHeight: '100vh', background: '#0f0f1a',
-    fontFamily: 'Inter, sans-serif', color: '#e2e8f0',
-  },
+  page: { minHeight: '100vh', background: 'var(--bg-dark)', fontFamily: 'Inter, sans-serif', color: 'var(--text-cream)' },
   hero: {
-    background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%)',
-    borderBottom: '1px solid rgba(255,255,255,0.07)',
-    padding: '48px 24px 40px',
+    background: 'radial-gradient(ellipse at bottom, rgba(201,168,76,0.15) 0%, var(--bg-dark) 80%)',
+    borderBottom: '1px solid var(--glass-border)',
+    padding: '64px 24px 48px',
   },
-  heroInner: { maxWidth: '900px', margin: '0 auto' },
+  heroInner: { maxWidth: '900px', margin: '0 auto', textAlign: 'center' },
   badge: {
     display: 'inline-flex', alignItems: 'center', gap: '8px',
-    background: 'rgba(99,102,241,0.15)', color: '#a5b4fc',
-    border: '1px solid rgba(99,102,241,0.3)', borderRadius: '999px',
-    padding: '6px 18px', fontSize: '0.82rem', fontWeight: 700,
-    letterSpacing: '0.05em', marginBottom: '20px',
+    background: 'rgba(201,168,76,0.1)', color: 'var(--gold-highlight)',
+    border: '1px solid rgba(201,168,76,0.3)', borderRadius: '999px',
+    padding: '8px 20px', fontSize: '0.85rem', fontWeight: 600,
+    letterSpacing: '0.08em', marginBottom: '24px', textTransform: 'uppercase'
   },
   h1: {
-    fontSize: 'clamp(1.6rem, 4vw, 2.4rem)', fontWeight: 800, lineHeight: 1.15,
-    marginBottom: '12px',
-    background: 'linear-gradient(135deg, #e2e8f0 30%, #a5b4fc)',
-    WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+    fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 600, lineHeight: 1.15,
+    marginBottom: '20px', color: 'var(--text-cream)', fontFamily: 'Playfair Display, serif'
   },
-  subtitle: { color: '#94a3b8', fontSize: '1rem', lineHeight: 1.7, maxWidth: '600px' },
+  subtitle: { color: 'var(--text-muted)', fontSize: '1.1rem', lineHeight: 1.7, maxWidth: '640px', margin: '0 auto' },
   // Profile prefill banner
   prefillBanner: {
-    marginTop: '20px', padding: '14px 18px',
-    background: 'rgba(74,222,128,0.07)', border: '1px solid rgba(74,222,128,0.2)',
-    borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '12px',
-    fontSize: '0.9rem', color: '#bbf7d0',
+    marginTop: '32px', padding: '16px 24px',
+    display: 'flex', alignItems: 'center', gap: '16px', justifyContent: 'center',
+    fontSize: '0.95rem', color: 'var(--text-cream)', width: 'fit-content', margin: '32px auto 0'
   },
-  prefillIcon: { fontSize: '1.3rem' },
   // Login nudge
   loginBanner: {
-    marginTop: '20px', padding: '14px 18px',
-    background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.2)',
-    borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '12px',
-    fontSize: '0.9rem', color: '#c7d2fe',
+    marginTop: '32px', padding: '16px 24px',
+    display: 'flex', alignItems: 'center', gap: '16px', justifyContent: 'center',
+    fontSize: '0.95rem', color: 'var(--text-cream)', width: 'fit-content', margin: '32px auto 0'
   },
   // Main content
-  main: { maxWidth: '900px', margin: '0 auto', padding: '40px 24px' },
+  main: { maxWidth: '900px', margin: '0 auto', padding: '64px 24px' },
   // Matched products section
-  matchSection: { marginTop: '48px' },
+  matchSection: { marginTop: '64px' },
   matchHeader: {
     display: 'flex', alignItems: 'center', gap: '12px',
-    marginBottom: '24px', paddingBottom: '16px',
-    borderBottom: '1px solid rgba(255,255,255,0.07)',
+    marginBottom: '32px', paddingBottom: '16px',
+    borderBottom: '1px solid var(--glass-border)',
   },
-  matchTitle: { fontSize: '1.3rem', fontWeight: 800, color: '#e2e8f0' },
+  matchTitle: { fontSize: '1.6rem', fontWeight: 600, color: 'var(--text-cream)', fontFamily: 'Playfair Display, serif', display: 'flex', alignItems: 'center', gap: '12px' },
   matchBadge: {
-    background: 'rgba(99,179,237,0.12)', color: '#63b3ed',
-    borderRadius: '999px', padding: '4px 14px',
-    fontSize: '0.8rem', fontWeight: 700,
+    background: 'rgba(201,168,76,0.1)', color: 'var(--gold-primary)',
+    borderRadius: '999px', padding: '6px 14px',
+    fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.05em'
   },
-  productGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
-    gap: '20px',
-  },
-  emptyMatch: {
-    textAlign: 'center', color: '#94a3b8', padding: '32px',
-    background: 'rgba(255,255,255,0.03)', borderRadius: '12px',
-    fontSize: '0.95rem',
-  },
-  loadingMatch: { textAlign: 'center', color: '#94a3b8', padding: '24px' },
+  productGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '24px' },
+  emptyMatch: { textAlign: 'center', color: 'var(--text-muted)', padding: '48px', fontSize: '1.05rem' },
+  loadingMatch: { textAlign: 'center', color: 'var(--gold-highlight)', padding: '24px' },
   loginBtn: {
     display: 'inline-block',
-    background: 'linear-gradient(135deg, #6366f1, #3b82f6)',
-    color: '#fff', textDecoration: 'none', borderRadius: '8px',
-    padding: '8px 20px', fontWeight: 700, fontSize: '0.85rem', marginLeft: '12px',
+    textDecoration: 'none', borderRadius: '8px',
+    padding: '10px 24px', fontWeight: 600, fontSize: '0.9rem', marginLeft: '16px',
   },
 };
 
@@ -128,31 +113,30 @@ export default function AIAdvisorPage() {
       {/* ── Hero ── */}
       <div style={s.hero}>
         <div style={s.heroInner}>
-          <div style={s.badge}>🤖 Powered by Google Gemini</div>
-          <h1 style={s.h1}>AI Accessory Advisor</h1>
+          <div style={s.badge}><Bot size={16}/> Powered by Google Gemini</div>
+          <h1 style={s.h1}>AI Luxury Configurator</h1>
           <p style={s.subtitle}>
-            Tell us about your device and get smart, personalised accessory recommendations
-            — matched to your usage habits and real risks.
+            Input your exact hardware specifications and discover a bespoke collection of protective arrays and aesthetic enhancements.
           </p>
 
           {isAuthenticated && hasSavedProfile && (
-            <div style={s.prefillBanner}>
-              <span style={s.prefillIcon}>✅</span>
-              <span>
-                <strong>Form pre-filled</strong> from your saved device profile
+            <div style={s.prefillBanner} className="glass-panel skeuo-shadow">
+              <Fingerprint size={24} color="var(--gold-highlight)" />
+              <span style={{ textAlign: 'left' }}>
+                <strong style={{ color: 'var(--gold-primary)' }}>Identity Synchronized</strong> &mdash; parameters adapted from 
                 ({savedProfile.brand} {savedProfile.model}).{' '}
-                <a href="/profile" style={{ color: '#4ade80', fontWeight: 600 }}>Update profile →</a>
+                <br/><a href="/profile" style={{ color: 'var(--text-muted)', fontWeight: 500 }}>Calibrate preferences →</a>
               </span>
             </div>
           )}
 
           {!isAuthenticated && (
-            <div style={s.loginBanner}>
-              <span style={s.prefillIcon}>💡</span>
-              <span>
-                <strong>Tip:</strong> Save your device profile to auto-fill this form every time.
-                <a href="/register" style={s.loginBtn}>Create Account</a>
+            <div style={s.loginBanner} className="glass-panel skeuo-shadow">
+              <Lock size={20} color="var(--gold-highlight)" />
+              <span style={{ textAlign: 'left' }}>
+                Create a member profile to seamlessly synchronize your hardware specifications.
               </span>
+              <a href="/register" style={s.loginBtn} className="shimmer-cta">Enroll Now</a>
             </div>
           )}
         </div>
@@ -169,21 +153,21 @@ export default function AIAdvisorPage() {
         {(loadingProducts || matchedProducts.length > 0 || recommendations.length > 0) && (
           <div style={s.matchSection}>
             <div style={s.matchHeader}>
-              <div style={s.matchTitle}>🛒 Shop These Accessories</div>
+              <div style={s.matchTitle}><Package size={24} color="var(--gold-primary)"/> Curated Allocations</div>
               {matchedProducts.length > 0 && (
-                <span style={s.matchBadge}>{matchedProducts.length} products</span>
+                <span style={s.matchBadge}>{matchedProducts.length} exclusive items</span>
               )}
             </div>
 
             {loadingProducts && (
-              <div style={s.loadingMatch}>⏳ Finding matching products…</div>
+              <div style={s.loadingMatch}><Search size={24} className="gold-glow" style={{ animation: 'pulse-glow 2s infinite' }}/> <br/><br/>Synthesizing matching products…</div>
             )}
 
             {!loadingProducts && matchedProducts.length === 0 && recommendations.length > 0 && (
-              <div style={s.emptyMatch}>
-                😔 No products found for this category yet.{' '}
-                <a href="/products" style={{ color: '#63b3ed', fontWeight: 600 }}>
-                  Browse all products →
+              <div style={s.emptyMatch} className="glass-panel">
+                We currently lack inventory matching this exact specification.{' '}
+                <a href="/products" style={{ color: 'var(--gold-highlight)', fontWeight: 600 }}>
+                  Review global catalog →
                 </a>
               </div>
             )}

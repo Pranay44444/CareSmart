@@ -4,26 +4,40 @@ import { getProduct, getReviews, addToCart, createReview } from '../services/api
 import { useAuth } from '../context/AuthContext';
 import ReviewSummary from '../components/ReviewSummary';
 
+import { Star, StarHalf, ArrowLeft, ShieldCheck, Cpu, MessagesSquare } from 'lucide-react';
+
 const s = {
-  page: { minHeight: '100vh', background: '#0f0f1a', fontFamily: 'Inter, sans-serif', color: '#e2e8f0', padding: '32px 24px' },
-  back: { color: '#63b3ed', textDecoration: 'none', fontSize: '0.9rem', display: 'inline-block', marginBottom: '24px' },
-  grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px', maxWidth: '1000px', margin: '0 auto' },
-  imgBox: { background: 'linear-gradient(135deg, #1e293b, #0f3460)', borderRadius: '20px', height: '320px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '5rem' },
-  badge: { display: 'inline-block', background: 'rgba(99,179,237,0.15)', color: '#63b3ed', borderRadius: '6px', padding: '4px 12px', fontSize: '0.8rem', fontWeight: 600, marginBottom: '12px' },
-  name: { fontSize: '1.8rem', fontWeight: 800, marginBottom: '12px' },
-  price: { fontSize: '2rem', fontWeight: 800, color: '#60a5fa', marginBottom: '16px' },
-  desc: { color: '#94a3b8', lineHeight: 1.7, marginBottom: '20px' },
-  stock: { color: '#4ade80', marginBottom: '24px', fontSize: '0.9rem' },
-  btn: { background: 'linear-gradient(135deg, #3b82f6, #6366f1)', color: '#fff', border: 'none', borderRadius: '10px', padding: '14px 28px', fontSize: '1rem', fontWeight: 700, cursor: 'pointer', marginRight: '12px', marginBottom: '12px' },
-  btnOutline: { background: 'transparent', color: '#63b3ed', border: '2px solid rgba(99,179,237,0.4)', borderRadius: '10px', padding: '12px 24px', fontSize: '0.9rem', fontWeight: 700, cursor: 'pointer', marginBottom: '12px' },
-  section: { maxWidth: '1000px', margin: '48px auto 0' },
-  sTitle: { fontSize: '1.3rem', fontWeight: 700, marginBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '12px' },
-  reviewCard: { background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px', padding: '16px', marginBottom: '12px' },
-  label: { display: 'block', color: '#94a3b8', fontSize: '0.85rem', marginBottom: '8px' },
-  input: { width: '100%', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '10px 14px', color: '#e2e8f0', fontSize: '0.95rem', boxSizing: 'border-box', outline: 'none', marginBottom: '16px' },
-  textarea: { width: '100%', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '10px 14px', color: '#e2e8f0', fontSize: '0.95rem', boxSizing: 'border-box', outline: 'none', minHeight: '100px', resize: 'vertical', marginBottom: '16px' },
-  success: { background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.3)', color: '#4ade80', borderRadius: '8px', padding: '12px 16px', marginBottom: '16px', fontSize: '0.9rem' },
-  aiBox: { background: 'rgba(99,179,237,0.08)', border: '1px solid rgba(99,179,237,0.2)', borderRadius: '12px', padding: '20px', marginTop: '16px', color: '#cbd5e0', lineHeight: 1.7 },
+  page: { minHeight: '100vh', background: 'var(--bg-dark)', fontFamily: 'Inter, sans-serif', color: 'var(--text-cream)', padding: '40px 24px', paddingBottom: '120px' },
+  back: { color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.95rem', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '40px', width: 'fit-content', transition: 'color 0.2s' },
+  grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '48px', maxWidth: '1100px', margin: '0 auto' },
+  imgBox: { background: 'radial-gradient(circle at center, rgba(201,168,76,0.08) 0%, var(--bg-dark) 100%)', border: '1px solid var(--glass-border)', borderRadius: '24px', height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' },
+  badge: { display: 'inline-block', background: 'rgba(201,168,76,0.1)', color: 'var(--gold-highlight)', borderRadius: '8px', padding: '6px 14px', fontSize: '0.8rem', fontWeight: 600, marginBottom: '16px', letterSpacing: '0.05em', textTransform: 'uppercase' },
+  name: { fontSize: '2.5rem', fontWeight: 600, marginBottom: '16px', color: 'var(--text-cream)', fontFamily: 'Playfair Display, serif', lineHeight: 1.2 },
+  price: { fontSize: '2.2rem', fontWeight: 600, color: 'var(--gold-primary)', marginBottom: '24px', fontFamily: 'Playfair Display, serif' },
+  desc: { color: 'var(--text-muted)', lineHeight: 1.8, marginBottom: '32px', fontSize: '1.05rem' },
+  stock: { color: 'var(--gold-highlight)', marginBottom: '32px', fontSize: '0.95rem', display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 500 },
+  btn: { border: 'none', borderRadius: '12px', padding: '16px 36px', fontSize: '1.05rem', fontWeight: 600, cursor: 'pointer', marginRight: '16px', marginBottom: '16px', display: 'inline-flex', alignItems: 'center', gap: '8px' },
+  section: { maxWidth: '1100px', margin: '80px auto 0' },
+  sTitle: { fontSize: '1.6rem', fontWeight: 600, marginBottom: '24px', borderBottom: '1px solid var(--glass-border)', paddingBottom: '16px', fontFamily: 'Playfair Display, serif', display: 'flex', alignItems: 'center', gap: '10px' },
+  reviewCard: { padding: '24px', marginBottom: '16px', display: 'flex', flexDirection: 'column' },
+  label: { display: 'block', color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '8px', fontWeight: 500 },
+  input: { width: '100%', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--glass-border)', borderRadius: '8px', padding: '12px 16px', color: 'var(--text-cream)', fontSize: '0.95rem', boxSizing: 'border-box', outline: 'none', marginBottom: '20px', transition: 'border-color 0.2s' },
+  textarea: { width: '100%', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--glass-border)', borderRadius: '8px', padding: '12px 16px', color: 'var(--text-cream)', fontSize: '0.95rem', boxSizing: 'border-box', outline: 'none', minHeight: '120px', resize: 'vertical', marginBottom: '20px', transition: 'border-color 0.2s' },
+  success: { background: 'rgba(201,168,76,0.1)', border: '1px solid var(--gold-primary)', color: 'var(--gold-highlight)', borderRadius: '10px', padding: '16px', marginBottom: '24px', fontSize: '0.95rem', fontWeight: 500 },
+  aiBox: { background: 'rgba(201,168,76,0.05)', border: '1px solid rgba(201,168,76,0.2)', borderRadius: '16px', padding: '24px', marginTop: '24px', color: 'var(--text-cream)', lineHeight: 1.8 },
+};
+
+const Stars = ({ rating }) => {
+  const full = Math.floor(rating);
+  const half = rating % 1 >= 0.5 ? 1 : 0;
+  const empty = 5 - full - half;
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', color: 'var(--gold-highlight)', gap: '2px' }}>
+      {[...Array(full)].map((_, i) => <Star key={`f-${i}`} size={16} fill="currentColor" />)}
+      {half > 0 && <StarHalf key="h" size={16} fill="currentColor" />}
+      {[...Array(empty)].map((_, i) => <Star key={`e-${i}`} size={16} opacity={0.3} />)}
+    </div>
+  );
 };
 
 export default function ProductDetail() {
@@ -45,10 +59,10 @@ export default function ProductDetail() {
     if (!isAuthenticated) { navigate('/login'); return; }
     try {
       await addToCart(product._id, 1);
-      setCartMsg('✅ Added to cart!');
+      setCartMsg('Item reserved');
       setTimeout(() => setCartMsg(''), 3000);
     } catch (err) {
-      setCartMsg(err.response?.data?.message || 'Failed to add to cart.');
+      setCartMsg(err.response?.data?.message || 'Failed to request reservation.');
     }
   };
 
@@ -59,12 +73,12 @@ export default function ProductDetail() {
     setReviewMsg('');
     try {
       await createReview({ productId: id, rating: parseInt(reviewForm.rating), comment: reviewForm.comment });
-      setReviewMsg('✅ Review submitted!');
+      setReviewMsg('Review processed to the luxury network.');
       const r = await getReviews(id);
       setReviews(r.data.reviews);
       setReviewForm({ rating: '5', comment: '' });
     } catch (err) {
-      setReviewMsg(err.response?.data?.message || 'Failed to submit review.');
+      setReviewMsg(err.response?.data?.message || 'Error parsing review.');
     }
   };
 
@@ -72,62 +86,64 @@ export default function ProductDetail() {
 
   return (
     <div style={s.page}>
-      <a href="/products" style={s.back}>← Back to Products</a>
+      <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+        <a href="/products" style={{ ...s.back, display: 'inline-flex' }} className="gold-glow"><ArrowLeft size={16}/> Back to Catalog</a>
+      </div>
       <div style={s.grid}>
-        <div style={s.imgBox}>
-          {product.image ? <img src={product.image} alt={product.name} style={{ maxHeight: '100%', maxWidth: '100%' }} />
-            : <span>{product.category === 'smartphone' ? '📱' : '💻'}</span>}
+        <div style={s.imgBox} className="glass-panel">
+          {product.image ? <img src={product.image} alt={product.name} style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }} />
+            : <span style={{ opacity: 0.2 }}><Cpu size={120} color="var(--gold-primary)"/></span>}
         </div>
         <div>
           <span style={s.badge}>{product.category}</span>
-          {product.subCategory && <span style={{ ...s.badge, marginLeft: '8px', color: '#a78bfa', background: 'rgba(167,139,250,0.1)' }}>{product.subCategory}</span>}
+          {product.subCategory && <span style={{ ...s.badge, marginLeft: '12px', color: 'var(--text-cream)', background: 'var(--glass-border)' }}>{product.subCategory}</span>}
           <div style={s.name}>{product.name}</div>
-          <div style={s.price}>${product.price?.toFixed(2)}</div>
+          <div style={s.price}>₹{((product.price || 0) * 83).toFixed(0)}</div>
           <div style={s.desc}>{product.description}</div>
-          <div style={s.stock}>{product.stock > 0 ? `✅ ${product.stock} in stock` : '❌ Out of stock'}</div>
+          <div style={s.stock}>{product.stock > 0 ? <><ShieldCheck size={18}/> {product.stock} units secured in vault</> : 'Waitlist Only'}</div>
           {product.compatibleBrands?.length > 0 && (
-            <div style={{ marginBottom: '20px', color: '#94a3b8', fontSize: '0.9rem' }}>
-              🔗 Compatible with: {product.compatibleBrands.join(', ')}
+            <div style={{ marginBottom: '32px', color: 'var(--text-muted)', fontSize: '0.95rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Cpu size={16} color="var(--gold-highlight)"/> Certified compatible: {product.compatibleBrands.join(', ')}
             </div>
           )}
-          {cartMsg && <div style={cartMsg.startsWith('✅') ? s.success : { ...s.success, borderColor: 'rgba(239,68,68,0.3)', color: '#fca5a5', background: 'rgba(239,68,68,0.1)' }}>{cartMsg}</div>}
-          <button id="add-to-cart" style={s.btn} onClick={handleAddToCart} disabled={product.stock === 0}>
-            {product.stock > 0 ? '🛒 Add to Cart' : 'Out of Stock'}
+          {cartMsg && <div style={cartMsg.includes('Failed') ? { ...s.success, borderColor: 'rgba(239,68,68,0.3)', color: '#fca5a5', background: 'rgba(239,68,68,0.1)' } : s.success}>{cartMsg}</div>}
+          <button id="add-to-cart" style={s.btn} className={product.stock > 0 ? "shimmer-cta" : "glass-panel"} onClick={handleAddToCart} disabled={product.stock === 0}>
+            {product.stock > 0 ? 'Reserve Allocation' : 'Currently Unavailable'}
           </button>
         </div>
       </div>
 
       {/* Reviews */}
       <div style={s.section}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginBottom: '20px' }}>
-          <div style={s.sTitle}>Reviews ({reviews.length})</div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', marginBottom: '32px' }}>
+          <div style={s.sTitle}><MessagesSquare size={24} color="var(--gold-primary)"/> Customer Perspectives ({reviews.length})</div>
           <ReviewSummary reviews={reviews} />
         </div>
-        {reviews.length === 0 && <div style={{ color: '#94a3b8' }}>No reviews yet. Be the first!</div>}
+        {reviews.length === 0 && <div style={{ color: 'var(--text-muted)' }}>No perspectives yet.</div>}
         {reviews.map((r) => (
-          <div key={r._id} style={s.reviewCard}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-              <span style={{ fontWeight: 600 }}>{r.user?.name || 'User'}</span>
-              <span style={{ color: '#f59e0b' }}>{'★'.repeat(r.rating)}{'☆'.repeat(5 - r.rating)}</span>
+          <div key={r._id} style={s.reviewCard} className="glass-panel skeuo-shadow">
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px', alignItems: 'center' }}>
+              <span style={{ fontWeight: 600, color: 'var(--text-cream)' }}>{r.user?.name || 'Exclusive Member'}</span>
+              <Stars rating={r.rating} />
             </div>
-            <div style={{ color: '#94a3b8', fontSize: '0.9rem' }}>{r.comment}</div>
+            <div style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: 1.6 }}>{r.comment}</div>
           </div>
         ))}
 
         {isAuthenticated && (
-          <div style={{ marginTop: '32px' }}>
-            <div style={s.sTitle}>Write a Review</div>
-            {reviewMsg && <div style={reviewMsg.startsWith('✅') ? s.success : { ...s.success, borderColor: 'rgba(239,68,68,0.3)', color: '#fca5a5', background: 'rgba(239,68,68,0.1)' }}>{reviewMsg}</div>}
+          <div style={{ marginTop: '48px', maxWidth: '600px' }} className="glass-panel skeuo-shadow" css={{ padding: '32px' }}>
+            <div style={{ ...s.sTitle, borderBottom: 'none' }}>Leave Your Perspective</div>
+            {reviewMsg && <div style={reviewMsg.includes('Error') ? { ...s.success, borderColor: 'rgba(239,68,68,0.3)', color: '#fca5a5', background: 'rgba(239,68,68,0.1)' } : s.success}>{reviewMsg}</div>}
             <form onSubmit={handleReview}>
-              <label style={s.label}>Rating</label>
+              <label style={s.label}>Rating Tier</label>
               <select id="review-rating" style={{ ...s.input, cursor: 'pointer' }} value={reviewForm.rating}
                 onChange={(e) => setReviewForm((f) => ({ ...f, rating: e.target.value }))}>
                 {[5, 4, 3, 2, 1].map((n) => <option key={n} value={n}>{n} Star{n !== 1 ? 's' : ''}</option>)}
               </select>
-              <label style={s.label}>Comment</label>
+              <label style={s.label}>Perspective</label>
               <textarea id="review-comment" style={s.textarea} value={reviewForm.comment}
-                onChange={(e) => setReviewForm((f) => ({ ...f, comment: e.target.value }))} placeholder="Share your experience…" />
-              <button id="review-submit" style={s.btn} type="submit">Submit Review</button>
+                onChange={(e) => setReviewForm((f) => ({ ...f, comment: e.target.value }))} placeholder="Share your experience with this luxury good…" />
+              <button id="review-submit" style={{...s.btn, display: 'block', width: '100%'}} className="shimmer-cta" type="submit">Submit Perspective</button>
             </form>
           </div>
         )}

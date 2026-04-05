@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { getAIRecommendations } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 
+import { Lock, Sparkles, AlertTriangle, ShieldCheck, Target, Bot } from 'lucide-react';
+
 const deviceTypes = ['Smartphone', 'Laptop', 'Tablet'];
 const brandsByType = {
   Smartphone: ['Apple', 'Samsung', 'Google', 'OnePlus', 'Xiaomi', 'Other'],
@@ -14,38 +16,33 @@ const usagePatterns = [
 ];
 
 const s = {
-  wrap: { fontFamily: 'Inter, sans-serif', color: '#e2e8f0' },
-  card: {
-    background: 'rgba(255,255,255,0.04)',
-    border: '1px solid rgba(255,255,255,0.08)',
-    borderRadius: '20px', padding: '32px',
-  },
-  title: { fontSize: '1.3rem', fontWeight: 800, marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '10px' },
-  subtitle: { color: '#94a3b8', fontSize: '0.9rem', marginBottom: '28px' },
-  grid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' },
-  field: { display: 'flex', flexDirection: 'column', gap: '6px' },
-  fieldFull: { display: 'flex', flexDirection: 'column', gap: '6px', gridColumn: '1 / -1' },
-  label: { color: '#94a3b8', fontSize: '0.82rem', fontWeight: 600 },
+  wrap: { fontFamily: 'Inter, sans-serif', color: 'var(--text-cream)' },
+  card: { padding: '32px' },
+  title: { fontSize: '1.6rem', fontWeight: 600, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '12px', fontFamily: 'Playfair Display, serif', color: 'var(--text-cream)' },
+  subtitle: { color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '32px' },
+  grid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' },
+  field: { display: 'flex', flexDirection: 'column', gap: '8px' },
+  fieldFull: { display: 'flex', flexDirection: 'column', gap: '8px', gridColumn: '1 / -1' },
+  label: { color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: 600 },
   input: {
-    background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)',
-    borderRadius: '8px', padding: '10px 14px', color: '#e2e8f0', fontSize: '0.9rem',
-    outline: 'none', width: '100%', boxSizing: 'border-box',
+    background: 'rgba(255,255,255,0.02)', border: '1px solid var(--glass-border)',
+    borderRadius: '8px', padding: '12px 14px', color: 'var(--text-cream)', fontSize: '0.95rem',
+    outline: 'none', width: '100%', boxSizing: 'border-box', transition: 'border-color 0.2s',
   },
   select: {
-    background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)',
-    borderRadius: '8px', padding: '10px 14px', color: '#e2e8f0', fontSize: '0.9rem',
-    outline: 'none', width: '100%', boxSizing: 'border-box', cursor: 'pointer',
+    background: 'rgba(255,255,255,0.02)', border: '1px solid var(--glass-border)',
+    borderRadius: '8px', padding: '12px 14px', color: 'var(--text-cream)', fontSize: '0.95rem',
+    outline: 'none', width: '100%', boxSizing: 'border-box', cursor: 'pointer', transition: 'border-color 0.2s',
   },
   textarea: {
-    background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)',
-    borderRadius: '8px', padding: '10px 14px', color: '#e2e8f0', fontSize: '0.9rem',
-    outline: 'none', width: '100%', boxSizing: 'border-box', resize: 'vertical', minHeight: '80px',
+    background: 'rgba(255,255,255,0.02)', border: '1px solid var(--glass-border)',
+    borderRadius: '8px', padding: '12px 14px', color: 'var(--text-cream)', fontSize: '0.95rem',
+    outline: 'none', width: '100%', boxSizing: 'border-box', resize: 'vertical', minHeight: '100px', transition: 'border-color 0.2s',
   },
   btn: (loading) => ({
-    marginTop: '20px', width: '100%',
-    background: loading ? 'rgba(99,102,241,0.4)' : 'linear-gradient(135deg, #6366f1, #3b82f6)',
-    color: '#fff', border: 'none', borderRadius: '10px', padding: '14px',
-    fontSize: '1rem', fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer',
+    marginTop: '24px', width: '100%',
+    color: '#fff', border: 'none', borderRadius: '10px', padding: '16px',
+    fontSize: '1.05rem', fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer',
     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
   }),
   spinner: {
@@ -53,20 +50,17 @@ const s = {
     border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff',
     animation: 'spin 0.8s linear infinite',
   },
-  resultGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px', marginTop: '24px' },
-  recCard: {
-    background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.09)',
-    borderRadius: '14px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '10px',
-  },
-  recName: { fontWeight: 800, fontSize: '1rem', color: '#e2e8f0' },
-  recCat: { display: 'inline-block', background: 'rgba(99,179,237,0.12)', color: '#63b3ed', borderRadius: '6px', padding: '2px 10px', fontSize: '0.75rem', fontWeight: 700 },
-  riskBox: { background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: '8px', padding: '10px 14px' },
-  riskLabel: { color: '#f87171', fontSize: '0.75rem', fontWeight: 700, marginBottom: '4px' },
-  riskText: { color: '#fca5a5', fontSize: '0.85rem', lineHeight: 1.5 },
-  reasonBox: { background: 'rgba(74,222,128,0.07)', border: '1px solid rgba(74,222,128,0.2)', borderRadius: '8px', padding: '10px 14px' },
-  reasonLabel: { color: '#4ade80', fontSize: '0.75rem', fontWeight: 700, marginBottom: '4px' },
-  reasonText: { color: '#bbf7d0', fontSize: '0.85rem', lineHeight: 1.5 },
-  loginNote: { textAlign: 'center', color: '#94a3b8', padding: '20px', background: 'rgba(255,255,255,0.03)', borderRadius: '12px', marginTop: '16px' },
+  resultGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', marginTop: '32px' },
+  recCard: { padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' },
+  recName: { fontWeight: 600, fontSize: '1.1rem', color: 'var(--text-cream)' },
+  recCat: { display: 'inline-flex', background: 'rgba(201,168,76,0.1)', color: 'var(--gold-highlight)', borderRadius: '6px', padding: '4px 12px', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase' },
+  riskBox: { background: 'rgba(239,68,68,0.05)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: '12px', padding: '14px 16px' },
+  riskLabel: { color: '#fca5a5', fontSize: '0.75rem', fontWeight: 600, marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' },
+  riskText: { color: 'var(--text-muted)', fontSize: '0.85rem', lineHeight: 1.6 },
+  reasonBox: { background: 'rgba(201,168,76,0.05)', border: '1px solid rgba(201,168,76,0.2)', borderRadius: '12px', padding: '14px 16px' },
+  reasonLabel: { color: 'var(--gold-highlight)', fontSize: '0.75rem', fontWeight: 600, marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' },
+  reasonText: { color: 'var(--text-muted)', fontSize: '0.85rem', lineHeight: 1.6 },
+  loginNote: { textAlign: 'center', color: 'var(--text-muted)', padding: '20px', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--glass-border)', borderRadius: '12px', marginTop: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' },
 };
 
 export default function AIAdvisor() {
@@ -105,13 +99,13 @@ export default function AIAdvisor() {
       {/* Keyframes injection */}
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
 
-      <div style={s.card}>
-        <div style={s.title}><span>🤖</span> AI Accessory Advisor</div>
-        <div style={s.subtitle}>Tell us about your device and get personalised accessory recommendations.</div>
+      <div style={s.card} className="glass-panel skeuo-shadow">
+        <div style={s.title}><Bot size={24} color="var(--gold-primary)"/> Advisor Diagnostics</div>
+        <div style={s.subtitle}>Synthesize personalized protective arrays tailored to your hardware parameters.</div>
 
         {!isAuthenticated && (
           <div style={s.loginNote}>
-            🔒 <a href="/login" style={{ color: '#63b3ed', fontWeight: 600 }}>Sign in</a> to get AI recommendations tailored to your profile.
+            <Lock size={16} color="var(--gold-primary)"/> <a href="/login" style={{ color: 'var(--gold-highlight)', fontWeight: 600 }}>Authenticate</a> to unlock identity-based recommendations.
           </div>
         )}
 
@@ -152,10 +146,10 @@ export default function AIAdvisor() {
             </div>
           </div>
 
-          <button id="ai-submit" style={s.btn(loading)} type="submit" disabled={loading}>
+          <button id="ai-submit" style={{ ...s.btn(loading), background: loading ? 'rgba(201,168,76,0.3)' : undefined }} className={loading ? "" : "shimmer-cta"} type="submit" disabled={loading}>
             {loading ? (
-              <><div style={s.spinner} /> Analysing your device…</>
-            ) : '✨ Get AI Recommendations'}
+              <><div style={s.spinner} /> Synthesizing data points…</>
+            ) : <><Sparkles size={20}/> Calculate Optimal Arrays</>}
           </button>
         </form>
       </div>
@@ -170,22 +164,22 @@ export default function AIAdvisor() {
           )}
           {recs.length > 0 && (
             <>
-              <div style={{ marginTop: '28px', marginBottom: '4px', fontWeight: 700, color: '#cbd5e0', fontSize: '1rem' }}>
-                🎯 {recs.length} Recommendation{recs.length !== 1 ? 's' : ''} for your {form.brand} {form.model}
+              <div style={{ marginTop: '40px', marginBottom: '8px', fontWeight: 600, color: 'var(--text-cream)', fontSize: '1.25rem', fontFamily: 'Playfair Display, serif', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <Target size={24} color="var(--gold-primary)"/> {recs.length} Precision Alignment{recs.length !== 1 ? 's' : ''} for {form.brand} {form.model}
               </div>
               <div style={s.resultGrid}>
                 {recs.map((rec, i) => (
-                  <div key={i} style={s.recCard} id={`rec-${i}`}>
-                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px' }}>
+                  <div key={i} style={s.recCard} id={`rec-${i}`} className="glass-panel skeuo-shadow">
+                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '12px' }}>
                       <div style={s.recName}>{rec.name}</div>
                       <span style={s.recCat}>{rec.category}</span>
                     </div>
                     <div style={s.riskBox}>
-                      <div style={s.riskLabel}>⚠️ RISK PREVENTED</div>
+                      <div style={s.riskLabel}><AlertTriangle size={14}/> DETECTED VULNERABILITY</div>
                       <div style={s.riskText}>{rec.risk}</div>
                     </div>
                     <div style={s.reasonBox}>
-                      <div style={s.reasonLabel}>✅ WHY IT HELPS</div>
+                      <div style={s.reasonLabel}><ShieldCheck size={14}/> PROTECTIVE SYNERGY</div>
                       <div style={s.reasonText}>{rec.reason}</div>
                     </div>
                   </div>

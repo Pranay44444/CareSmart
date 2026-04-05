@@ -1,44 +1,50 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { Package, Sparkles, ShoppingCart, ReceiptText, User, Settings, LogOut } from 'lucide-react';
 
 const s = {
+  container: {
+    padding: '16px 24px',
+    position: 'sticky',
+    top: 0,
+    zIndex: 100,
+  },
   nav: {
-    position: 'sticky', top: 0, zIndex: 100,
-    background: 'rgba(15,15,26,0.85)', backdropFilter: 'blur(16px)',
-    borderBottom: '1px solid rgba(255,255,255,0.07)',
-    padding: '0 24px', display: 'flex', alignItems: 'center',
-    justifyContent: 'space-between', height: '64px',
-    fontFamily: 'Inter, sans-serif',
+    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+    padding: '12px 24px',
+    margin: '0 auto',
+    maxWidth: '1200px',
   },
   logo: {
     fontSize: '1.4rem', fontWeight: 800, textDecoration: 'none',
-    background: 'linear-gradient(135deg, #e2e8f0, #63b3ed)',
-    WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+    color: 'var(--gold-primary)',
+    letterSpacing: '0.02em',
   },
-  links: { display: 'flex', alignItems: 'center', gap: '8px' },
+  links: { display: 'flex', alignItems: 'center', gap: '16px' },
   link: {
-    color: '#94a3b8', textDecoration: 'none', fontWeight: 500,
-    fontSize: '0.9rem', padding: '8px 14px', borderRadius: '8px',
-    transition: 'color 0.2s, background 0.2s',
+    color: 'var(--text-muted)', textDecoration: 'none', fontWeight: 500,
+    fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '6px',
+    transition: 'color 0.2s',
   },
-  linkHover: { color: '#e2e8f0', background: 'rgba(255,255,255,0.06)' },
   btnOutline: {
-    color: '#63b3ed', textDecoration: 'none', fontWeight: 600,
-    fontSize: '0.9rem', padding: '7px 16px', borderRadius: '8px',
-    border: '1px solid rgba(99,179,237,0.35)', transition: 'all 0.2s',
+    color: 'var(--gold-primary)', textDecoration: 'none', fontWeight: 600,
+    fontSize: '0.9rem', padding: '8px 18px', borderRadius: '8px',
+    border: '1px solid var(--glass-border)', transition: 'all 0.2s',
+    display: 'flex', alignItems: 'center',
   },
   btnPrimary: {
-    background: 'linear-gradient(135deg, #3b82f6, #6366f1)', color: '#fff',
-    border: 'none', borderRadius: '8px', padding: '8px 18px',
-    fontWeight: 700, fontSize: '0.9rem', cursor: 'pointer',
-    textDecoration: 'none',
+    padding: '8px 20px', borderRadius: '8px',
+    fontWeight: 600, fontSize: '0.9rem', cursor: 'pointer',
+    display: 'flex', alignItems: 'center', border: 'none',
   },
   logoutBtn: {
-    background: 'rgba(239,68,68,0.12)', color: '#fca5a5',
+    background: 'transparent', color: '#fca5a5',
     border: '1px solid rgba(239,68,68,0.25)', borderRadius: '8px',
     padding: '7px 14px', fontWeight: 600, fontSize: '0.9rem', cursor: 'pointer',
+    display: 'flex', alignItems: 'center', gap: '6px',
+    transition: 'all 0.2s',
   },
-  divider: { width: '1px', height: '24px', background: 'rgba(255,255,255,0.1)', margin: '0 4px' },
+  divider: { width: '1px', height: '24px', background: 'var(--glass-border)', margin: '0 4px' },
 };
 
 export default function Navbar() {
@@ -48,37 +54,50 @@ export default function Navbar() {
   const handleLogout = () => { logout(); navigate('/'); };
 
   return (
-    <nav style={s.nav} id="main-navbar">
-      {/* Logo */}
-      <Link to="/" style={s.logo} id="nav-logo">CareSmart</Link>
+    <div style={s.container}>
+      <nav style={s.nav} className="glass-panel" id="main-navbar">
+        {/* Logo */}
+        <Link to="/" style={s.logo} className="font-playfair" id="nav-logo">CareSmart</Link>
 
-      {/* Right-side links */}
-      <div style={s.links}>
-        {/* Always visible */}
-        <Link to="/products" style={s.link} id="nav-products">📦 Products</Link>
-        <Link to="/ai-advisor" style={s.link} id="nav-ai">🤖 AI Advisor</Link>
+        {/* Right-side links */}
+        <div style={s.links}>
+          <Link to="/products" style={s.link} className="gold-glow" id="nav-products">
+            <Package size={16} /> Products
+          </Link>
+          <Link to="/ai-advisor" style={s.link} className="gold-glow" id="nav-ai">
+            <Sparkles size={16} /> AI Advisor
+          </Link>
 
-        <div style={s.divider} />
+          <div style={s.divider} />
 
-        {isAuthenticated ? (
-          <>
-            <Link to="/cart" style={s.link} id="nav-cart" title="Cart">🛒 Cart</Link>
-            <Link to="/orders" style={s.link} id="nav-orders">Orders</Link>
-            <Link to="/profile" style={s.link} id="nav-profile">
-              👤 {user?.name?.split(' ')[0]}
-            </Link>
-            {isAdmin && (
-              <Link to="/admin" style={{ ...s.link, color: '#a78bfa' }} id="nav-admin">⚙️ Admin</Link>
-            )}
-            <button id="nav-logout" style={s.logoutBtn} onClick={handleLogout}>Sign Out</button>
-          </>
-        ) : (
-          <>
-            <Link to="/login" style={s.btnOutline} id="nav-login">Sign In</Link>
-            <Link to="/register" style={s.btnPrimary} id="nav-register">Get Started</Link>
-          </>
-        )}
-      </div>
-    </nav>
+          {isAuthenticated ? (
+            <>
+              <Link to="/cart" style={s.link} className="gold-glow" id="nav-cart" title="Cart">
+                <ShoppingCart size={16} /> Cart
+              </Link>
+              <Link to="/orders" style={s.link} className="gold-glow" id="nav-orders">
+                <ReceiptText size={16} /> Orders
+              </Link>
+              <Link to="/profile" style={s.link} className="gold-glow" id="nav-profile">
+                <User size={16} /> {user?.name?.split(' ')[0]}
+              </Link>
+              {isAdmin && (
+                <Link to="/admin" style={{ ...s.link, color: 'var(--gold-highlight)' }} className="gold-glow" id="nav-admin">
+                  <Settings size={16} /> Admin
+                </Link>
+              )}
+              <button id="nav-logout" style={s.logoutBtn} onClick={handleLogout}>
+                <LogOut size={16} /> Sign Out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" style={s.btnOutline} className="gold-glow" id="nav-login">Sign In</Link>
+              <Link to="/register" style={s.btnPrimary} className="shimmer-cta" id="nav-register">Get Started</Link>
+            </>
+          )}
+        </div>
+      </nav>
+    </div>
   );
 }
