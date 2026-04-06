@@ -43,7 +43,7 @@ const Stars = ({ rating }) => {
 export default function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { user, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
   const [product, setProduct] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [cartMsg, setCartMsg] = useState('');
@@ -53,7 +53,7 @@ export default function ProductDetail() {
   useEffect(() => {
     getProduct(id).then((r) => setProduct(r.data.product)).catch(() => navigate('/products'));
     getReviews(id).then((r) => setReviews(r.data.reviews)).catch(() => {});
-  }, [id]);
+  }, [id, navigate]);
 
   const handleAddToCart = async () => {
     if (!isAuthenticated) { navigate('/login'); return; }
@@ -66,7 +66,6 @@ export default function ProductDetail() {
     }
   };
 
-  const handleAISummary = undefined; // handled by ReviewSummary component
 
   const handleReview = async (e) => {
     e.preventDefault();
@@ -131,7 +130,7 @@ export default function ProductDetail() {
         ))}
 
         {isAuthenticated && (
-          <div style={{ marginTop: '48px', maxWidth: '600px' }} className="glass-panel skeuo-shadow" css={{ padding: '32px' }}>
+          <div style={{ marginTop: '48px', maxWidth: '600px', padding: '32px' }} className="glass-panel skeuo-shadow">
             <div style={{ ...s.sTitle, borderBottom: 'none' }}>Leave Your Perspective</div>
             {reviewMsg && <div style={reviewMsg.includes('Error') ? { ...s.success, borderColor: 'rgba(239,68,68,0.3)', color: '#fca5a5', background: 'rgba(239,68,68,0.1)' } : s.success}>{reviewMsg}</div>}
             <form onSubmit={handleReview}>

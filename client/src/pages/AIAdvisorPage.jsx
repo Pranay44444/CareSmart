@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 import { useAuth } from '../context/AuthContext';
 import { getProducts } from '../services/api';
 import AIAdvisor from '../components/AIAdvisor';
 import ProductCard from '../components/ProductCard';
 
-import { Bot, Fingerprint, Lock, Lightbulb, Search, Package } from 'lucide-react';
+import { Bot, Fingerprint, Lock, Search, Package } from 'lucide-react';
 
 const s = {
   page: { minHeight: '100vh', background: 'var(--bg-dark)', fontFamily: 'Inter, sans-serif', color: 'var(--text-cream)' },
@@ -69,7 +69,6 @@ const categoryMap = { Smartphone: 'smartphone', Laptop: 'laptop', Tablet: 'smart
 
 export default function AIAdvisorPage() {
   const { user, isAuthenticated } = useAuth();
-  const navigate = useNavigate();
 
   // Pull saved device profile from the authenticated user
   const savedProfile = user?.deviceProfile || null;
