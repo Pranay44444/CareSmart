@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-
-import { getProducts } from '../services/api';
+import { useNavigate } from 'react-router-dom';
+import { getProducts, deleteProduct } from '../services/api';
+import { useAuth } from '../context/AuthContext';
 import ProductCard from '../components/ProductCard';
 
 const s = {
@@ -65,15 +66,17 @@ const s = {
   },
 };
 
-import { Search } from 'lucide-react';
+import { Search, PlusCircle } from 'lucide-react';
 export default function Products() {
+  const { isAdmin } = useAuth();
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState('');
   const [search, setSearch] = useState('');
   const [searchInput, setSearchInput] = useState('');
 
-  useEffect(() => {
+  const fetchProducts = () => {
     setLoading(true);
     const params = { limit: 20 };
     if (category) params.category = category;
@@ -82,6 +85,10 @@ export default function Products() {
       .then((res) => setProducts(res.data.products))
       .catch(() => setProducts([]))
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetchProducts();
   }, [category, search]);
 
   const handleSearch = (e) => {
@@ -89,15 +96,95 @@ export default function Products() {
     setSearch(searchInput);
   };
 
+  const handleAdminDelete = async (id, name) => {
+    try {
+      await deleteProduct(id);
+      fetchProducts();
+    } catch {
+      alert(`Failed to delete "${name}".`);
+    }
+  };
+
+  const handleAdminEdit = (product) => {
+    navigate('/admin?tab=products', { state: { editProduct: product } });
+  };
+
   return (
     <div style={s.page}>
+      {/* Admin banner */}
+      {isAdmin && (
+        <div
+          style={{
+            background: 'rgba(201,168,76,0.06)',
+            borderBottom: '1px solid rgba(201,168,76,0.15)',
+            padding: '12px 24px',
+          }}
+        >
+          <div
+            style={{
+              maxWidth: '1200px',
+              margin: '0 auto',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '12px',
+            }}
+          >
+            <span style={{ color: 'var(--gold-highlight)', fontWeight: 600, fontSize: '0.9rem' }}>
+              Admin Catalog View — edit or remove products directly from cards below.
+            </span>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <button
+                onClick={() => navigate('/admin?tab=products')}
+                style={{
+                  background: 'rgba(201,168,76,0.1)',
+                  border: '1px solid rgba(201,168,76,0.3)',
+                  borderRadius: '8px',
+                  padding: '8px 16px',
+                  color: 'var(--gold-highlight)',
+                  fontWeight: 600,
+                  fontSize: '0.85rem',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                }}
+              >
+                <PlusCircle size={15} /> Add New Product
+              </button>
+              <button
+                onClick={() => navigate('/admin')}
+                style={{
+                  background: 'transparent',
+                  border: '1px solid var(--glass-border)',
+                  borderRadius: '8px',
+                  padding: '8px 16px',
+                  color: 'var(--text-muted)',
+                  fontWeight: 600,
+                  fontSize: '0.85rem',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                }}
+              >
+                ← Dashboard
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div style={s.header}>
         <div>
           <div style={s.title} className="font-playfair">
-            Luxury Catalog
+            {isAdmin ? 'Catalog Management' : 'Luxury Catalog'}
           </div>
           <div style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginTop: '4px' }}>
-            {products.length} exclusive items tailored to you.
+            {isAdmin
+              ? `${products.length} products in catalog — edit or remove as needed.`
+              : `${products.length} exclusive items tailored to you.`}
           </div>
         </div>
         <div style={s.filters}>
@@ -142,7 +229,12 @@ export default function Products() {
         ) : (
           <div style={s.grid}>
             {products.map((p) => (
-              <ProductCard key={p._id} product={p} />
+              <ProductCard
+                key={p._id}
+                product={p}
+                onDelete={handleAdminDelete}
+                onEdit={handleAdminEdit}
+              />
             ))}
           </div>
         )}

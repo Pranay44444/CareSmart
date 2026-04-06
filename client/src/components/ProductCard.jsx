@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { addToCart } from '../services/api';
 import { useAuth } from '../context/AuthContext';
-import { Star, StarHalf, ShoppingBag, Info, Package, Smartphone, Laptop } from 'lucide-react';
+import { Star, StarHalf, ShoppingBag, Info, Package, Smartphone, Laptop, Pencil, Trash2 } from 'lucide-react';
 
 const categoryIcon = {
   smartphone: <Smartphone size={48} color="rgba(201,168,76,0.3)" />,
@@ -124,8 +124,8 @@ const Stars = ({ rating, count }) => {
   );
 };
 
-export default function ProductCard({ product }) {
-  const { isAuthenticated } = useAuth();
+export default function ProductCard({ product, onEdit, onDelete }) {
+  const { isAuthenticated, isAdmin } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState(null);
@@ -153,6 +153,13 @@ export default function ProductCard({ product }) {
     }
   };
 
+  const handleDelete = (e) => {
+    e.preventDefault();
+    if (window.confirm(`Remove "${product.name}" from catalog?`)) {
+      onDelete?.(product._id, product.name);
+    }
+  };
+
   return (
     <div
       className="glass-panel skeuo-shadow gold-glow"
@@ -169,6 +176,26 @@ export default function ProductCard({ product }) {
           </span>
         )}
         {toast && <div style={s.toast(toast.ok)}>{toast.msg}</div>}
+        {isAdmin && (
+          <div
+            style={{
+              position: 'absolute',
+              top: '10px',
+              right: '10px',
+              background: 'rgba(201,168,76,0.15)',
+              border: '1px solid rgba(201,168,76,0.3)',
+              borderRadius: '6px',
+              padding: '3px 8px',
+              fontSize: '0.7rem',
+              fontWeight: 700,
+              color: 'var(--gold-highlight)',
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+            }}
+          >
+            Admin View
+          </div>
+        )}
       </div>
 
       {/* Body */}
@@ -192,6 +219,10 @@ export default function ProductCard({ product }) {
             <Star size={14} opacity={0.3} /> No reviews yet
           </span>
         )}
+        <div style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>
+          Stock: {product.stock > 0 ? product.stock : <span style={{ color: '#fca5a5' }}>Out of stock</span>}
+        </div>
+
         <div style={{ ...s.actions, marginTop: 'auto', paddingTop: '12px' }}>
           <Link
             to={`/products/${product._id}`}
@@ -201,23 +232,57 @@ export default function ProductCard({ product }) {
           >
             <Info size={16} /> Details
           </Link>
-          <button
-            id={`cart-${product._id}`}
-            style={s.btnCart(loading || product.stock === 0)}
-            className={loading || product.stock === 0 ? 'glass-panel' : 'shimmer-cta'}
-            onClick={handleAddToCart}
-            disabled={loading || product.stock === 0}
-          >
-            {product.stock === 0 ? (
-              'Out of Stock'
-            ) : loading ? (
-              'Reserve...'
-            ) : (
-              <>
-                <ShoppingBag size={16} /> Reserve
-              </>
-            )}
-          </button>
+
+          {isAdmin ? (
+            /* ── Admin actions ── */
+            <>
+              <button
+                id={`edit-${product._id}`}
+                style={{
+                  ...s.btnCart(false),
+                  background: 'rgba(201,168,76,0.1)',
+                  border: '1px solid rgba(201,168,76,0.3)',
+                  color: 'var(--gold-highlight)',
+                }}
+                onClick={() => onEdit?.(product)}
+              >
+                <Pencil size={16} /> Edit
+              </button>
+              <button
+                id={`delete-${product._id}`}
+                style={{
+                  ...s.btnCart(false),
+                  background: 'rgba(239,68,68,0.08)',
+                  border: '1px solid rgba(239,68,68,0.25)',
+                  color: '#fca5a5',
+                  flex: 'none',
+                  padding: '10px 14px',
+                }}
+                onClick={handleDelete}
+              >
+                <Trash2 size={16} />
+              </button>
+            </>
+          ) : (
+            /* ── User action ── */
+            <button
+              id={`cart-${product._id}`}
+              style={s.btnCart(loading || product.stock === 0)}
+              className={loading || product.stock === 0 ? 'glass-panel' : 'shimmer-cta'}
+              onClick={handleAddToCart}
+              disabled={loading || product.stock === 0}
+            >
+              {product.stock === 0 ? (
+                'Out of Stock'
+              ) : loading ? (
+                'Reserve...'
+              ) : (
+                <>
+                  <ShoppingBag size={16} /> Reserve
+                </>
+              )}
+            </button>
+          )}
         </div>
       </div>
     </div>

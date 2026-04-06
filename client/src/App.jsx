@@ -16,22 +16,23 @@ import {
 
 // ── Route Guards ──────────────────────────────────────────────────────────────
 
-/**
- * ProtectedRoute — redirects unauthenticated users to /login.
- */
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
   return isAuthenticated ? children : <Navigate to="/login" replace />;
 };
 
-/**
- * AdminRoute — redirects non-admin users to /.
- */
 const AdminRoute = ({ children }) => {
   const { isAuthenticated, isAdmin } = useAuth();
   if (!isAuthenticated) return <Navigate to="/login" replace />;
   if (!isAdmin) return <Navigate to="/" replace />;
   return children;
+};
+
+/** Redirect logged-in admins away from the consumer home page */
+const HomeRoute = () => {
+  const { isAuthenticated, isAdmin } = useAuth();
+  if (isAuthenticated && isAdmin) return <Navigate to="/admin" replace />;
+  return <Home />;
 };
 
 // ── AI Advisor page wrapper ─────────────────────────────────────────────────────
@@ -49,7 +50,7 @@ const AppRoutes = () => (
     <Navbar />
     <Routes>
       {/* Public */}
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<HomeRoute />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/products" element={<Products />} />

@@ -88,8 +88,8 @@ export default function Login() {
     setError('');
     setLoading(true);
     try {
-      await login(email, password);
-      navigate('/products');
+      const userData = await login(email, password);
+      navigate(userData.role === 'admin' ? '/admin' : '/products');
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed. Please try again.');
     } finally {

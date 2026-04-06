@@ -1,6 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Package, Sparkles, ShoppingCart, ReceiptText, User, Settings, LogOut } from 'lucide-react';
+import {
+  Package,
+  Sparkles,
+  ShoppingCart,
+  ReceiptText,
+  User,
+  LogOut,
+  LayoutDashboard,
+} from 'lucide-react';
 
 const s = {
   container: {
@@ -34,6 +42,15 @@ const s = {
     alignItems: 'center',
     gap: '6px',
     transition: 'color 0.2s',
+  },
+  activeLink: {
+    color: 'var(--gold-highlight)',
+    textDecoration: 'none',
+    fontWeight: 600,
+    fontSize: '0.9rem',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '6px',
   },
   btnOutline: {
     color: 'var(--gold-primary)',
@@ -72,6 +89,17 @@ const s = {
     transition: 'all 0.2s',
   },
   divider: { width: '1px', height: '24px', background: 'var(--glass-border)', margin: '0 4px' },
+  adminBadge: {
+    background: 'rgba(201,168,76,0.12)',
+    border: '1px solid rgba(201,168,76,0.3)',
+    borderRadius: '6px',
+    padding: '4px 10px',
+    fontSize: '0.72rem',
+    color: 'var(--gold-highlight)',
+    fontWeight: 700,
+    letterSpacing: '0.1em',
+    textTransform: 'uppercase',
+  },
 };
 
 export default function Navbar() {
@@ -86,49 +114,83 @@ export default function Navbar() {
   return (
     <div style={s.container}>
       <nav style={s.nav} className="glass-panel" id="main-navbar">
-        {/* Logo */}
-        <Link to="/" style={s.logo} className="font-playfair" id="nav-logo">
+        {/* Logo — links to /admin for admin, / for everyone else */}
+        <Link
+          to={isAdmin ? '/admin' : '/'}
+          style={s.logo}
+          className="font-playfair"
+          id="nav-logo"
+        >
           CareSmart
         </Link>
 
-        {/* Right-side links */}
         <div style={s.links}>
-          <Link to="/products" style={s.link} className="gold-glow" id="nav-products">
-            <Package size={16} /> Products
-          </Link>
-          <Link to="/ai-advisor" style={s.link} className="gold-glow" id="nav-ai">
-            <Sparkles size={16} /> AI Advisor
-          </Link>
-
-          <div style={s.divider} />
-
           {isAuthenticated ? (
-            <>
-              <Link to="/cart" style={s.link} className="gold-glow" id="nav-cart" title="Cart">
-                <ShoppingCart size={16} /> Cart
-              </Link>
-              <Link to="/orders" style={s.link} className="gold-glow" id="nav-orders">
-                <ReceiptText size={16} /> Orders
-              </Link>
-              <Link to="/profile" style={s.link} className="gold-glow" id="nav-profile">
-                <User size={16} /> {user?.name?.split(' ')[0]}
-              </Link>
-              {isAdmin && (
-                <Link
-                  to="/admin"
-                  style={{ ...s.link, color: 'var(--gold-highlight)' }}
-                  className="gold-glow"
-                  id="nav-admin"
-                >
-                  <Settings size={16} /> Admin
+            isAdmin ? (
+              /* ── Admin nav ─────────────────────────────── */
+              <>
+                <Link to="/admin" style={s.activeLink} className="gold-glow" id="nav-dashboard">
+                  <LayoutDashboard size={16} /> Dashboard
                 </Link>
-              )}
-              <button id="nav-logout" style={s.logoutBtn} onClick={handleLogout}>
-                <LogOut size={16} /> Sign Out
-              </button>
-            </>
+                <Link
+                  to="/products"
+                  style={s.link}
+                  className="gold-glow"
+                  id="nav-admin-catalog"
+                >
+                  <Package size={16} /> Catalog
+                </Link>
+                <Link
+                  to="/admin?tab=orders"
+                  style={s.link}
+                  className="gold-glow"
+                  id="nav-admin-orders"
+                >
+                  <ReceiptText size={16} /> Orders
+                </Link>
+                <div style={s.divider} />
+                <Link to="/profile" style={s.link} className="gold-glow" id="nav-profile">
+                  <User size={16} /> {user?.name?.split(' ')[0]}
+                </Link>
+                <span style={s.adminBadge}>Admin</span>
+                <button id="nav-logout" style={s.logoutBtn} onClick={handleLogout}>
+                  <LogOut size={16} /> Sign Out
+                </button>
+              </>
+            ) : (
+              /* ── User nav ──────────────────────────────── */
+              <>
+                <Link to="/products" style={s.link} className="gold-glow" id="nav-products">
+                  <Package size={16} /> Products
+                </Link>
+                <Link to="/ai-advisor" style={s.link} className="gold-glow" id="nav-ai">
+                  <Sparkles size={16} /> AI Advisor
+                </Link>
+                <div style={s.divider} />
+                <Link to="/cart" style={s.link} className="gold-glow" id="nav-cart">
+                  <ShoppingCart size={16} /> Cart
+                </Link>
+                <Link to="/orders" style={s.link} className="gold-glow" id="nav-orders">
+                  <ReceiptText size={16} /> Orders
+                </Link>
+                <Link to="/profile" style={s.link} className="gold-glow" id="nav-profile">
+                  <User size={16} /> {user?.name?.split(' ')[0]}
+                </Link>
+                <button id="nav-logout" style={s.logoutBtn} onClick={handleLogout}>
+                  <LogOut size={16} /> Sign Out
+                </button>
+              </>
+            )
           ) : (
+            /* ── Guest nav ─────────────────────────────── */
             <>
+              <Link to="/products" style={s.link} className="gold-glow" id="nav-products">
+                <Package size={16} /> Products
+              </Link>
+              <Link to="/ai-advisor" style={s.link} className="gold-glow" id="nav-ai">
+                <Sparkles size={16} /> AI Advisor
+              </Link>
+              <div style={s.divider} />
               <Link to="/login" style={s.btnOutline} className="gold-glow" id="nav-login">
                 Sign In
               </Link>
