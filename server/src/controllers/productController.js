@@ -82,16 +82,8 @@ const getProductById = async (req, res) => {
  */
 const createProduct = async (req, res) => {
   try {
-    const {
-      name,
-      description,
-      price,
-      category,
-      subCategory,
-      compatibleBrands,
-      stock,
-      image,
-    } = req.body;
+    const { name, description, price, category, subCategory, compatibleBrands, stock, image } =
+      req.body;
 
     if (!name || !description || price == null || !category || stock == null) {
       return res.status(400).json({
@@ -136,8 +128,14 @@ const updateProduct = async (req, res) => {
     }
 
     const allowedFields = [
-      'name', 'description', 'price', 'category',
-      'subCategory', 'compatibleBrands', 'stock', 'image',
+      'name',
+      'description',
+      'price',
+      'category',
+      'subCategory',
+      'compatibleBrands',
+      'stock',
+      'image',
     ];
 
     allowedFields.forEach((field) => {

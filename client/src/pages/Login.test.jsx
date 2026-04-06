@@ -26,20 +26,32 @@ describe('Login Page', () => {
 
   test('renders email input', () => {
     useAuth.mockReturnValue({ login: vi.fn(), isAuthenticated: false });
-    render(<BrowserRouter><Login /></BrowserRouter>);
+    render(
+      <BrowserRouter>
+        <Login />
+      </BrowserRouter>
+    );
     // Luxury UI redesign changed placeholder to match security-themed copy
     expect(screen.getByPlaceholderText('alias@domain.com')).toBeDefined();
   });
 
   test('renders password input', () => {
     useAuth.mockReturnValue({ login: vi.fn(), isAuthenticated: false });
-    render(<BrowserRouter><Login /></BrowserRouter>);
+    render(
+      <BrowserRouter>
+        <Login />
+      </BrowserRouter>
+    );
     expect(screen.getByPlaceholderText('••••••••')).toBeDefined();
   });
 
   test('renders submit button', () => {
     useAuth.mockReturnValue({ login: vi.fn(), isAuthenticated: false });
-    render(<BrowserRouter><Login /></BrowserRouter>);
+    render(
+      <BrowserRouter>
+        <Login />
+      </BrowserRouter>
+    );
     // Luxury UI uses "Secure Login" instead of "Sign In"
     expect(screen.getByRole('button', { name: /Secure Login/i })).toBeDefined();
   });
@@ -50,7 +62,11 @@ describe('Login Page', () => {
     });
     useAuth.mockReturnValue({ login: mockLogin, isAuthenticated: false });
 
-    render(<BrowserRouter><Login /></BrowserRouter>);
+    render(
+      <BrowserRouter>
+        <Login />
+      </BrowserRouter>
+    );
 
     fireEvent.change(screen.getByPlaceholderText('alias@domain.com'), {
       target: { value: 'test@test.com' },
@@ -67,7 +83,11 @@ describe('Login Page', () => {
 
   test('renders register link', () => {
     useAuth.mockReturnValue({ login: vi.fn(), isAuthenticated: false });
-    render(<BrowserRouter><Login /></BrowserRouter>);
+    render(
+      <BrowserRouter>
+        <Login />
+      </BrowserRouter>
+    );
     // Luxury UI uses "Enroll here" instead of "Create one"
     expect(screen.getByText('Enroll here')).toBeDefined();
   });

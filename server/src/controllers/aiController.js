@@ -36,13 +36,7 @@ const safeParseJSONArray = (text) => {
  */
 const getRecommendations = async (req, res) => {
   try {
-    const {
-      deviceType,
-      brand,
-      model: deviceModel,
-      usagePattern,
-      issues,
-    } = req.body;
+    const { deviceType, brand, model: deviceModel, usagePattern, issues } = req.body;
 
     if (!deviceType || !brand || !deviceModel) {
       return res.status(400).json({
@@ -122,17 +116,13 @@ const summarizeReviews = async (req, res) => {
     }
 
     // Filter out reviews with no comment to keep prompt clean
-    const validReviews = reviews.filter(
-      (r) => r.comment && r.comment.trim().length > 0
-    );
+    const validReviews = reviews.filter((r) => r.comment && r.comment.trim().length > 0);
 
     if (validReviews.length === 0) {
       return res.status(200).json({ summary: 'No written reviews available yet.' });
     }
 
-    const reviewText = validReviews
-      .map((r) => `Rating: ${r.rating}/5 - ${r.comment}`)
-      .join('\n');
+    const reviewText = validReviews.map((r) => `Rating: ${r.rating}/5 - ${r.comment}`).join('\n');
 
     const prompt = `Summarize these product reviews in exactly 2-3 sentences.
 Be balanced, mention both positives and negatives if present.

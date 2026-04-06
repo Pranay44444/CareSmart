@@ -33,13 +33,21 @@ describe('ProductCard Component', () => {
 
   test('renders product name', () => {
     useAuth.mockReturnValue({ isAuthenticated: true, user: { name: 'Test' } });
-    render(<BrowserRouter><ProductCard product={mockProduct} /></BrowserRouter>);
+    render(
+      <BrowserRouter>
+        <ProductCard product={mockProduct} />
+      </BrowserRouter>
+    );
     expect(screen.getByText('Wireless Charger')).toBeDefined();
   });
 
   test('renders product price converted to INR', () => {
     useAuth.mockReturnValue({ isAuthenticated: true, user: { name: 'Test' } });
-    render(<BrowserRouter><ProductCard product={mockProduct} /></BrowserRouter>);
+    render(
+      <BrowserRouter>
+        <ProductCard product={mockProduct} />
+      </BrowserRouter>
+    );
     // Luxury UI shows INR: price * 83
     const expectedINR = (39.99 * 83).toFixed(0);
     expect(screen.getByText(`₹${expectedINR}`)).toBeDefined();
@@ -47,20 +55,32 @@ describe('ProductCard Component', () => {
 
   test('renders category badge', () => {
     useAuth.mockReturnValue({ isAuthenticated: true, user: { name: 'Test' } });
-    render(<BrowserRouter><ProductCard product={mockProduct} /></BrowserRouter>);
+    render(
+      <BrowserRouter>
+        <ProductCard product={mockProduct} />
+      </BrowserRouter>
+    );
     expect(screen.getByText('smartphone')).toBeDefined();
   });
 
   test('Reserve button exists when in stock', () => {
     useAuth.mockReturnValue({ isAuthenticated: true, user: { name: 'Test' } });
-    render(<BrowserRouter><ProductCard product={mockProduct} /></BrowserRouter>);
+    render(
+      <BrowserRouter>
+        <ProductCard product={mockProduct} />
+      </BrowserRouter>
+    );
     // Luxury UI uses "Reserve" instead of "Add to Cart"
     expect(screen.getByRole('button', { name: /Reserve/i })).toBeDefined();
   });
 
   test('Details link links to correct product page', () => {
     useAuth.mockReturnValue({ isAuthenticated: true, user: { name: 'Test' } });
-    render(<BrowserRouter><ProductCard product={mockProduct} /></BrowserRouter>);
+    render(
+      <BrowserRouter>
+        <ProductCard product={mockProduct} />
+      </BrowserRouter>
+    );
     // Luxury UI uses "Details" instead of "View Details"
     const viewLink = screen.getByText(/Details/i).closest('a');
     expect(viewLink.getAttribute('href')).toBe('/products/prod123');
@@ -69,13 +89,21 @@ describe('ProductCard Component', () => {
   test('shows "Out of Stock" when stock is zero', () => {
     useAuth.mockReturnValue({ isAuthenticated: true, user: { name: 'Test' } });
     const outOfStockProduct = { ...mockProduct, stock: 0 };
-    render(<BrowserRouter><ProductCard product={outOfStockProduct} /></BrowserRouter>);
+    render(
+      <BrowserRouter>
+        <ProductCard product={outOfStockProduct} />
+      </BrowserRouter>
+    );
     expect(screen.getByText('Out of Stock')).toBeDefined();
   });
 
   test('renders review count', () => {
     useAuth.mockReturnValue({ isAuthenticated: true, user: { name: 'Test' } });
-    render(<BrowserRouter><ProductCard product={mockProduct} /></BrowserRouter>);
+    render(
+      <BrowserRouter>
+        <ProductCard product={mockProduct} />
+      </BrowserRouter>
+    );
     expect(screen.getByText('(10 reviews)')).toBeDefined();
   });
 });

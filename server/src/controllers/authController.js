@@ -133,15 +133,17 @@ const updateDeviceProfile = async (req, res) => {
     const { deviceType, brand, model, usagePattern } = req.body;
 
     if (!deviceType && !brand && !model && !usagePattern) {
-      return res.status(400).json({ message: 'Provide at least one device profile field to update' });
+      return res
+        .status(400)
+        .json({ message: 'Provide at least one device profile field to update' });
     }
 
     // Build update object with only provided fields
     const profileUpdate = {};
-    if (deviceType)    profileUpdate['deviceProfile.deviceType']    = deviceType.trim();
-    if (brand)         profileUpdate['deviceProfile.brand']         = brand.trim();
-    if (model)         profileUpdate['deviceProfile.model']         = model.trim();
-    if (usagePattern)  profileUpdate['deviceProfile.usagePattern']  = usagePattern.trim();
+    if (deviceType) profileUpdate['deviceProfile.deviceType'] = deviceType.trim();
+    if (brand) profileUpdate['deviceProfile.brand'] = brand.trim();
+    if (model) profileUpdate['deviceProfile.model'] = model.trim();
+    if (usagePattern) profileUpdate['deviceProfile.usagePattern'] = usagePattern.trim();
 
     const updatedUser = await User.findByIdAndUpdate(
       req.user._id,

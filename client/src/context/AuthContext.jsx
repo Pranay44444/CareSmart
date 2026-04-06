@@ -34,24 +34,30 @@ export const AuthProvider = ({ children }) => {
    * Returns the user object on success.
    * Throws the Axios error so callers can display messages.
    */
-  const login = useCallback(async (email, password) => {
-    const { data } = await loginUser(email, password);
-    const userData = { ...data.user, token: data.token };
-    persistUser(userData);
-    return userData;
-  }, [persistUser]);
+  const login = useCallback(
+    async (email, password) => {
+      const { data } = await loginUser(email, password);
+      const userData = { ...data.user, token: data.token };
+      persistUser(userData);
+      return userData;
+    },
+    [persistUser]
+  );
 
   /**
    * register — calls POST /api/auth/register, persists result.
    * Returns the user object on success.
    * Throws the Axios error so callers can display messages.
    */
-  const register = useCallback(async (name, email, password) => {
-    const { data } = await registerUser(name, email, password);
-    const userData = { ...data.user, token: data.token };
-    persistUser(userData);
-    return userData;
-  }, [persistUser]);
+  const register = useCallback(
+    async (name, email, password) => {
+      const { data } = await registerUser(name, email, password);
+      const userData = { ...data.user, token: data.token };
+      persistUser(userData);
+      return userData;
+    },
+    [persistUser]
+  );
 
   /**
    * logout — clears state and localStorage.
@@ -62,7 +68,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const value = {
-    user,            // full user object (includes role, token, deviceProfile…)
+    user, // full user object (includes role, token, deviceProfile…)
     isAuthenticated: !!user,
     isAdmin: user?.role === 'admin',
     login,

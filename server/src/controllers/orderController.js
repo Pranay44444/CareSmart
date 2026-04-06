@@ -75,10 +75,7 @@ const placeOrder = async (req, res) => {
     });
 
     // Clear cart after successful order
-    await Cart.findOneAndUpdate(
-      { user: req.user._id },
-      { $set: { items: [] } }
-    );
+    await Cart.findOneAndUpdate({ user: req.user._id }, { $set: { items: [] } });
 
     res.status(201).json({ message: 'Order placed successfully', order });
   } catch (error) {

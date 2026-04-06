@@ -46,29 +46,57 @@ const AIAdvisorPage = () => (
 // ── App Shell ─────────────────────────────────────────────────────────────────
 const AppRoutes = () => (
   <>
-  <Navbar />
-  <Routes>
-    {/* Public */}
-    <Route path="/"            element={<Home />} />
-    <Route path="/login"       element={<Login />} />
-    <Route path="/register"    element={<Register />} />
-    <Route path="/products"    element={<Products />} />
-    <Route path="/products/:id" element={<ProductDetail />} />
+    <Navbar />
+    <Routes>
+      {/* Public */}
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/products" element={<Products />} />
+      <Route path="/products/:id" element={<ProductDetail />} />
 
-    {/* Protected — require login */}
-    <Route path="/cart"    element={<ProtectedRoute><Cart /></ProtectedRoute>} />
-    <Route path="/orders"  element={<ProtectedRoute><Orders /></ProtectedRoute>} />
-    <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+      {/* Protected — require login */}
+      <Route
+        path="/cart"
+        element={
+          <ProtectedRoute>
+            <Cart />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/orders"
+        element={
+          <ProtectedRoute>
+            <Orders />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
 
-    {/* AI Advisor */}
-    <Route path="/ai-advisor" element={<AIAdvisorPage />} />
+      {/* AI Advisor */}
+      <Route path="/ai-advisor" element={<AIAdvisorPage />} />
 
-    {/* Admin only */}
-    <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+      {/* Admin only */}
+      <Route
+        path="/admin"
+        element={
+          <AdminRoute>
+            <AdminDashboard />
+          </AdminRoute>
+        }
+      />
 
-    {/* Fallback */}
-    <Route path="*" element={<Navigate to="/" replace />} />
-  </Routes>
+      {/* Fallback */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   </>
 );
 

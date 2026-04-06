@@ -57,9 +57,7 @@ const addToCart = async (req, res) => {
       cart = new Cart({ user: req.user._id, items: [] });
     }
 
-    const existingItem = cart.items.find(
-      (item) => item.product.toString() === productId
-    );
+    const existingItem = cart.items.find((item) => item.product.toString() === productId);
 
     if (existingItem) {
       // Check combined qty doesn't exceed stock
@@ -111,9 +109,7 @@ const removeFromCart = async (req, res) => {
     }
 
     const initialLength = cart.items.length;
-    cart.items = cart.items.filter(
-      (item) => item.product.toString() !== productId
-    );
+    cart.items = cart.items.filter((item) => item.product.toString() !== productId);
 
     if (cart.items.length === initialLength) {
       return res.status(404).json({ message: 'Product not found in cart' });

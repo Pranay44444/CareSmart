@@ -12,7 +12,11 @@ vi.mock('../context/AuthContext', () => ({
 describe('Navbar Component', () => {
   test('logged-out state → Sign In and Get Started links shown', () => {
     useAuth.mockReturnValue({ isAuthenticated: false, user: null, isAdmin: false });
-    render(<BrowserRouter><Navbar /></BrowserRouter>);
+    render(
+      <BrowserRouter>
+        <Navbar />
+      </BrowserRouter>
+    );
 
     // Luxury UI redesign uses "Sign In" and "Get Started"
     expect(screen.getByText('Sign In')).toBeDefined();
@@ -30,7 +34,11 @@ describe('Navbar Component', () => {
       isAdmin: false,
       logout: vi.fn(),
     });
-    render(<BrowserRouter><Navbar /></BrowserRouter>);
+    render(
+      <BrowserRouter>
+        <Navbar />
+      </BrowserRouter>
+    );
 
     // Luxury navbar uses SVG-icon + text links (no emoji prefix)
     expect(screen.getByText('Sign Out')).toBeDefined();
@@ -46,7 +54,11 @@ describe('Navbar Component', () => {
 
   test('always shows Products and AI Advisor links', () => {
     useAuth.mockReturnValue({ isAuthenticated: false, user: null, isAdmin: false });
-    render(<BrowserRouter><Navbar /></BrowserRouter>);
+    render(
+      <BrowserRouter>
+        <Navbar />
+      </BrowserRouter>
+    );
 
     expect(screen.getByText('Products')).toBeDefined();
     expect(screen.getByText('AI Advisor')).toBeDefined();
@@ -59,7 +71,11 @@ describe('Navbar Component', () => {
       isAdmin: true,
       logout: vi.fn(),
     });
-    render(<BrowserRouter><Navbar /></BrowserRouter>);
+    render(
+      <BrowserRouter>
+        <Navbar />
+      </BrowserRouter>
+    );
     // Admin link text — use queryAllByText since it may match multiple nodes
     const adminLinks = screen.queryAllByText('Admin');
     expect(adminLinks.length).toBeGreaterThan(0);
