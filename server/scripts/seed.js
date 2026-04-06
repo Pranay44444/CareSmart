@@ -1,105 +1,141 @@
 require('dotenv').config();
-const mongoose = require('mongoose');
-const User = require('../src/models/User');
 const Product = require('../src/models/Product');
 const connectDB = require('../src/config/db');
 
-// Sample products for CareSmart AI testing
+// Prices stored in USD (frontend displays price × 83 as INR)
 const products = [
+  // ── Smartphone accessories ──────────────────────────────────────────────────
   {
-    name: 'Anker PowerCore 20000mAh',
-    description: 'High-Capacity Power Bank, compact and safe for fast charging.',
-    price: 49.99,
+    name: 'Premium Tempered Glass',
     category: 'smartphone',
-    subCategory: 'power bank',
-    compatibleBrands: ['apple', 'samsung', 'google'],
-    stock: 50,
-    image: 'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=500&q=80',
+    subCategory: 'screen-protector',
+    price: +(299 / 83).toFixed(2),
+    compatibleBrands: ['Samsung', 'Apple', 'OnePlus'],
+    stock: 100,
+    description: '9H hardness tempered glass protection',
+    ratings: 0,
+    numReviews: 0,
   },
   {
-    name: 'Spigen Tough Armor Case',
-    description: 'Slim & Ventilated Protective Case built for extreme drop protection and heat dissipation.',
-    price: 19.99,
+    name: 'Silicone Protective Case',
     category: 'smartphone',
     subCategory: 'case',
-    compatibleBrands: ['apple', 'samsung'],
-    stock: 120,
-    image: 'https://images.unsplash.com/photo-1541560052-77ec1bbc09f7?w=500&q=80',
+    price: +(199 / 83).toFixed(2),
+    compatibleBrands: ['Samsung', 'Apple'],
+    stock: 150,
+    description: 'Shock-absorbing silicone case',
+    ratings: 0,
+    numReviews: 0,
   },
   {
-    name: 'Belkin BoostCharge Pro 30W',
-    description: 'Certified USB-C Fast Charger with GaN technology for cooler, faster charging.',
-    price: 29.99,
+    name: '65W Fast Charger',
     category: 'smartphone',
     subCategory: 'charger',
-    compatibleBrands: ['apple', 'samsung', 'google'],
-    stock: 200,
-    image: 'https://images.unsplash.com/photo-1583863788434-e58f3fc434c0?w=500&q=80',
+    price: +(899 / 83).toFixed(2),
+    compatibleBrands: ['Samsung', 'OnePlus', 'Xiaomi'],
+    stock: 75,
+    description: 'GaN fast charger, 65W output',
+    ratings: 0,
+    numReviews: 0,
   },
   {
-    name: 'amFilm Tempered Glass Screen Protector',
-    description: 'Ultra-clear, scratch-resistant tempered glass for max protection.',
-    price: 9.99,
+    name: '20000mAh Power Bank',
     category: 'smartphone',
-    subCategory: 'screen protector',
-    compatibleBrands: ['apple'],
-    stock: 300,
-    image: 'https://images.unsplash.com/photo-1601524909162-ae8725290836?w=500&q=80',
+    subCategory: 'power-bank',
+    price: +(1299 / 83).toFixed(2),
+    compatibleBrands: ['Apple', 'Samsung', 'OnePlus'],
+    stock: 50,
+    description: '20000mAh with dual USB-C output',
+    ratings: 0,
+    numReviews: 0,
   },
   {
-    name: 'Logitech MX Master 3S',
-    description: 'Advanced Wireless Mouse with ergonomic design and ultra-fast scrolling.',
-    price: 99.99,
-    category: 'laptop',
-    subCategory: 'mouse',
-    compatibleBrands: ['apple', 'dell', 'hp', 'lenovo'],
-    stock: 45,
-    image: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=500&q=80',
-  },
-  {
-    name: 'Laptop Cooling Pad with RGB',
-    description: '5 high-speed quiet fans to prevent laptop overheating during gaming or heavy workloads.',
-    price: 34.99,
-    category: 'laptop',
-    subCategory: 'cooling',
-    compatibleBrands: ['dell', 'hp', 'lenovo', 'asus'],
+    name: '15W Wireless Charger',
+    category: 'smartphone',
+    subCategory: 'wireless-charger',
+    price: +(699 / 83).toFixed(2),
+    compatibleBrands: ['Apple', 'Samsung'],
     stock: 60,
-    image: 'https://images.unsplash.com/photo-1616423640778-28d1b53229bd?w=500&q=80',
-  }
+    description: 'Qi-compatible wireless charging pad',
+    ratings: 0,
+    numReviews: 0,
+  },
+
+  // ── Laptop accessories ──────────────────────────────────────────────────────
+  {
+    name: 'Adjustable Laptop Stand',
+    category: 'laptop',
+    subCategory: 'stand',
+    price: +(999 / 83).toFixed(2),
+    compatibleBrands: ['Apple', 'Dell', 'HP', 'Lenovo'],
+    stock: 40,
+    description: 'Ergonomic aluminum laptop stand',
+    ratings: 0,
+    numReviews: 0,
+  },
+  {
+    name: 'USB-C Cooling Pad',
+    category: 'laptop',
+    subCategory: 'cooling-pad',
+    price: +(799 / 83).toFixed(2),
+    compatibleBrands: ['Dell', 'HP', 'Lenovo', 'Asus'],
+    stock: 35,
+    description: 'Dual fan cooling pad with RGB',
+    ratings: 0,
+    numReviews: 0,
+  },
+  {
+    name: '7-in-1 USB-C Hub',
+    category: 'laptop',
+    subCategory: 'hub',
+    price: +(1499 / 83).toFixed(2),
+    compatibleBrands: ['Apple', 'Dell', 'HP'],
+    stock: 45,
+    description: 'HDMI, USB-A, SD card, USB-C PD',
+    ratings: 0,
+    numReviews: 0,
+  },
+  {
+    name: '512GB External SSD',
+    category: 'laptop',
+    subCategory: 'storage',
+    price: +(3999 / 83).toFixed(2),
+    compatibleBrands: ['Apple', 'Dell', 'HP', 'Lenovo'],
+    stock: 25,
+    description: 'USB 3.2 Gen2, 1050MB/s read speed',
+    ratings: 0,
+    numReviews: 0,
+  },
+  {
+    name: 'Neoprene Laptop Sleeve',
+    category: 'laptop',
+    subCategory: 'sleeve',
+    price: +(499 / 83).toFixed(2),
+    compatibleBrands: ['Apple', 'Dell', 'HP', 'Lenovo'],
+    stock: 80,
+    description: 'Water-resistant neoprene sleeve',
+    ratings: 0,
+    numReviews: 0,
+  },
 ];
 
-const seedData = async () => {
+const seed = async () => {
   try {
     await connectDB();
-    console.log('Connected to target DB...');
 
-    // Delete existing standard mock data to prevent duplicates upon multiple runs
-    await Product.deleteMany({});
-    console.log('🧹 Cleared existing Products.');
-
-    // Look for existing admin, if not create one
-    const adminExists = await User.findOne({ email: 'admin@caresmart.com' });
-    if (!adminExists) {
-      await User.create({
-        name: 'Super Admin',
-        email: 'admin@caresmart.com',
-        password: 'admin123',
-        role: 'admin',
-      });
-      console.log('✅ Created default Admin account (admin@caresmart.com / admin123).');
-    } else {
-      console.log('✅ Admin account already exists.');
+    const count = await Product.countDocuments();
+    if (count > 0) {
+      console.log(`Already seeded (${count} products found), skipping.`);
+      process.exit(0);
     }
 
-    // Insert mock products
     await Product.insertMany(products);
-    console.log(`✅ successfully seeded ${products.length} mock products!`);
-
-    process.exit();
-  } catch (error) {
-    console.error('Error seeding data:', error);
+    console.log('✅ Database seeded successfully with 10 products');
+    process.exit(0);
+  } catch (err) {
+    console.error('Seed failed:', err);
     process.exit(1);
   }
 };
 
-seedData();
+seed();
