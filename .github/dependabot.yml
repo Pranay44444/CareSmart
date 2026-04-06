@@ -13,7 +13,7 @@ updates:
       - "Pranay44444"
     commit-message:
       prefix: "chore(deps)"
-    open-pull-requests-limit: 20
+    open-pull-requests-limit: 5
 
   # 2. Checks npm dependencies in /server every week on Monday
   - package-ecosystem: "npm"
@@ -28,7 +28,7 @@ updates:
       - "Pranay44444"
     commit-message:
       prefix: "chore(deps)"
-    open-pull-requests-limit: 20
+    open-pull-requests-limit: 5
 
   # 3. Checks GitHub Actions in root every week on Monday
   - package-ecosystem: "github-actions"
@@ -43,4 +43,4 @@ updates:
       - "Pranay44444"
     commit-message:
       prefix: "chore(ci)"
-    open-pull-requests-limit: 20
+    open-pull-requests-limit: 5
