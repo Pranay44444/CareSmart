@@ -243,7 +243,7 @@ export default function AdminDashboard() {
       // Clear state without wiping the URL (?tab=products stays intact)
       navigate(location.pathname + location.search, { replace: true, state: null });
     }
-  }, [location.state]);
+  }, [location.state, location.pathname, location.search, navigate]);
 
   const setF = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
 
