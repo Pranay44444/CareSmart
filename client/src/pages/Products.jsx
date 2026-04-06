@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getProducts, deleteProduct } from '../services/api';
 import { useAuth } from '../context/AuthContext';
@@ -76,7 +76,7 @@ export default function Products() {
   const [search, setSearch] = useState('');
   const [searchInput, setSearchInput] = useState('');
 
-  const fetchProducts = () => {
+  const fetchProducts = useCallback(() => {
     setLoading(true);
     const params = { limit: 20 };
     if (category) params.category = category;
@@ -85,11 +85,11 @@ export default function Products() {
       .then((res) => setProducts(res.data.products))
       .catch(() => setProducts([]))
       .finally(() => setLoading(false));
-  };
+  }, [category, search]);
 
   useEffect(() => {
     fetchProducts();
-  }, [category, search]);
+  }, [fetchProducts]);
 
   const handleSearch = (e) => {
     e.preventDefault();

@@ -2,7 +2,17 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { addToCart } from '../services/api';
 import { useAuth } from '../context/AuthContext';
-import { Star, StarHalf, ShoppingBag, Info, Package, Smartphone, Laptop, Pencil, Trash2 } from 'lucide-react';
+import {
+  Star,
+  StarHalf,
+  ShoppingBag,
+  Info,
+  Package,
+  Smartphone,
+  Laptop,
+  Pencil,
+  Trash2,
+} from 'lucide-react';
 
 const categoryIcon = {
   smartphone: <Smartphone size={48} color="rgba(201,168,76,0.3)" />,
@@ -220,7 +230,12 @@ export default function ProductCard({ product, onEdit, onDelete }) {
           </span>
         )}
         <div style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>
-          Stock: {product.stock > 0 ? product.stock : <span style={{ color: '#fca5a5' }}>Out of stock</span>}
+          Stock:{' '}
+          {product.stock > 0 ? (
+            product.stock
+          ) : (
+            <span style={{ color: '#fca5a5' }}>Out of stock</span>
+          )}
         </div>
 
         <div style={{ ...s.actions, marginTop: 'auto', paddingTop: '12px' }}>

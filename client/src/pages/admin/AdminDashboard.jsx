@@ -227,7 +227,10 @@ export default function AdminDashboard() {
       .catch(() => {});
   const fetchOrders = () =>
     getAllOrders()
-      .then((r) => { setOrders(r.data.orders); setOrdersError(false); })
+      .then((r) => {
+        setOrders(r.data.orders);
+        setOrdersError(false);
+      })
       .catch(() => setOrdersError(true));
 
   useEffect(() => {
@@ -243,7 +246,7 @@ export default function AdminDashboard() {
       // Clear state without wiping the URL (?tab=products stays intact)
       navigate(location.pathname + location.search, { replace: true, state: null });
     }
-  }, [location.state]);
+  }, [location.state, location.pathname, location.search, navigate]);
 
   const setF = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
 
@@ -385,7 +388,12 @@ export default function AdminDashboard() {
               <div style={s.statCard} className="glass-panel skeuo-shadow">
                 <Clock size={22} color="var(--gold-primary)" />
                 <div style={s.statLabel}>Pending Orders</div>
-                <div style={{ ...s.statValue, color: pendingOrders > 0 ? '#fbbf24' : 'var(--gold-primary)' }}>
+                <div
+                  style={{
+                    ...s.statValue,
+                    color: pendingOrders > 0 ? '#fbbf24' : 'var(--gold-primary)',
+                  }}
+                >
                   {pendingOrders}
                 </div>
                 <div style={s.statSub}>awaiting fulfillment</div>
@@ -398,7 +406,17 @@ export default function AdminDashboard() {
                 <ReceiptText color="var(--gold-primary)" /> Recent Orders
               </div>
               {ordersError && (
-                <div style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', color: '#fca5a5', borderRadius: '8px', padding: '12px 16px', marginBottom: '16px', fontSize: '0.9rem' }}>
+                <div
+                  style={{
+                    background: 'rgba(239,68,68,0.1)',
+                    border: '1px solid rgba(239,68,68,0.3)',
+                    color: '#fca5a5',
+                    borderRadius: '8px',
+                    padding: '12px 16px',
+                    marginBottom: '16px',
+                    fontSize: '0.9rem',
+                  }}
+                >
                   Failed to load orders. Check your connection or re-login.
                 </div>
               )}
@@ -415,7 +433,13 @@ export default function AdminDashboard() {
                   <tbody>
                     {orders.slice(0, 5).map((o) => (
                       <tr key={o._id}>
-                        <td style={{ ...s.td, fontFamily: 'monospace', color: 'var(--gold-highlight)' }}>
+                        <td
+                          style={{
+                            ...s.td,
+                            fontFamily: 'monospace',
+                            color: 'var(--gold-highlight)',
+                          }}
+                        >
                           #{o._id.slice(-8).toUpperCase()}
                         </td>
                         <td style={s.td}>{o.user?.name || '—'}</td>
@@ -461,9 +485,13 @@ export default function AdminDashboard() {
             <div style={s.card} className="glass-panel skeuo-shadow">
               <div style={s.cardTitle}>
                 {editingId ? (
-                  <><Pencil color="var(--gold-primary)" /> Edit Product</>
+                  <>
+                    <Pencil color="var(--gold-primary)" /> Edit Product
+                  </>
                 ) : (
-                  <><PlusCircle color="var(--gold-primary)" /> Add New Product</>
+                  <>
+                    <PlusCircle color="var(--gold-primary)" /> Add New Product
+                  </>
                 )}
               </div>
               {msg && (
@@ -579,7 +607,12 @@ export default function AdminDashboard() {
                   {editingId && (
                     <button
                       type="button"
-                      style={{ ...s.btn, background: 'transparent', border: '1px solid var(--glass-border)', color: 'var(--text-muted)' }}
+                      style={{
+                        ...s.btn,
+                        background: 'transparent',
+                        border: '1px solid var(--glass-border)',
+                        color: 'var(--text-muted)',
+                      }}
                       onClick={cancelEdit}
                     >
                       Cancel
@@ -674,7 +707,17 @@ export default function AdminDashboard() {
               <ReceiptText color="var(--gold-primary)" /> All Orders ({orders.length})
             </div>
             {ordersError && (
-              <div style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', color: '#fca5a5', borderRadius: '8px', padding: '12px 16px', marginBottom: '16px', fontSize: '0.9rem' }}>
+              <div
+                style={{
+                  background: 'rgba(239,68,68,0.1)',
+                  border: '1px solid rgba(239,68,68,0.3)',
+                  color: '#fca5a5',
+                  borderRadius: '8px',
+                  padding: '12px 16px',
+                  marginBottom: '16px',
+                  fontSize: '0.9rem',
+                }}
+              >
                 Failed to load orders. Check your connection or re-login.
               </div>
             )}

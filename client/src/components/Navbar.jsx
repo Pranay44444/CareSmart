@@ -115,12 +115,7 @@ export default function Navbar() {
     <div style={s.container}>
       <nav style={s.nav} className="glass-panel" id="main-navbar">
         {/* Logo — links to /admin for admin, / for everyone else */}
-        <Link
-          to={isAdmin ? '/admin' : '/'}
-          style={s.logo}
-          className="font-playfair"
-          id="nav-logo"
-        >
+        <Link to={isAdmin ? '/admin' : '/'} style={s.logo} className="font-playfair" id="nav-logo">
           CareSmart
         </Link>
 
@@ -132,12 +127,7 @@ export default function Navbar() {
                 <Link to="/admin" style={s.activeLink} className="gold-glow" id="nav-dashboard">
                   <LayoutDashboard size={16} /> Dashboard
                 </Link>
-                <Link
-                  to="/products"
-                  style={s.link}
-                  className="gold-glow"
-                  id="nav-admin-catalog"
-                >
+                <Link to="/products" style={s.link} className="gold-glow" id="nav-admin-catalog">
                   <Package size={16} /> Catalog
                 </Link>
                 <Link
