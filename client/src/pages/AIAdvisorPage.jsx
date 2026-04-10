@@ -10,13 +10,13 @@ import { Bot, Fingerprint, Lock, Search, Package } from 'lucide-react';
 const s = {
   page: {
     minHeight: '100vh',
-    background: 'var(--bg-dark)',
+    background: 'var(--color-bg-base)',
     fontFamily: 'Inter, sans-serif',
-    color: 'var(--text-cream)',
+    color: 'var(--color-text-heading)',
   },
   hero: {
-    background: 'radial-gradient(ellipse at bottom, rgba(201,168,76,0.15) 0%, var(--bg-dark) 80%)',
-    borderBottom: '1px solid var(--glass-border)',
+    background: 'linear-gradient(160deg, var(--color-bg-surface) 0%, var(--color-bg-base) 60%)',
+    borderBottom: '1px solid var(--color-border-subtle)',
     padding: '64px 24px 48px',
   },
   heroInner: { maxWidth: '900px', margin: '0 auto', textAlign: 'center' },
@@ -24,33 +24,32 @@ const s = {
     display: 'inline-flex',
     alignItems: 'center',
     gap: '8px',
-    background: 'rgba(201,168,76,0.1)',
-    color: 'var(--gold-highlight)',
-    border: '1px solid rgba(201,168,76,0.3)',
+    background: 'var(--color-action-tint-bg)',
+    color: 'var(--color-action-primary)',
+    border: '1px solid var(--color-action-tint-border)',
     borderRadius: '999px',
     padding: '8px 20px',
     fontSize: '0.85rem',
     fontWeight: 600,
-    letterSpacing: '0.08em',
+    letterSpacing: '0.05em',
     marginBottom: '24px',
     textTransform: 'uppercase',
   },
   h1: {
-    fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-    fontWeight: 600,
+    fontSize: 'clamp(2rem, 5vw, 3.2rem)',
+    fontWeight: 800,
     lineHeight: 1.15,
     marginBottom: '20px',
-    color: 'var(--text-cream)',
-    fontFamily: 'Playfair Display, serif',
+    color: 'var(--color-text-heading)',
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
   },
   subtitle: {
-    color: 'var(--text-muted)',
+    color: 'var(--color-text-body)',
     fontSize: '1.1rem',
     lineHeight: 1.7,
     maxWidth: '640px',
     margin: '0 auto',
   },
-  // Profile prefill banner
   prefillBanner: {
     marginTop: '32px',
     padding: '16px 24px',
@@ -59,11 +58,14 @@ const s = {
     gap: '16px',
     justifyContent: 'center',
     fontSize: '0.95rem',
-    color: 'var(--text-cream)',
+    color: 'var(--color-text-heading)',
     width: 'fit-content',
     margin: '32px auto 0',
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-subtle)',
+    borderRadius: '12px',
+    boxShadow: 'var(--shadow-subtle)',
   },
-  // Login nudge
   loginBanner: {
     marginTop: '32px',
     padding: '16px 24px',
@@ -72,13 +74,15 @@ const s = {
     gap: '16px',
     justifyContent: 'center',
     fontSize: '0.95rem',
-    color: 'var(--text-cream)',
+    color: 'var(--color-text-heading)',
     width: 'fit-content',
     margin: '32px auto 0',
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-subtle)',
+    borderRadius: '12px',
+    boxShadow: 'var(--shadow-subtle)',
   },
-  // Main content
   main: { maxWidth: '900px', margin: '0 auto', padding: '64px 24px' },
-  // Matched products section
   matchSection: { marginTop: '64px' },
   matchHeader: {
     display: 'flex',
@@ -86,25 +90,25 @@ const s = {
     gap: '12px',
     marginBottom: '32px',
     paddingBottom: '16px',
-    borderBottom: '1px solid var(--glass-border)',
+    borderBottom: '1px solid var(--color-border-subtle)',
   },
   matchTitle: {
-    fontSize: '1.6rem',
-    fontWeight: 600,
-    color: 'var(--text-cream)',
-    fontFamily: 'Playfair Display, serif',
+    fontSize: '1.4rem',
+    fontWeight: 700,
+    color: 'var(--color-text-heading)',
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
     display: 'flex',
     alignItems: 'center',
     gap: '12px',
   },
   matchBadge: {
-    background: 'rgba(201,168,76,0.1)',
-    color: 'var(--gold-primary)',
+    background: 'var(--color-action-tint-bg)',
+    color: 'var(--color-action-primary)',
+    border: '1px solid var(--color-action-tint-border)',
     borderRadius: '999px',
-    padding: '6px 14px',
+    padding: '5px 14px',
     fontSize: '0.8rem',
     fontWeight: 600,
-    letterSpacing: '0.05em',
   },
   productGrid: {
     display: 'grid',
@@ -113,11 +117,14 @@ const s = {
   },
   emptyMatch: {
     textAlign: 'center',
-    color: 'var(--text-muted)',
+    color: 'var(--color-text-body)',
     padding: '48px',
     fontSize: '1.05rem',
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-subtle)',
+    borderRadius: '12px',
   },
-  loadingMatch: { textAlign: 'center', color: 'var(--gold-highlight)', padding: '24px' },
+  loadingMatch: { textAlign: 'center', color: 'var(--color-action-primary)', padding: '24px' },
   loginBtn: {
     display: 'inline-block',
     textDecoration: 'none',
@@ -129,13 +136,11 @@ const s = {
   },
 };
 
-// Map device type → product category for the backend query
 const categoryMap = { Smartphone: 'smartphone', Laptop: 'laptop', Tablet: 'smartphone' };
 
 export default function AIAdvisorPage() {
   const { user, isAuthenticated } = useAuth();
 
-  // Pull saved device profile from the authenticated user
   const savedProfile = user?.deviceProfile || null;
   const hasSavedProfile = !!(
     savedProfile?.deviceType &&
@@ -143,13 +148,11 @@ export default function AIAdvisorPage() {
     savedProfile?.model
   );
 
-  // Lifted state so we can react to recommendations from outside AIAdvisor
   const [recommendations, setRecommendations] = useState([]);
   const [lastDeviceType, setLastDeviceType] = useState('');
   const [matchedProducts, setMatchedProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(false);
 
-  // When recommendations come from AIAdvisor, fetch matching products
   const handleRecommendations = (recs, deviceType) => {
     setRecommendations(recs);
     setLastDeviceType(deviceType);
@@ -168,7 +171,6 @@ export default function AIAdvisorPage() {
       .finally(() => setLoadingProducts(false));
   }, [recommendations, lastDeviceType]);
 
-  // Initial form values — pre-fill from saved device profile if available
   const initialForm = hasSavedProfile
     ? {
         deviceType: savedProfile.deviceType || '',
@@ -187,33 +189,33 @@ export default function AIAdvisorPage() {
           <div style={s.badge}>
             <Bot size={16} /> Powered by Google Gemini
           </div>
-          <h1 style={s.h1}>AI Luxury Configurator</h1>
+          <h1 style={s.h1}>AI Accessory Advisor</h1>
           <p style={s.subtitle}>
-            Input your exact hardware specifications and discover a bespoke collection of protective
-            arrays and aesthetic enhancements.
+            Enter your device details and get personalized accessory recommendations
+            tailored to your usage and needs.
           </p>
 
           {isAuthenticated && hasSavedProfile && (
-            <div style={s.prefillBanner} className="glass-panel skeuo-shadow">
-              <Fingerprint size={24} color="var(--gold-highlight)" />
+            <div style={s.prefillBanner}>
+              <Fingerprint size={24} color="var(--color-action-primary)" />
               <span style={{ textAlign: 'left' }}>
-                <strong style={{ color: 'var(--gold-primary)' }}>Identity Synchronized</strong>{' '}
-                &mdash; parameters adapted from ({savedProfile.brand} {savedProfile.model}). <br />
-                <a href="/profile" style={{ color: 'var(--text-muted)', fontWeight: 500 }}>
-                  Calibrate preferences →
+                <strong style={{ color: 'var(--color-action-primary)' }}>Profile Detected</strong>{' '}
+                &mdash; using your saved {savedProfile.brand} {savedProfile.model}. <br />
+                <a href="/profile" style={{ color: 'var(--color-text-body)', fontWeight: 500 }}>
+                  Update preferences →
                 </a>
               </span>
             </div>
           )}
 
           {!isAuthenticated && (
-            <div style={s.loginBanner} className="glass-panel skeuo-shadow">
-              <Lock size={20} color="var(--gold-highlight)" />
+            <div style={s.loginBanner}>
+              <Lock size={20} color="var(--color-action-primary)" />
               <span style={{ textAlign: 'left' }}>
-                Create a member profile to seamlessly synchronize your hardware specifications.
+                Create an account to save your device profile for faster recommendations.
               </span>
               <a href="/register" style={s.loginBtn} className="shimmer-cta">
-                Enroll Now
+                Sign Up Free
               </a>
             </div>
           )}
@@ -229,31 +231,27 @@ export default function AIAdvisorPage() {
           <div style={s.matchSection}>
             <div style={s.matchHeader}>
               <div style={s.matchTitle}>
-                <Package size={24} color="var(--gold-primary)" /> Curated Allocations
+                <Package size={22} color="var(--color-action-primary)" /> Shop Matching Products
               </div>
               {matchedProducts.length > 0 && (
-                <span style={s.matchBadge}>{matchedProducts.length} exclusive items</span>
+                <span style={s.matchBadge}>{matchedProducts.length} items</span>
               )}
             </div>
 
             {loadingProducts && (
               <div style={s.loadingMatch}>
-                <Search
-                  size={24}
-                  className="gold-glow"
-                  style={{ animation: 'pulse-glow 2s infinite' }}
-                />{' '}
+                <Search size={24} />
                 <br />
                 <br />
-                Synthesizing matching products…
+                Finding matching products…
               </div>
             )}
 
             {!loadingProducts && matchedProducts.length === 0 && recommendations.length > 0 && (
-              <div style={s.emptyMatch} className="glass-panel">
-                We currently lack inventory matching this exact specification.{' '}
-                <a href="/products" style={{ color: 'var(--gold-highlight)', fontWeight: 600 }}>
-                  Review global catalog →
+              <div style={s.emptyMatch}>
+                No matching products found in our catalog.{' '}
+                <a href="/products" style={{ color: 'var(--color-action-primary)', fontWeight: 600 }}>
+                  Browse all products →
                 </a>
               </div>
             )}

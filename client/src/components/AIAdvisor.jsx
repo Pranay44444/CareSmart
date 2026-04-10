@@ -20,66 +20,69 @@ const usagePatterns = [
 ];
 
 const s = {
-  wrap: { fontFamily: 'Inter, sans-serif', color: 'var(--text-cream)' },
-  card: { padding: '32px' },
+  wrap: { fontFamily: 'Inter, sans-serif', color: 'var(--color-text-heading)' },
+  card: {
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-subtle)',
+    borderRadius: '12px',
+    padding: '32px',
+    boxShadow: 'var(--shadow-subtle)',
+  },
   title: {
     fontSize: '1.6rem',
-    fontWeight: 600,
+    fontWeight: 700,
     marginBottom: '8px',
     display: 'flex',
     alignItems: 'center',
     gap: '12px',
-    fontFamily: 'Playfair Display, serif',
-    color: 'var(--text-cream)',
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
+    color: 'var(--color-text-heading)',
   },
-  subtitle: { color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '32px' },
+  subtitle: { color: 'var(--color-text-body)', fontSize: '0.95rem', marginBottom: '32px' },
   grid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' },
   field: { display: 'flex', flexDirection: 'column', gap: '8px' },
   fieldFull: { display: 'flex', flexDirection: 'column', gap: '8px', gridColumn: '1 / -1' },
-  label: { color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: 600 },
+  label: { color: 'var(--color-text-label)', fontSize: '0.85rem', fontWeight: 600 },
   input: {
-    background: 'rgba(255,255,255,0.02)',
-    border: '1px solid var(--glass-border)',
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-strong)',
     borderRadius: '8px',
     padding: '12px 14px',
-    color: 'var(--text-cream)',
+    color: 'var(--color-text-heading)',
     fontSize: '0.95rem',
     outline: 'none',
     width: '100%',
     boxSizing: 'border-box',
-    transition: 'border-color 0.2s',
   },
   select: {
-    background: 'rgba(255,255,255,0.02)',
-    border: '1px solid var(--glass-border)',
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-strong)',
     borderRadius: '8px',
     padding: '12px 14px',
-    color: 'var(--text-cream)',
+    color: 'var(--color-text-heading)',
     fontSize: '0.95rem',
     outline: 'none',
     width: '100%',
     boxSizing: 'border-box',
     cursor: 'pointer',
-    transition: 'border-color 0.2s',
   },
   textarea: {
-    background: 'rgba(255,255,255,0.02)',
-    border: '1px solid var(--glass-border)',
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-strong)',
     borderRadius: '8px',
     padding: '12px 14px',
-    color: 'var(--text-cream)',
+    color: 'var(--color-text-heading)',
     fontSize: '0.95rem',
     outline: 'none',
     width: '100%',
     boxSizing: 'border-box',
     resize: 'vertical',
     minHeight: '100px',
-    transition: 'border-color 0.2s',
   },
   btn: (loading) => ({
     marginTop: '24px',
     width: '100%',
-    color: '#fff',
+    color: 'var(--color-bg-card)',
     border: 'none',
     borderRadius: '10px',
     padding: '16px',
@@ -90,13 +93,14 @@ const s = {
     alignItems: 'center',
     justifyContent: 'center',
     gap: '10px',
+    opacity: loading ? 0.7 : 1,
   }),
   spinner: {
     width: '18px',
     height: '18px',
     borderRadius: '50%',
     border: '2px solid rgba(255,255,255,0.3)',
-    borderTopColor: '#fff',
+    borderTopColor: 'var(--color-bg-card)',
     animation: 'spin 0.8s linear infinite',
   },
   resultGrid: {
@@ -105,12 +109,22 @@ const s = {
     gap: '24px',
     marginTop: '32px',
   },
-  recCard: { padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' },
-  recName: { fontWeight: 600, fontSize: '1.1rem', color: 'var(--text-cream)' },
+  recCard: {
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-subtle)',
+    borderRadius: '12px',
+    padding: '24px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
+    boxShadow: 'var(--shadow-subtle)',
+  },
+  recName: { fontWeight: 700, fontSize: '1.1rem', color: 'var(--color-text-heading)', fontFamily: "'Plus Jakarta Sans', sans-serif" },
   recCat: {
     display: 'inline-flex',
-    background: 'rgba(201,168,76,0.1)',
-    color: 'var(--gold-highlight)',
+    background: 'var(--color-action-tint-bg)',
+    color: 'var(--color-action-primary)',
+    border: '1px solid var(--color-action-tint-border)',
     borderRadius: '6px',
     padding: '4px 12px',
     fontSize: '0.75rem',
@@ -118,13 +132,13 @@ const s = {
     textTransform: 'uppercase',
   },
   riskBox: {
-    background: 'rgba(239,68,68,0.05)',
-    border: '1px solid rgba(239,68,68,0.2)',
-    borderRadius: '12px',
+    background: 'var(--color-error-bg)',
+    border: '1px solid var(--color-error-border)',
+    borderRadius: '10px',
     padding: '14px 16px',
   },
   riskLabel: {
-    color: '#fca5a5',
+    color: 'var(--color-error)',
     fontSize: '0.75rem',
     fontWeight: 600,
     marginBottom: '6px',
@@ -132,15 +146,15 @@ const s = {
     alignItems: 'center',
     gap: '6px',
   },
-  riskText: { color: 'var(--text-muted)', fontSize: '0.85rem', lineHeight: 1.6 },
+  riskText: { color: 'var(--color-text-body)', fontSize: '0.85rem', lineHeight: 1.6 },
   reasonBox: {
-    background: 'rgba(201,168,76,0.05)',
-    border: '1px solid rgba(201,168,76,0.2)',
-    borderRadius: '12px',
+    background: 'var(--color-success-bg)',
+    border: '1px solid var(--color-success-border)',
+    borderRadius: '10px',
     padding: '14px 16px',
   },
   reasonLabel: {
-    color: 'var(--gold-highlight)',
+    color: 'var(--color-success)',
     fontSize: '0.75rem',
     fontWeight: 600,
     marginBottom: '6px',
@@ -148,19 +162,20 @@ const s = {
     alignItems: 'center',
     gap: '6px',
   },
-  reasonText: { color: 'var(--text-muted)', fontSize: '0.85rem', lineHeight: 1.6 },
+  reasonText: { color: 'var(--color-text-body)', fontSize: '0.85rem', lineHeight: 1.6 },
   loginNote: {
     textAlign: 'center',
-    color: 'var(--text-muted)',
-    padding: '20px',
-    background: 'rgba(255,255,255,0.02)',
-    border: '1px solid var(--glass-border)',
-    borderRadius: '12px',
-    marginTop: '20px',
+    color: 'var(--color-text-body)',
+    padding: '16px',
+    background: 'var(--color-bg-surface)',
+    border: '1px solid var(--color-border-subtle)',
+    borderRadius: '10px',
+    marginBottom: '24px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     gap: '8px',
+    fontSize: '0.9rem',
   },
 };
 
@@ -207,24 +222,23 @@ export default function AIAdvisor() {
 
   return (
     <div style={s.wrap}>
-      {/* Keyframes injection */}
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
 
-      <div style={s.card} className="glass-panel skeuo-shadow">
+      <div style={s.card}>
         <div style={s.title}>
-          <Bot size={24} color="var(--gold-primary)" /> Advisor Diagnostics
+          <Bot size={24} color="var(--color-action-primary)" /> AI Advisor
         </div>
         <div style={s.subtitle}>
-          Synthesize personalized protective arrays tailored to your hardware parameters.
+          Get personalized accessory recommendations tailored to your device and usage.
         </div>
 
         {!isAuthenticated && (
           <div style={s.loginNote}>
-            <Lock size={16} color="var(--gold-primary)" />{' '}
-            <a href="/login" style={{ color: 'var(--gold-highlight)', fontWeight: 600 }}>
-              Authenticate
+            <Lock size={16} color="var(--color-action-primary)" />{' '}
+            <a href="/login" style={{ color: 'var(--color-action-primary)', fontWeight: 600 }}>
+              Sign in
             </a>{' '}
-            to unlock identity-based recommendations.
+            to get identity-based recommendations.
           </div>
         )}
 
@@ -234,6 +248,7 @@ export default function AIAdvisor() {
               <label style={s.label}>Device Type *</label>
               <select
                 id="ai-device-type"
+                className="input-field"
                 style={s.select}
                 value={form.deviceType}
                 onChange={(e) => {
@@ -254,6 +269,7 @@ export default function AIAdvisor() {
               <label style={s.label}>Brand *</label>
               <select
                 id="ai-brand"
+                className="input-field"
                 style={s.select}
                 value={form.brand}
                 onChange={set('brand')}
@@ -271,6 +287,7 @@ export default function AIAdvisor() {
               <label style={s.label}>Model *</label>
               <input
                 id="ai-model"
+                className="input-field"
                 style={s.input}
                 placeholder="e.g. iPhone 15, Galaxy S23"
                 value={form.model}
@@ -282,6 +299,7 @@ export default function AIAdvisor() {
               <label style={s.label}>Usage Pattern</label>
               <select
                 id="ai-usage"
+                className="input-field"
                 style={s.select}
                 value={form.usagePattern}
                 onChange={set('usagePattern')}
@@ -298,6 +316,7 @@ export default function AIAdvisor() {
               <label style={s.label}>Current Issues / Concerns</label>
               <textarea
                 id="ai-issues"
+                className="input-field"
                 style={s.textarea}
                 placeholder="e.g. battery drains fast, screen cracks easily, gets hot during gaming…"
                 value={form.issues}
@@ -308,34 +327,33 @@ export default function AIAdvisor() {
 
           <button
             id="ai-submit"
-            style={{ ...s.btn(loading), background: loading ? 'rgba(201,168,76,0.3)' : undefined }}
+            style={s.btn(loading)}
             className={loading ? '' : 'shimmer-cta'}
             type="submit"
             disabled={loading}
           >
             {loading ? (
               <>
-                <div style={s.spinner} /> Synthesizing data points…
+                <div style={s.spinner} /> Finding recommendations…
               </>
             ) : (
               <>
-                <Sparkles size={20} /> Calculate Optimal Arrays
+                <Sparkles size={20} /> Get Recommendations
               </>
             )}
           </button>
         </form>
       </div>
 
-      {/* Results */}
       {submitted && !loading && (
         <>
           {error && (
             <div
               style={{
-                background: 'rgba(239,68,68,0.1)',
-                border: '1px solid rgba(239,68,68,0.25)',
-                color: '#fca5a5',
-                borderRadius: '12px',
+                background: 'var(--color-error-bg)',
+                border: '1px solid var(--color-error-border)',
+                color: 'var(--color-error)',
+                borderRadius: '10px',
                 padding: '14px 18px',
                 marginTop: '16px',
                 fontSize: '0.9rem',
@@ -350,26 +368,21 @@ export default function AIAdvisor() {
                 style={{
                   marginTop: '40px',
                   marginBottom: '8px',
-                  fontWeight: 600,
-                  color: 'var(--text-cream)',
+                  fontWeight: 700,
+                  color: 'var(--color-text-heading)',
                   fontSize: '1.25rem',
-                  fontFamily: 'Playfair Display, serif',
+                  fontFamily: "'Plus Jakarta Sans', sans-serif",
                   display: 'flex',
                   alignItems: 'center',
                   gap: '10px',
                 }}
               >
-                <Target size={24} color="var(--gold-primary)" /> {recs.length} Precision Alignment
+                <Target size={24} color="var(--color-action-primary)" /> {recs.length} Recommendation
                 {recs.length !== 1 ? 's' : ''} for {form.brand} {form.model}
               </div>
               <div style={s.resultGrid}>
                 {recs.map((rec, i) => (
-                  <div
-                    key={i}
-                    style={s.recCard}
-                    id={`rec-${i}`}
-                    className="glass-panel skeuo-shadow"
-                  >
+                  <div key={i} style={s.recCard} id={`rec-${i}`}>
                     <div
                       style={{
                         display: 'flex',
@@ -383,13 +396,13 @@ export default function AIAdvisor() {
                     </div>
                     <div style={s.riskBox}>
                       <div style={s.riskLabel}>
-                        <AlertTriangle size={14} /> DETECTED VULNERABILITY
+                        <AlertTriangle size={14} /> WHY YOU NEED IT
                       </div>
                       <div style={s.riskText}>{rec.risk}</div>
                     </div>
                     <div style={s.reasonBox}>
                       <div style={s.reasonLabel}>
-                        <ShieldCheck size={14} /> PROTECTIVE SYNERGY
+                        <ShieldCheck size={14} /> HOW IT HELPS
                       </div>
                       <div style={s.reasonText}>{rec.reason}</div>
                     </div>
@@ -399,7 +412,7 @@ export default function AIAdvisor() {
             </>
           )}
           {recs.length === 0 && !error && (
-            <div style={{ color: '#94a3b8', textAlign: 'center', marginTop: '20px' }}>
+            <div style={{ color: 'var(--color-text-body)', textAlign: 'center', marginTop: '20px' }}>
               No recommendations returned. Try adjusting your inputs.
             </div>
           )}
