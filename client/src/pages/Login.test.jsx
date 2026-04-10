@@ -31,8 +31,7 @@ describe('Login Page', () => {
         <Login />
       </BrowserRouter>
     );
-    // Luxury UI redesign changed placeholder to match security-themed copy
-    expect(screen.getByPlaceholderText('alias@domain.com')).toBeDefined();
+    expect(screen.getByPlaceholderText('you@example.com')).toBeDefined();
   });
 
   test('renders password input', () => {
@@ -52,8 +51,7 @@ describe('Login Page', () => {
         <Login />
       </BrowserRouter>
     );
-    // Luxury UI uses "Secure Login" instead of "Sign In"
-    expect(screen.getByRole('button', { name: /Secure Login/i })).toBeDefined();
+    expect(screen.getByRole('button', { name: /Sign In/i })).toBeDefined();
   });
 
   test('shows error message on login fail', async () => {
@@ -68,13 +66,13 @@ describe('Login Page', () => {
       </BrowserRouter>
     );
 
-    fireEvent.change(screen.getByPlaceholderText('alias@domain.com'), {
+    fireEvent.change(screen.getByPlaceholderText('you@example.com'), {
       target: { value: 'test@test.com' },
     });
     fireEvent.change(screen.getByPlaceholderText('••••••••'), {
       target: { value: 'wrong' },
     });
-    fireEvent.click(screen.getByRole('button', { name: /Secure Login/i }));
+    fireEvent.click(screen.getByRole('button', { name: /Sign In/i }));
 
     await waitFor(() => {
       expect(screen.getByText('Invalid credentials')).toBeDefined();
@@ -88,7 +86,6 @@ describe('Login Page', () => {
         <Login />
       </BrowserRouter>
     );
-    // Luxury UI uses "Enroll here" instead of "Create one"
-    expect(screen.getByText('Enroll here')).toBeDefined();
+    expect(screen.getByText('Sign up')).toBeDefined();
   });
 });

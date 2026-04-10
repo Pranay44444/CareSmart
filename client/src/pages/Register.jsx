@@ -5,78 +5,78 @@ import { useAuth } from '../context/AuthContext';
 const s = {
   page: {
     minHeight: '100vh',
-    background: 'var(--bg-dark)',
+    background: 'var(--color-bg-base)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     fontFamily: 'Inter, sans-serif',
     padding: '24px',
-    position: 'relative',
-    overflow: 'hidden',
   },
   card: {
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-subtle)',
+    borderRadius: '16px',
+    boxShadow: 'var(--shadow-medium)',
     padding: '48px 40px',
     width: '100%',
-    maxWidth: '440px',
+    maxWidth: '420px',
     display: 'flex',
     flexDirection: 'column',
-    position: 'relative',
-    zIndex: 10,
   },
   logo: { textAlign: 'center', marginBottom: '32px' },
   logoText: {
-    fontSize: '2.2rem',
-    fontWeight: 600,
-    color: 'var(--gold-primary)',
-    fontFamily: 'Playfair Display, serif',
+    fontSize: '2rem',
+    fontWeight: 800,
+    color: 'var(--color-action-primary)',
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
+    letterSpacing: '-0.02em',
   },
-  subtitle: { color: 'var(--text-muted)', fontSize: '0.95rem', marginTop: '8px' },
+  subtitle: { color: 'var(--color-text-body)', fontSize: '0.95rem', marginTop: '6px' },
   label: {
     display: 'block',
-    color: 'var(--text-muted)',
-    fontSize: '0.9rem',
-    marginBottom: '8px',
+    color: 'var(--color-text-label)',
+    fontSize: '0.875rem',
+    marginBottom: '6px',
     fontWeight: 500,
   },
   input: {
     width: '100%',
-    background: 'rgba(255,255,255,0.02)',
-    border: '1px solid var(--glass-border)',
-    borderRadius: '10px',
-    padding: '14px 16px',
-    color: 'var(--text-cream)',
-    fontSize: '1rem',
-    marginBottom: '24px',
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-strong)',
+    borderRadius: '8px',
+    padding: '12px 14px',
+    color: 'var(--color-text-heading)',
+    fontSize: '0.95rem',
+    marginBottom: '20px',
     boxSizing: 'border-box',
     outline: 'none',
-    transition: 'border-color 0.2s',
   },
   btn: {
     width: '100%',
     border: 'none',
-    borderRadius: '10px',
-    padding: '16px',
-    fontSize: '1.05rem',
+    borderRadius: '8px',
+    padding: '13px',
+    fontSize: '1rem',
     fontWeight: 600,
     cursor: 'pointer',
-    marginTop: '8px',
+    marginTop: '4px',
   },
   error: {
-    background: 'rgba(239,68,68,0.1)',
-    border: '1px solid rgba(239,68,68,0.3)',
-    color: '#fca5a5',
-    borderRadius: '10px',
-    padding: '14px 16px',
-    marginBottom: '24px',
-    fontSize: '0.9rem',
+    background: 'var(--color-error-bg)',
+    border: '1px solid var(--color-error-border)',
+    color: 'var(--color-error)',
+    borderRadius: '8px',
+    padding: '12px 14px',
+    marginBottom: '20px',
+    fontSize: '0.875rem',
   },
   footer: {
     textAlign: 'center',
-    marginTop: '32px',
-    color: 'var(--text-muted)',
-    fontSize: '0.95rem',
+    marginTop: '28px',
+    color: 'var(--color-text-body)',
+    fontSize: '0.9rem',
   },
-  link: { color: 'var(--gold-highlight)', textDecoration: 'none', fontWeight: 600 },
+  link: { color: 'var(--color-action-primary)', textDecoration: 'none', fontWeight: 600 },
 };
 
 export default function Register() {
@@ -108,44 +108,44 @@ export default function Register() {
 
   return (
     <div style={s.page}>
-      <div style={s.card} className="glass-panel skeuo-shadow">
+      <div style={s.card}>
         <div style={s.logo}>
-          <div style={s.logoText}>CareSmart&trade;</div>
-          <div style={s.subtitle}>Initiate your membership</div>
+          <div style={s.logoText}>CareSmart</div>
+          <div style={s.subtitle}>Create your account — it&apos;s free</div>
         </div>
         {error && <div style={s.error}>{error}</div>}
         <form onSubmit={handleSubmit}>
-          <label style={s.label}>Full Identity Name</label>
+          <label style={s.label}>Full Name</label>
           <input
             id="reg-name"
+            className="input-field"
             style={s.input}
-            className="gold-glow"
             type="text"
             value={form.name}
             onChange={set('name')}
-            placeholder="Primary Holder Name"
+            placeholder="Your name"
             required
           />
-          <label style={s.label}>Security Clearance (Email)</label>
+          <label style={s.label}>Email Address</label>
           <input
             id="reg-email"
+            className="input-field"
             style={s.input}
-            className="gold-glow"
             type="email"
             value={form.email}
             onChange={set('email')}
-            placeholder="alias@domain.com"
+            placeholder="you@example.com"
             required
           />
-          <label style={s.label}>Access Code (Password)</label>
+          <label style={s.label}>Password</label>
           <input
             id="reg-password"
+            className="input-field"
             style={s.input}
-            className="gold-glow"
             type="password"
             value={form.password}
             onChange={set('password')}
-            placeholder="Min. 6 encrypted characters"
+            placeholder="Min. 6 characters"
             required
           />
           <button
@@ -155,13 +155,13 @@ export default function Register() {
             type="submit"
             disabled={loading}
           >
-            {loading ? 'Generating credentials…' : 'Finalize Identity'}
+            {loading ? 'Creating account…' : 'Create Account'}
           </button>
         </form>
         <div style={s.footer}>
-          Already hold security clearance?{' '}
+          Already have an account?{' '}
           <Link to="/login" style={s.link}>
-            Authenticate
+            Sign in
           </Link>
         </div>
       </div>
