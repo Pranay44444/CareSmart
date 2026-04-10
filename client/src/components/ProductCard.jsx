@@ -15,100 +15,99 @@ import {
 } from 'lucide-react';
 
 const categoryIcon = {
-  smartphone: <Smartphone size={48} color="rgba(201,168,76,0.3)" />,
-  laptop: <Laptop size={48} color="rgba(201,168,76,0.3)" />,
+  smartphone: <Smartphone size={48} color="var(--color-action-tint-border)" />,
+  laptop: <Laptop size={48} color="var(--color-action-tint-border)" />,
 };
 
 const s = {
   imgBox: {
-    height: '220px',
+    height: '200px',
     position: 'relative',
-    background: 'radial-gradient(ellipse at center, rgba(201,168,76,0.05) 0%, var(--bg-dark) 100%)',
+    background: 'var(--color-bg-base)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
-    borderBottom: '1px solid var(--glass-border)',
+    borderBottom: '1px solid var(--color-border-subtle)',
   },
   img: { width: '100%', height: '100%', objectFit: 'cover' },
-  body: { padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '10px' },
+  body: { padding: '20px', flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' },
   badge: {
     display: 'inline-block',
-    background: 'rgba(201,168,76,0.1)',
-    color: 'var(--gold-highlight)',
-    border: '1px solid rgba(201,168,76,0.2)',
+    background: 'var(--color-action-tint-bg)',
+    color: 'var(--color-action-primary)',
+    border: '1px solid var(--color-action-tint-border)',
     borderRadius: '6px',
-    padding: '4px 12px',
-    fontSize: '0.75rem',
+    padding: '3px 10px',
+    fontSize: '0.72rem',
     fontWeight: 600,
     width: 'fit-content',
     textTransform: 'uppercase',
     letterSpacing: '0.05em',
   },
-  name: { color: 'var(--text-cream)', fontWeight: 600, fontSize: '1.1rem', lineHeight: 1.4 },
-  subCat: { color: 'var(--text-muted)', fontSize: '0.85rem' },
+  name: { color: 'var(--color-text-heading)', fontWeight: 600, fontSize: '1rem', lineHeight: 1.4 },
+  subCat: { color: 'var(--color-text-muted)', fontSize: '0.82rem' },
   price: {
-    color: 'var(--gold-primary)',
+    color: 'var(--color-action-primary)',
     fontWeight: 700,
-    fontSize: '1.4rem',
-    marginTop: '4px',
-    fontFamily: 'Playfair Display, serif',
+    fontSize: '1.3rem',
+    marginTop: '2px',
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
   },
   stars: {
-    color: 'var(--gold-highlight)',
+    color: 'var(--color-star)',
     fontSize: '0.85rem',
     display: 'flex',
     alignItems: 'center',
     gap: '2px',
   },
-  reviewCount: { color: 'var(--text-muted)', fontSize: '0.8rem', marginLeft: '6px' },
-  actions: { display: 'flex', gap: '12px', marginTop: '12px' },
+  reviewCount: { color: 'var(--color-text-muted)', fontSize: '0.78rem', marginLeft: '6px' },
+  actions: { display: 'flex', gap: '8px', marginTop: '8px' },
   btnView: {
     flex: 1,
-    color: 'var(--text-cream)',
-    border: '1px solid var(--glass-border)',
+    color: 'var(--color-text-body)',
+    border: '1px solid var(--color-border-subtle)',
     borderRadius: '8px',
-    padding: '10px 0',
+    padding: '9px 0',
     fontWeight: 600,
-    fontSize: '0.9rem',
+    fontSize: '0.875rem',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: '6px',
+    gap: '5px',
     textDecoration: 'none',
     cursor: 'pointer',
-    transition: 'all 0.2s',
-    backgroundColor: 'transparent',
+    backgroundColor: 'var(--color-bg-card)',
   },
   btnCart: (loading) => ({
     flex: 1,
     border: 'none',
     borderRadius: '8px',
-    padding: '10px 0',
+    padding: '9px 0',
     fontWeight: 600,
-    fontSize: '0.9rem',
+    fontSize: '0.875rem',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: '6px',
+    gap: '5px',
     cursor: loading ? 'not-allowed' : 'pointer',
-    transition: 'opacity 0.2s',
-    opacity: loading ? 0.7 : 1,
+    transition: 'opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out)',
+    opacity: loading ? 0.6 : 1,
   }),
   toast: (ok) => ({
     position: 'absolute',
-    bottom: '12px',
+    bottom: '10px',
     left: '50%',
     transform: 'translateX(-50%)',
-    background: ok ? 'rgba(201,168,76,0.9)' : 'rgba(239,68,68,0.9)',
-    color: ok ? '#000' : '#fff',
+    background: ok ? 'var(--color-success)' : 'var(--color-error)',
+    color: 'var(--color-bg-card)',
     borderRadius: '8px',
-    padding: '8px 16px',
-    fontSize: '0.85rem',
+    padding: '7px 14px',
+    fontSize: '0.82rem',
     fontWeight: 600,
     whiteSpace: 'nowrap',
     zIndex: 10,
-    boxShadow: '0 4px 20px rgba(0,0,0,0.5)',
+    boxShadow: 'var(--shadow-medium)',
   }),
 };
 
@@ -126,7 +125,7 @@ const Stars = ({ rating, count }) => {
       {[...Array(empty)].map((_, i) => (
         <Star key={`e-${i}`} size={14} opacity={0.3} />
       ))}
-      <span style={{ color: 'var(--text-cream)', fontWeight: 600, marginLeft: '4px' }}>
+      <span style={{ color: 'var(--color-text-heading)', fontWeight: 600, marginLeft: '4px' }}>
         {rating?.toFixed(1)}
       </span>
       <span style={s.reviewCount}>({count} reviews)</span>
@@ -182,7 +181,7 @@ export default function ProductCard({ product, onEdit, onDelete }) {
           <img src={product.image} alt={product.name} style={s.img} />
         ) : (
           <span>
-            {categoryIcon[product.category] || <Package size={48} color="rgba(201,168,76,0.3)" />}
+            {categoryIcon[product.category] || <Package size={48} color="var(--color-action-tint-border)" />}
           </span>
         )}
         {toast && <div style={s.toast(toast.ok)}>{toast.msg}</div>}
@@ -192,18 +191,18 @@ export default function ProductCard({ product, onEdit, onDelete }) {
               position: 'absolute',
               top: '10px',
               right: '10px',
-              background: 'rgba(201,168,76,0.15)',
-              border: '1px solid rgba(201,168,76,0.3)',
+              background: 'var(--color-action-tint-bg)',
+              border: '1px solid var(--color-action-tint-border)',
               borderRadius: '6px',
               padding: '3px 8px',
               fontSize: '0.7rem',
               fontWeight: 700,
-              color: 'var(--gold-highlight)',
+              color: 'var(--color-action-primary)',
               letterSpacing: '0.08em',
               textTransform: 'uppercase',
             }}
           >
-            Admin View
+            Admin
           </div>
         )}
       </div>
@@ -219,8 +218,8 @@ export default function ProductCard({ product, onEdit, onDelete }) {
         ) : (
           <span
             style={{
-              color: 'var(--text-muted)',
-              fontSize: '0.85rem',
+              color: 'var(--color-text-muted)',
+              fontSize: '0.82rem',
               display: 'flex',
               alignItems: 'center',
               gap: '4px',
@@ -229,12 +228,12 @@ export default function ProductCard({ product, onEdit, onDelete }) {
             <Star size={14} opacity={0.3} /> No reviews yet
           </span>
         )}
-        <div style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>
+        <div style={{ color: 'var(--color-text-muted)', fontSize: '0.78rem' }}>
           Stock:{' '}
           {product.stock > 0 ? (
             product.stock
           ) : (
-            <span style={{ color: '#fca5a5' }}>Out of stock</span>
+            <span style={{ color: 'var(--color-error)', fontWeight: 600 }}>Out of stock</span>
           )}
         </div>
 
@@ -242,7 +241,7 @@ export default function ProductCard({ product, onEdit, onDelete }) {
           <Link
             to={`/products/${product._id}`}
             style={s.btnView}
-            className="gold-glow"
+            className="btn-outline"
             id={`view-${product._id}`}
           >
             <Info size={16} /> Details
@@ -253,11 +252,12 @@ export default function ProductCard({ product, onEdit, onDelete }) {
             <>
               <button
                 id={`edit-${product._id}`}
+                className="btn-outline"
                 style={{
                   ...s.btnCart(false),
-                  background: 'rgba(201,168,76,0.1)',
-                  border: '1px solid rgba(201,168,76,0.3)',
-                  color: 'var(--gold-highlight)',
+                  background: 'var(--color-action-tint-bg)',
+                  border: '1px solid var(--color-action-tint-border)',
+                  color: 'var(--color-action-primary)',
                 }}
                 onClick={() => onEdit?.(product)}
               >
@@ -265,11 +265,12 @@ export default function ProductCard({ product, onEdit, onDelete }) {
               </button>
               <button
                 id={`delete-${product._id}`}
+                className="btn-danger"
                 style={{
                   ...s.btnCart(false),
-                  background: 'rgba(239,68,68,0.08)',
-                  border: '1px solid rgba(239,68,68,0.25)',
-                  color: '#fca5a5',
+                  background: 'var(--color-error-bg)',
+                  border: '1px solid var(--color-error-border)',
+                  color: 'var(--color-error)',
                   flex: 'none',
                   padding: '10px 14px',
                 }}

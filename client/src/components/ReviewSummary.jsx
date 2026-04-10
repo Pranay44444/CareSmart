@@ -4,35 +4,35 @@ import { summarizeReviews as summarizeReviewsAPI } from '../services/api';
 const s = {
   wrap: { fontFamily: 'Inter, sans-serif' },
   btn: (loading) => ({
-    background: loading ? 'rgba(99,102,241,0.4)' : 'linear-gradient(135deg, #6366f1, #3b82f6)',
-    color: '#fff',
+    background: loading ? 'var(--color-action-disabled)' : 'var(--color-action-primary)',
+    color: 'var(--color-bg-card)',
     border: 'none',
-    borderRadius: '10px',
-    padding: '11px 24px',
-    fontWeight: 700,
+    borderRadius: '8px',
+    padding: '10px 20px',
+    fontWeight: 600,
     fontSize: '0.9rem',
     cursor: loading ? 'not-allowed' : 'pointer',
     display: 'inline-flex',
     alignItems: 'center',
     gap: '8px',
-    transition: 'opacity 0.2s',
+    transition: 'background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out)',
   }),
   spinner: {
     width: '14px',
     height: '14px',
     borderRadius: '50%',
     border: '2px solid rgba(255,255,255,0.3)',
-    borderTopColor: '#fff',
+    borderTopColor: 'var(--color-bg-card)',
     animation: 'spin 0.8s linear infinite',
     flexShrink: 0,
   },
   summaryBox: {
     marginTop: '16px',
-    background: 'linear-gradient(135deg, rgba(99,102,241,0.08), rgba(59,130,246,0.08))',
-    border: '1px solid rgba(99,179,237,0.25)',
-    borderRadius: '14px',
+    background: 'var(--color-action-tint-bg)',
+    border: '1px solid var(--color-action-tint-border)',
+    borderRadius: '12px',
     padding: '20px 24px',
-    color: '#cbd5e0',
+    color: 'var(--color-text-heading)',
     lineHeight: 1.75,
     fontSize: '0.95rem',
   },
@@ -40,14 +40,14 @@ const s = {
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
-    color: '#63b3ed',
+    color: 'var(--color-action-primary)',
     fontWeight: 700,
     fontSize: '0.8rem',
     textTransform: 'uppercase',
     letterSpacing: '0.08em',
     marginBottom: '10px',
   },
-  empty: { color: '#64748b', fontSize: '0.85rem', fontStyle: 'italic', marginTop: '12px' },
+  empty: { color: 'var(--color-text-muted)', fontSize: '0.85rem', fontStyle: 'italic', marginTop: '12px' },
 };
 
 export default function ReviewSummary({ reviews = [] }) {
@@ -77,11 +77,11 @@ export default function ReviewSummary({ reviews = [] }) {
 
   return (
     <div style={s.wrap} id="review-summary-widget">
-      {/* Inject keyframes once */}
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
 
       <button
         id="summarize-btn"
+        className="shimmer-cta"
         style={s.btn(loading)}
         onClick={handleSummarize}
         disabled={loading || reviews.length === 0}
@@ -106,9 +106,9 @@ export default function ReviewSummary({ reviews = [] }) {
         <div
           style={{
             ...s.summaryBox,
-            background: 'rgba(239,68,68,0.07)',
-            borderColor: 'rgba(239,68,68,0.2)',
-            color: '#fca5a5',
+            background: 'var(--color-error-bg)',
+            borderColor: 'var(--color-error-border)',
+            color: 'var(--color-error)',
             marginTop: '12px',
           }}
         >
