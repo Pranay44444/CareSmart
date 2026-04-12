@@ -7,13 +7,13 @@ import ProductCard from '../components/ProductCard';
 const s = {
   page: {
     minHeight: '100vh',
-    background: 'var(--bg-dark)',
+    background: 'var(--color-bg-base)',
     fontFamily: 'Inter, sans-serif',
-    color: 'var(--text-cream)',
+    color: 'var(--color-text-heading)',
     paddingBottom: '64px',
   },
   header: {
-    padding: '32px 24px',
+    padding: '32px 24px 24px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -22,47 +22,56 @@ const s = {
     maxWidth: '1200px',
     margin: '0 auto',
   },
-  title: { fontSize: '2rem', fontWeight: 600, color: 'var(--text-cream)' },
-  filters: { display: 'flex', gap: '16px', flexWrap: 'wrap' },
+  title: {
+    fontSize: '1.75rem',
+    fontWeight: 800,
+    color: 'var(--color-text-heading)',
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
+    letterSpacing: '-0.02em',
+  },
+  filters: { display: 'flex', gap: '10px', flexWrap: 'wrap' },
   select: {
-    background: 'var(--bg-dark)',
-    border: '1px solid var(--glass-border)',
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-strong)',
     borderRadius: '8px',
-    padding: '12px 16px',
-    color: 'var(--text-cream)',
-    fontSize: '0.95rem',
+    padding: '10px 14px',
+    color: 'var(--color-text-label)',
+    fontSize: '0.9rem',
     outline: 'none',
     cursor: 'pointer',
-    transition: 'border-color 0.2s',
+    width: '200px',
+    height: '44px',
+    boxSizing: 'border-box',
   },
   input: {
-    background: 'rgba(255,255,255,0.02)',
-    border: '1px solid var(--glass-border)',
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-strong)',
     borderRadius: '8px',
-    padding: '12px 16px',
-    color: 'var(--text-cream)',
-    fontSize: '0.95rem',
+    padding: '10px 14px',
+    color: 'var(--color-text-heading)',
+    fontSize: '0.9rem',
     outline: 'none',
-    width: '260px',
-    transition: 'border-color 0.2s',
+    width: '240px',
+    height: '44px',
+    boxSizing: 'border-box',
   },
   main: { padding: '0 24px', maxWidth: '1200px', margin: '0 auto' },
   grid: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-    gap: '32px',
+    gap: '24px',
   },
   loading: {
     textAlign: 'center',
-    color: 'var(--text-muted)',
+    color: 'var(--color-text-body)',
     padding: '100px 24px',
-    fontSize: '1.2rem',
+    fontSize: '1.1rem',
   },
   empty: {
     textAlign: 'center',
-    color: 'var(--gold-highlight)',
+    color: 'var(--color-action-primary)',
     padding: '100px 24px',
-    fontSize: '1.1rem',
+    fontSize: '1.05rem',
   },
 };
 
@@ -115,9 +124,9 @@ export default function Products() {
       {isAdmin && (
         <div
           style={{
-            background: 'rgba(201,168,76,0.06)',
-            borderBottom: '1px solid rgba(201,168,76,0.15)',
-            padding: '12px 24px',
+            background: 'var(--color-action-tint-bg)',
+            borderBottom: '1px solid var(--color-action-tint-border)',
+            padding: '10px 24px',
           }}
         >
           <div
@@ -131,18 +140,17 @@ export default function Products() {
               gap: '12px',
             }}
           >
-            <span style={{ color: 'var(--gold-highlight)', fontWeight: 600, fontSize: '0.9rem' }}>
+            <span style={{ color: 'var(--color-action-primary)', fontWeight: 600, fontSize: '0.875rem' }}>
               Admin Catalog View — edit or remove products directly from cards below.
             </span>
             <div style={{ display: 'flex', gap: '8px' }}>
               <button
                 onClick={() => navigate('/admin?tab=products')}
+                className="shimmer-cta"
                 style={{
-                  background: 'rgba(201,168,76,0.1)',
-                  border: '1px solid rgba(201,168,76,0.3)',
+                  border: 'none',
                   borderRadius: '8px',
                   padding: '8px 16px',
-                  color: 'var(--gold-highlight)',
                   fontWeight: 600,
                   fontSize: '0.85rem',
                   cursor: 'pointer',
@@ -151,16 +159,17 @@ export default function Products() {
                   gap: '6px',
                 }}
               >
-                <PlusCircle size={15} /> Add New Product
+                <PlusCircle size={15} /> Add Product
               </button>
               <button
                 onClick={() => navigate('/admin')}
+                className="btn-outline"
                 style={{
-                  background: 'transparent',
-                  border: '1px solid var(--glass-border)',
+                  background: 'var(--color-bg-card)',
+                  border: '1px solid var(--color-border-strong)',
                   borderRadius: '8px',
                   padding: '8px 16px',
-                  color: 'var(--text-muted)',
+                  color: 'var(--color-text-label)',
                   fontWeight: 600,
                   fontSize: '0.85rem',
                   cursor: 'pointer',
@@ -181,7 +190,7 @@ export default function Products() {
           <div style={s.title} className="font-playfair">
             {isAdmin ? 'Catalog Management' : 'Luxury Catalog'}
           </div>
-          <div style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginTop: '4px' }}>
+          <div style={{ color: 'var(--color-text-body)', fontSize: '0.9rem', marginTop: '4px' }}>
             {isAdmin
               ? `${products.length} products in catalog — edit or remove as needed.`
               : `${products.length} exclusive items tailored to you.`}
@@ -191,7 +200,7 @@ export default function Products() {
           <select
             id="filter-category"
             style={s.select}
-            className="gold-glow"
+            className="input-field"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -204,7 +213,7 @@ export default function Products() {
               <input
                 id="search-input"
                 style={s.input}
-                className="gold-glow"
+                className="input-field"
                 placeholder="Search accessories…"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
@@ -212,7 +221,7 @@ export default function Products() {
             </div>
             <button
               type="submit"
-              style={{ ...s.select, padding: '12px 20px', display: 'flex', alignItems: 'center' }}
+              style={{ ...s.select, width: 'auto', padding: '0 20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               className="shimmer-cta"
             >
               <Search size={16} />

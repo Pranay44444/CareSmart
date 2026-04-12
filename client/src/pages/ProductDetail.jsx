@@ -9,14 +9,14 @@ import { Star, StarHalf, ArrowLeft, ShieldCheck, Cpu, MessagesSquare } from 'luc
 const s = {
   page: {
     minHeight: '100vh',
-    background: 'var(--bg-dark)',
+    background: 'var(--color-bg-base)',
     fontFamily: 'Inter, sans-serif',
-    color: 'var(--text-cream)',
+    color: 'var(--color-text-heading)',
     padding: '40px 24px',
     paddingBottom: '120px',
   },
   back: {
-    color: 'var(--text-muted)',
+    color: 'var(--color-text-body)',
     textDecoration: 'none',
     fontSize: '0.95rem',
     display: 'flex',
@@ -24,7 +24,7 @@ const s = {
     gap: '8px',
     marginBottom: '40px',
     width: 'fit-content',
-    transition: 'color 0.2s',
+    fontWeight: 500,
   },
   grid: {
     display: 'grid',
@@ -34,9 +34,9 @@ const s = {
     margin: '0 auto',
   },
   imgBox: {
-    background: 'radial-gradient(circle at center, rgba(201,168,76,0.08) 0%, var(--bg-dark) 100%)',
-    border: '1px solid var(--glass-border)',
-    borderRadius: '24px',
+    background: 'var(--color-bg-surface)',
+    border: '1px solid var(--color-border-subtle)',
+    borderRadius: '16px',
     height: '400px',
     display: 'flex',
     alignItems: 'center',
@@ -45,34 +45,35 @@ const s = {
   },
   badge: {
     display: 'inline-block',
-    background: 'rgba(201,168,76,0.1)',
-    color: 'var(--gold-highlight)',
-    borderRadius: '8px',
-    padding: '6px 14px',
-    fontSize: '0.8rem',
+    background: 'var(--color-action-tint-bg)',
+    color: 'var(--color-action-primary)',
+    border: '1px solid var(--color-action-tint-border)',
+    borderRadius: '6px',
+    padding: '5px 12px',
+    fontSize: '0.78rem',
     fontWeight: 600,
     marginBottom: '16px',
     letterSpacing: '0.05em',
     textTransform: 'uppercase',
   },
   name: {
-    fontSize: '2.5rem',
-    fontWeight: 600,
+    fontSize: '2.2rem',
+    fontWeight: 800,
     marginBottom: '16px',
-    color: 'var(--text-cream)',
-    fontFamily: 'Playfair Display, serif',
+    color: 'var(--color-text-heading)',
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
     lineHeight: 1.2,
   },
   price: {
-    fontSize: '2.2rem',
-    fontWeight: 600,
-    color: 'var(--gold-primary)',
+    fontSize: '2rem',
+    fontWeight: 700,
+    color: 'var(--color-action-primary)',
     marginBottom: '24px',
-    fontFamily: 'Playfair Display, serif',
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
   },
-  desc: { color: 'var(--text-muted)', lineHeight: 1.8, marginBottom: '32px', fontSize: '1.05rem' },
+  desc: { color: 'var(--color-text-body)', lineHeight: 1.8, marginBottom: '32px', fontSize: '1.05rem' },
   stock: {
-    color: 'var(--gold-highlight)',
+    color: 'var(--color-success)',
     marginBottom: '32px',
     fontSize: '0.95rem',
     display: 'flex',
@@ -82,9 +83,9 @@ const s = {
   },
   btn: {
     border: 'none',
-    borderRadius: '12px',
-    padding: '16px 36px',
-    fontSize: '1.05rem',
+    borderRadius: '10px',
+    padding: '14px 32px',
+    fontSize: '1rem',
     fontWeight: 600,
     cursor: 'pointer',
     marginRight: '16px',
@@ -95,70 +96,78 @@ const s = {
   },
   section: { maxWidth: '1100px', margin: '80px auto 0' },
   sTitle: {
-    fontSize: '1.6rem',
-    fontWeight: 600,
+    fontSize: '1.4rem',
+    fontWeight: 700,
     marginBottom: '24px',
-    borderBottom: '1px solid var(--glass-border)',
+    borderBottom: '1px solid var(--color-border-subtle)',
     paddingBottom: '16px',
-    fontFamily: 'Playfair Display, serif',
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
+    color: 'var(--color-text-heading)',
   },
-  reviewCard: { padding: '24px', marginBottom: '16px', display: 'flex', flexDirection: 'column' },
+  reviewCard: {
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-subtle)',
+    borderRadius: '12px',
+    padding: '20px 24px',
+    marginBottom: '12px',
+    display: 'flex',
+    flexDirection: 'column',
+    boxShadow: 'var(--shadow-subtle)',
+  },
   label: {
     display: 'block',
-    color: 'var(--text-muted)',
-    fontSize: '0.9rem',
+    color: 'var(--color-text-label)',
+    fontSize: '0.875rem',
     marginBottom: '8px',
     fontWeight: 500,
   },
   input: {
     width: '100%',
-    background: 'rgba(255,255,255,0.02)',
-    border: '1px solid var(--glass-border)',
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-strong)',
     borderRadius: '8px',
     padding: '12px 16px',
-    color: 'var(--text-cream)',
+    color: 'var(--color-text-heading)',
     fontSize: '0.95rem',
     boxSizing: 'border-box',
     outline: 'none',
     marginBottom: '20px',
-    transition: 'border-color 0.2s',
   },
   textarea: {
     width: '100%',
-    background: 'rgba(255,255,255,0.02)',
-    border: '1px solid var(--glass-border)',
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-strong)',
     borderRadius: '8px',
     padding: '12px 16px',
-    color: 'var(--text-cream)',
+    color: 'var(--color-text-heading)',
     fontSize: '0.95rem',
     boxSizing: 'border-box',
     outline: 'none',
     minHeight: '120px',
     resize: 'vertical',
     marginBottom: '20px',
-    transition: 'border-color 0.2s',
   },
   success: {
-    background: 'rgba(201,168,76,0.1)',
-    border: '1px solid var(--gold-primary)',
-    color: 'var(--gold-highlight)',
-    borderRadius: '10px',
-    padding: '16px',
-    marginBottom: '24px',
-    fontSize: '0.95rem',
+    background: 'var(--color-success-bg)',
+    border: '1px solid var(--color-success-border)',
+    color: 'var(--color-success)',
+    borderRadius: '8px',
+    padding: '14px 16px',
+    marginBottom: '20px',
+    fontSize: '0.9rem',
     fontWeight: 500,
   },
-  aiBox: {
-    background: 'rgba(201,168,76,0.05)',
-    border: '1px solid rgba(201,168,76,0.2)',
-    borderRadius: '16px',
-    padding: '24px',
-    marginTop: '24px',
-    color: 'var(--text-cream)',
-    lineHeight: 1.8,
+  error: {
+    background: 'var(--color-error-bg)',
+    border: '1px solid var(--color-error-border)',
+    color: 'var(--color-error)',
+    borderRadius: '8px',
+    padding: '14px 16px',
+    marginBottom: '20px',
+    fontSize: '0.9rem',
   },
 };
 
@@ -167,9 +176,7 @@ const Stars = ({ rating }) => {
   const half = rating % 1 >= 0.5 ? 1 : 0;
   const empty = 5 - full - half;
   return (
-    <div
-      style={{ display: 'flex', alignItems: 'center', color: 'var(--gold-highlight)', gap: '2px' }}
-    >
+    <div style={{ display: 'flex', alignItems: 'center', color: 'var(--color-star)', gap: '2px' }}>
       {[...Array(full)].map((_, i) => (
         <Star key={`f-${i}`} size={16} fill="currentColor" />
       ))}
@@ -188,8 +195,10 @@ export default function ProductDetail() {
   const [product, setProduct] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [cartMsg, setCartMsg] = useState('');
+  const [cartOk, setCartOk] = useState(true);
   const [reviewForm, setReviewForm] = useState({ rating: '5', comment: '' });
   const [reviewMsg, setReviewMsg] = useState('');
+  const [reviewOk, setReviewOk] = useState(true);
 
   useEffect(() => {
     getProduct(id)
@@ -207,10 +216,12 @@ export default function ProductDetail() {
     }
     try {
       await addToCart(product._id, 1);
-      setCartMsg('Item reserved');
+      setCartOk(true);
+      setCartMsg('Added to cart!');
       setTimeout(() => setCartMsg(''), 3000);
     } catch (err) {
-      setCartMsg(err.response?.data?.message || 'Failed to request reservation.');
+      setCartOk(false);
+      setCartMsg(err.response?.data?.message || 'Failed to add to cart.');
     }
   };
 
@@ -223,18 +234,20 @@ export default function ProductDetail() {
         rating: parseInt(reviewForm.rating),
         comment: reviewForm.comment,
       });
-      setReviewMsg('Review processed to the luxury network.');
+      setReviewOk(true);
+      setReviewMsg('Review submitted successfully!');
       const r = await getReviews(id);
       setReviews(r.data.reviews);
       setReviewForm({ rating: '5', comment: '' });
     } catch (err) {
-      setReviewMsg(err.response?.data?.message || 'Error parsing review.');
+      setReviewOk(false);
+      setReviewMsg(err.response?.data?.message || 'Failed to submit review.');
     }
   };
 
   if (!product)
     return (
-      <div style={{ ...s.page, textAlign: 'center', paddingTop: '120px', color: '#94a3b8' }}>
+      <div style={{ ...s.page, textAlign: 'center', paddingTop: '120px', color: 'var(--color-text-body)' }}>
         Loading…
       </div>
     );
@@ -242,12 +255,12 @@ export default function ProductDetail() {
   return (
     <div style={s.page}>
       <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-        <a href="/products" style={{ ...s.back, display: 'inline-flex' }} className="gold-glow">
+        <a href="/products" className="text-link" style={{ ...s.back, display: 'inline-flex' }}>
           <ArrowLeft size={16} /> Back to Catalog
         </a>
       </div>
       <div style={s.grid}>
-        <div style={s.imgBox} className="glass-panel">
+        <div style={s.imgBox}>
           {product.image ? (
             <img
               src={product.image}
@@ -256,7 +269,7 @@ export default function ProductDetail() {
             />
           ) : (
             <span style={{ opacity: 0.2 }}>
-              <Cpu size={120} color="var(--gold-primary)" />
+              <Cpu size={120} color="var(--color-action-primary)" />
             </span>
           )}
         </div>
@@ -266,9 +279,10 @@ export default function ProductDetail() {
             <span
               style={{
                 ...s.badge,
-                marginLeft: '12px',
-                color: 'var(--text-cream)',
-                background: 'var(--glass-border)',
+                marginLeft: '10px',
+                background: 'var(--color-bg-surface)',
+                color: 'var(--color-text-body)',
+                border: '1px solid var(--color-border-subtle)',
               }}
             >
               {product.subCategory}
@@ -277,54 +291,41 @@ export default function ProductDetail() {
           <div style={s.name}>{product.name}</div>
           <div style={s.price}>₹{((product.price || 0) * 83).toFixed(0)}</div>
           <div style={s.desc}>{product.description}</div>
-          <div style={s.stock}>
+          <div style={{ ...s.stock, color: product.stock > 0 ? 'var(--color-success)' : 'var(--color-error)' }}>
             {product.stock > 0 ? (
               <>
-                <ShieldCheck size={18} /> {product.stock} units secured in vault
+                <ShieldCheck size={18} /> {product.stock} in stock
               </>
             ) : (
-              'Waitlist Only'
+              'Out of stock'
             )}
           </div>
           {product.compatibleBrands?.length > 0 && (
             <div
               style={{
                 marginBottom: '32px',
-                color: 'var(--text-muted)',
+                color: 'var(--color-text-body)',
                 fontSize: '0.95rem',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
               }}
             >
-              <Cpu size={16} color="var(--gold-highlight)" /> Certified compatible:{' '}
+              <Cpu size={16} color="var(--color-action-primary)" /> Compatible with:{' '}
               {product.compatibleBrands.join(', ')}
             </div>
           )}
           {cartMsg && (
-            <div
-              style={
-                cartMsg.includes('Failed')
-                  ? {
-                      ...s.success,
-                      borderColor: 'rgba(239,68,68,0.3)',
-                      color: '#fca5a5',
-                      background: 'rgba(239,68,68,0.1)',
-                    }
-                  : s.success
-              }
-            >
-              {cartMsg}
-            </div>
+            <div style={cartOk ? s.success : s.error}>{cartMsg}</div>
           )}
           <button
             id="add-to-cart"
             style={s.btn}
-            className={product.stock > 0 ? 'shimmer-cta' : 'glass-panel'}
+            className={product.stock > 0 ? 'shimmer-cta' : ''}
             onClick={handleAddToCart}
             disabled={product.stock === 0}
           >
-            {product.stock > 0 ? 'Reserve Allocation' : 'Currently Unavailable'}
+            {product.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
           </button>
         </div>
       </div>
@@ -338,34 +339,33 @@ export default function ProductDetail() {
             justifyContent: 'space-between',
             flexWrap: 'wrap',
             gap: '16px',
-            marginBottom: '32px',
+            marginBottom: '24px',
           }}
         >
           <div style={s.sTitle}>
-            <MessagesSquare size={24} color="var(--gold-primary)" /> Customer Perspectives (
-            {reviews.length})
+            <MessagesSquare size={22} color="var(--color-action-primary)" /> Customer Reviews ({reviews.length})
           </div>
           <ReviewSummary reviews={reviews} />
         </div>
         {reviews.length === 0 && (
-          <div style={{ color: 'var(--text-muted)' }}>No perspectives yet.</div>
+          <div style={{ color: 'var(--color-text-body)', fontSize: '0.95rem' }}>No reviews yet. Be the first!</div>
         )}
         {reviews.map((r) => (
-          <div key={r._id} style={s.reviewCard} className="glass-panel skeuo-shadow">
+          <div key={r._id} style={s.reviewCard}>
             <div
               style={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                marginBottom: '12px',
+                marginBottom: '10px',
                 alignItems: 'center',
               }}
             >
-              <span style={{ fontWeight: 600, color: 'var(--text-cream)' }}>
-                {r.user?.name || 'Exclusive Member'}
+              <span style={{ fontWeight: 600, color: 'var(--color-text-heading)' }}>
+                {r.user?.name || 'Customer'}
               </span>
               <Stars rating={r.rating} />
             </div>
-            <div style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: 1.6 }}>
+            <div style={{ color: 'var(--color-text-body)', fontSize: '0.95rem', lineHeight: 1.6 }}>
               {r.comment}
             </div>
           </div>
@@ -373,30 +373,27 @@ export default function ProductDetail() {
 
         {isAuthenticated && (
           <div
-            style={{ marginTop: '48px', maxWidth: '600px', padding: '32px' }}
-            className="glass-panel skeuo-shadow"
+            style={{
+              marginTop: '48px',
+              maxWidth: '600px',
+              background: 'var(--color-bg-card)',
+              border: '1px solid var(--color-border-subtle)',
+              borderRadius: '12px',
+              padding: '28px 32px',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
+            }}
           >
-            <div style={{ ...s.sTitle, borderBottom: 'none' }}>Leave Your Perspective</div>
+            <div style={{ ...s.sTitle, borderBottom: 'none', marginBottom: '20px' }}>
+              Write a Review
+            </div>
             {reviewMsg && (
-              <div
-                style={
-                  reviewMsg.includes('Error')
-                    ? {
-                        ...s.success,
-                        borderColor: 'rgba(239,68,68,0.3)',
-                        color: '#fca5a5',
-                        background: 'rgba(239,68,68,0.1)',
-                      }
-                    : s.success
-                }
-              >
-                {reviewMsg}
-              </div>
+              <div style={reviewOk ? s.success : s.error}>{reviewMsg}</div>
             )}
             <form onSubmit={handleReview}>
-              <label style={s.label}>Rating Tier</label>
+              <label style={s.label}>Rating</label>
               <select
                 id="review-rating"
+                className="input-field"
                 style={{ ...s.input, cursor: 'pointer' }}
                 value={reviewForm.rating}
                 onChange={(e) => setReviewForm((f) => ({ ...f, rating: e.target.value }))}
@@ -407,21 +404,22 @@ export default function ProductDetail() {
                   </option>
                 ))}
               </select>
-              <label style={s.label}>Perspective</label>
+              <label style={s.label}>Your Review</label>
               <textarea
                 id="review-comment"
+                className="input-field"
                 style={s.textarea}
                 value={reviewForm.comment}
                 onChange={(e) => setReviewForm((f) => ({ ...f, comment: e.target.value }))}
-                placeholder="Share your experience with this luxury good…"
+                placeholder="Share your experience with this product…"
               />
               <button
                 id="review-submit"
-                style={{ ...s.btn, display: 'block', width: '100%' }}
+                style={{ ...s.btn, display: 'block', width: '100%', marginRight: 0 }}
                 className="shimmer-cta"
                 type="submit"
               >
-                Submit Perspective
+                Submit Review
               </button>
             </form>
           </div>
