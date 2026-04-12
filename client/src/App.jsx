@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar';
-import AIAdvisor from './components/AIAdvisor';
 import {
   Home,
   Login,
@@ -12,6 +11,7 @@ import {
   Orders,
   Profile,
   AdminDashboard,
+  AIAdvisorPage,
 } from './pages/index';
 
 // ── Route Guards ──────────────────────────────────────────────────────────────
@@ -34,15 +34,6 @@ const HomeRoute = () => {
   if (isAuthenticated && isAdmin) return <Navigate to="/admin" replace />;
   return <Home />;
 };
-
-// ── AI Advisor page wrapper ─────────────────────────────────────────────────────
-const AIAdvisorPage = () => (
-  <div style={{ minHeight: '100vh', background: '#0f0f1a', padding: '48px 24px' }}>
-    <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-      <AIAdvisor />
-    </div>
-  </div>
-);
 
 // ── App Shell ─────────────────────────────────────────────────────────────────
 const AppRoutes = () => (

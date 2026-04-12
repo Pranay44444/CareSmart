@@ -8,6 +8,8 @@ coverage
 
 # AI assistant context — local only, do NOT commit
 .agent
+CLAUDE.md
+graphify-out/
 
 # VS Code workspace settings — local only
 .vscode

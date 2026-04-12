@@ -13,6 +13,7 @@ vi.mock('./pages/index', () => ({
   Orders: () => <div>Orders</div>,
   Profile: () => <div>Profile</div>,
   AdminDashboard: () => <div>AdminDashboard</div>,
+  AIAdvisorPage: () => <div>AIAdvisorPage</div>,
 }));
 
 // Mock Navbar

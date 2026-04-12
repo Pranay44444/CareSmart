@@ -7,3 +7,4 @@ export { default as Cart } from './Cart';
 export { default as Orders } from './Orders';
 export { default as Profile } from './Profile';
 export { default as AdminDashboard } from './admin/AdminDashboard';
+export { default as AIAdvisorPage } from './AIAdvisorPage';
