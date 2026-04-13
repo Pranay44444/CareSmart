@@ -7,95 +7,85 @@ import { ShoppingCart, Trash2, PackageCheck, Box } from 'lucide-react';
 const s = {
   page: {
     minHeight: '100vh',
-    background: 'var(--bg-dark)',
+    background: 'var(--color-bg-base)',
     fontFamily: 'Inter, sans-serif',
-    color: 'var(--text-cream)',
-    padding: '64px 24px',
-    paddingBottom: '120px',
+    color: 'var(--color-text-heading)',
+    padding: '48px 24px',
+    paddingBottom: '100px',
   },
-  wrap: { maxWidth: '800px', margin: '0 auto' },
+  wrap: { maxWidth: '760px', margin: '0 auto' },
   title: {
-    fontSize: '2rem',
-    fontWeight: 600,
-    marginBottom: '40px',
-    color: 'var(--text-cream)',
+    fontSize: '1.75rem',
+    fontWeight: 800,
+    marginBottom: '32px',
+    color: 'var(--color-text-heading)',
     display: 'flex',
     alignItems: 'center',
     gap: '12px',
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
   },
   item: {
-    padding: '20px 24px',
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-subtle)',
+    borderRadius: '12px',
+    padding: '18px 22px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: '16px',
-    marginBottom: '16px',
+    marginBottom: '12px',
     flexWrap: 'wrap',
+    boxShadow: 'var(--shadow-subtle)',
   },
-  itemName: {
-    fontWeight: 600,
-    marginBottom: '6px',
-    fontSize: '1.05rem',
-    color: 'var(--text-cream)',
-  },
-  itemMeta: {
-    color: 'var(--text-muted)',
-    fontSize: '0.85rem',
-    textTransform: 'uppercase',
-    letterSpacing: '0.05em',
-  },
-  itemPrice: {
-    color: 'var(--gold-primary)',
-    fontWeight: 700,
-    fontSize: '1.25rem',
-    fontFamily: 'Playfair Display, serif',
-  },
+  itemName: { fontWeight: 600, marginBottom: '4px', fontSize: '1rem', color: 'var(--color-text-heading)' },
+  itemMeta: { color: 'var(--color-text-body)', fontSize: '0.82rem', textTransform: 'uppercase', letterSpacing: '0.04em' },
+  itemPrice: { color: 'var(--color-action-primary)', fontWeight: 700, fontSize: '1.15rem', fontFamily: "'Plus Jakarta Sans', sans-serif" },
   removeBtn: {
-    background: 'rgba(239,68,68,0.1)',
-    color: '#fca5a5',
-    border: '1px solid rgba(239,68,68,0.2)',
+    background: 'var(--color-error-bg)',
+    color: 'var(--color-error)',
+    border: '1px solid var(--color-error-border)',
     borderRadius: '8px',
-    padding: '10px 16px',
+    padding: '8px 14px',
     cursor: 'pointer',
     fontSize: '0.85rem',
     display: 'flex',
     alignItems: 'center',
-    gap: '6px',
-    transition: 'all 0.2s',
+    gap: '5px',
+    fontWeight: 500,
   },
-  summary: { padding: '32px', marginTop: '40px' },
+  summary: {
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-subtle)',
+    borderRadius: '12px',
+    padding: '28px',
+    marginTop: '32px',
+    boxShadow: 'var(--shadow-subtle)',
+  },
   total: {
-    fontSize: '1.8rem',
-    fontWeight: 600,
-    color: 'var(--gold-primary)',
+    fontSize: '1.6rem',
+    fontWeight: 700,
+    color: 'var(--color-text-heading)',
     marginBottom: '24px',
-    fontFamily: 'Playfair Display, serif',
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
   },
   input: {
     width: '100%',
-    background: 'rgba(255,255,255,0.02)',
-    border: '1px solid var(--glass-border)',
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-strong)',
     borderRadius: '8px',
-    padding: '14px 16px',
-    color: 'var(--text-cream)',
+    padding: '11px 14px',
+    color: 'var(--color-text-heading)',
     fontSize: '0.95rem',
     boxSizing: 'border-box',
     outline: 'none',
-    marginBottom: '16px',
-    transition: 'border-color 0.2s',
+    marginBottom: '14px',
   },
-  label: {
-    display: 'block',
-    color: 'var(--text-muted)',
-    fontSize: '0.9rem',
-    marginBottom: '8px',
-    fontWeight: 500,
-  },
+  label: { display: 'block', color: 'var(--color-text-label)', fontSize: '0.875rem', marginBottom: '6px', fontWeight: 500 },
   btn: {
     border: 'none',
-    borderRadius: '10px',
-    padding: '16px 28px',
-    fontSize: '1.05rem',
+    borderRadius: '8px',
+    padding: '14px 24px',
+    fontSize: '1rem',
     fontWeight: 600,
     cursor: 'pointer',
     width: '100%',
@@ -107,34 +97,34 @@ const s = {
   },
   clearBtn: {
     background: 'transparent',
-    color: 'var(--text-muted)',
-    border: '1px solid var(--glass-border)',
+    color: 'var(--color-text-body)',
+    border: '1px solid var(--color-border-subtle)',
     borderRadius: '8px',
-    padding: '12px 20px',
+    padding: '11px 20px',
     cursor: 'pointer',
-    fontSize: '0.95rem',
-    marginTop: '16px',
+    fontSize: '0.9rem',
+    marginTop: '12px',
     width: '100%',
-    transition: 'all 0.2s',
   },
-  empty: { textAlign: 'center', color: 'var(--text-muted)', padding: '100px 0' },
+  empty: { textAlign: 'center', color: 'var(--color-text-body)', padding: '80px 0' },
   success: {
-    background: 'rgba(201,168,76,0.1)',
-    border: '1px solid var(--gold-primary)',
-    color: 'var(--gold-highlight)',
-    borderRadius: '10px',
-    padding: '16px',
-    marginBottom: '24px',
+    background: 'var(--color-success-bg)',
+    border: '1px solid var(--color-success-border)',
+    color: 'var(--color-success)',
+    borderRadius: '8px',
+    padding: '14px 16px',
+    marginBottom: '20px',
     fontWeight: 500,
+    fontSize: '0.95rem',
   },
   error: {
-    background: 'rgba(239,68,68,0.1)',
-    border: '1px solid rgba(239,68,68,0.3)',
-    color: '#fca5a5',
-    borderRadius: '10px',
-    padding: '16px',
-    marginBottom: '24px',
-    fontSize: '0.95rem',
+    background: 'var(--color-error-bg)',
+    border: '1px solid var(--color-error-border)',
+    color: 'var(--color-error)',
+    borderRadius: '8px',
+    padding: '14px 16px',
+    marginBottom: '20px',
+    fontSize: '0.875rem',
   },
 };
 
@@ -189,41 +179,41 @@ export default function Cart() {
   if (!cart)
     return (
       <div
-        style={{ ...s.page, textAlign: 'center', paddingTop: '120px', color: 'var(--text-muted)' }}
+        style={{ ...s.page, textAlign: 'center', paddingTop: '120px', color: 'var(--color-text-body)' }}
       >
-        Loading reserve details…
+        Loading cart…
       </div>
     );
 
   return (
     <div style={s.page}>
       <div style={s.wrap}>
-        <div style={s.title} className="font-playfair">
-          <ShoppingCart size={32} color="var(--gold-primary)" /> Your Reserve
+        <div style={s.title}>
+          <ShoppingCart size={28} color="var(--color-action-primary)" /> Your Cart
         </div>
         {cart.items?.length === 0 ? (
           <div style={s.empty}>
-            <div style={{ marginBottom: '24px', display: 'flex', justifyContent: 'center' }}>
-              <ShoppingCart size={64} color="var(--glass-border)" />
+            <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'center' }}>
+              <ShoppingCart size={56} color="var(--color-border-subtle)" />
             </div>
-            <div style={{ fontSize: '1.25rem' }}>Your reserve list is empty.</div>
+            <div style={{ fontSize: '1.15rem', fontWeight: 600, color: 'var(--color-text-label)' }}>Your cart is empty.</div>
             <a
               href="/products"
               style={{
-                color: 'var(--gold-highlight)',
+                color: 'var(--color-action-primary)',
                 textDecoration: 'none',
                 fontWeight: 600,
                 display: 'block',
-                marginTop: '16px',
+                marginTop: '14px',
               }}
             >
-              Browse Luxury Catalog →
+              Browse Products →
             </a>
           </div>
         ) : (
           <>
             {cart.items.map((item) => (
-              <div key={item.product?._id} style={s.item} className="glass-panel skeuo-shadow">
+              <div key={item.product?._id} style={s.item}>
                 <div style={{ flex: 1 }}>
                   <div style={s.itemName}>{item.product?.name || 'Product'}</div>
                   <div style={s.itemMeta}>
@@ -235,6 +225,7 @@ export default function Cart() {
                 </div>
                 <button
                   id={`remove-${item.product?._id}`}
+                  className="btn-danger"
                   style={s.removeBtn}
                   onClick={() => handleRemove(item.product?._id)}
                 >
@@ -243,26 +234,28 @@ export default function Cart() {
               </div>
             ))}
 
-            <div style={s.summary} className="glass-panel skeuo-shadow">
+            <div style={s.summary}>
               <div style={s.total}>Total: ₹{(total * 83).toFixed(0)}</div>
               {msg && <div style={s.success}>{msg}</div>}
               {error && <div style={s.error}>{error}</div>}
               <form onSubmit={handleOrder}>
                 <div
                   style={{
-                    marginBottom: '24px',
-                    fontWeight: 600,
-                    color: 'var(--text-cream)',
+                    marginBottom: '20px',
+                    fontWeight: 700,
+                    color: 'var(--color-text-heading)',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '8px',
+                    fontSize: '1rem',
                   }}
                 >
-                  <Box size={20} color="var(--gold-primary)" /> Shipping Details
+                  <Box size={18} color="var(--color-action-primary)" /> Shipping Details
                 </div>
                 <label style={s.label}>Street Address</label>
                 <input
                   id="shipping-address"
+                  className="input-field"
                   style={s.input}
                   placeholder="123 Main St"
                   value={shipping.address}
@@ -271,6 +264,7 @@ export default function Cart() {
                 <label style={s.label}>City</label>
                 <input
                   id="shipping-city"
+                  className="input-field"
                   style={s.input}
                   placeholder="New Delhi"
                   value={shipping.city}
@@ -279,6 +273,7 @@ export default function Cart() {
                 <label style={s.label}>Postal Code</label>
                 <input
                   id="shipping-postal"
+                  className="input-field"
                   style={s.input}
                   placeholder="110001"
                   value={shipping.postalCode}
@@ -303,7 +298,7 @@ export default function Cart() {
               <button
                 id="clear-cart"
                 style={s.clearBtn}
-                className="gold-glow"
+                className="btn-outline"
                 onClick={handleClear}
               >
                 Clear List
