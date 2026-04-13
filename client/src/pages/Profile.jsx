@@ -23,91 +23,92 @@ const usagePatterns = [
 const s = {
   page: {
     minHeight: '100vh',
-    background: 'var(--bg-dark)',
+    background: 'var(--color-bg-base)',
     fontFamily: 'Inter, sans-serif',
-    color: 'var(--text-cream)',
-    padding: '64px 24px',
+    color: 'var(--color-text-heading)',
+    padding: '48px 24px',
   },
-  wrap: { maxWidth: '700px', margin: '0 auto' },
+  wrap: { maxWidth: '660px', margin: '0 auto' },
   title: {
-    fontSize: '2rem',
-    fontWeight: 600,
-    marginBottom: '8px',
-    color: 'var(--text-cream)',
+    fontSize: '1.75rem',
+    fontWeight: 800,
+    marginBottom: '6px',
+    color: 'var(--color-text-heading)',
     display: 'flex',
     alignItems: 'center',
     gap: '12px',
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
   },
-  subtitle: { color: 'var(--text-muted)', marginBottom: '40px', fontSize: '1.05rem' },
-  card: { padding: '32px', marginBottom: '24px' },
+  subtitle: { color: 'var(--color-text-body)', marginBottom: '32px', fontSize: '0.95rem' },
+  card: {
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-subtle)',
+    borderRadius: '12px',
+    padding: '28px',
+    marginBottom: '20px',
+    boxShadow: 'var(--shadow-subtle)',
+  },
   cardTitle: {
-    fontWeight: 600,
-    fontSize: '1.25rem',
-    marginBottom: '24px',
-    color: 'var(--text-cream)',
+    fontWeight: 700,
+    fontSize: '1.1rem',
+    marginBottom: '20px',
+    color: 'var(--color-text-heading)',
     display: 'flex',
     alignItems: 'center',
-    gap: '10px',
-    fontFamily: 'Playfair Display, serif',
+    gap: '8px',
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
   },
   infoRow: {
     display: 'flex',
     justifyContent: 'space-between',
-    padding: '14px 0',
-    borderBottom: '1px solid var(--glass-border)',
-    fontSize: '0.95rem',
-  },
-  key: { color: 'var(--text-muted)' },
-  val: { fontWeight: 500, color: 'var(--text-cream)' },
-  roleBadge: {
-    background: 'rgba(201,168,76,0.1)',
-    color: 'var(--gold-primary)',
-    border: '1px solid rgba(201,168,76,0.3)',
-    borderRadius: '6px',
-    padding: '4px 12px',
-    fontSize: '0.8rem',
-    fontWeight: 600,
-    letterSpacing: '0.05em',
-  },
-  label: {
-    display: 'block',
-    color: 'var(--text-muted)',
+    padding: '12px 0',
+    borderBottom: '1px solid var(--color-border-subtle)',
     fontSize: '0.9rem',
-    marginBottom: '8px',
-    fontWeight: 500,
   },
+  key: { color: 'var(--color-text-body)' },
+  val: { fontWeight: 500, color: 'var(--color-text-heading)' },
+  roleBadge: {
+    background: 'var(--color-action-tint-bg)',
+    color: 'var(--color-action-primary)',
+    border: '1px solid var(--color-action-tint-border)',
+    borderRadius: '6px',
+    padding: '3px 10px',
+    fontSize: '0.78rem',
+    fontWeight: 600,
+    letterSpacing: '0.04em',
+    textTransform: 'uppercase',
+  },
+  label: { display: 'block', color: 'var(--color-text-label)', fontSize: '0.875rem', marginBottom: '6px', fontWeight: 500 },
   select: {
     width: '100%',
-    background: 'rgba(255,255,255,0.02)',
-    border: '1px solid var(--glass-border)',
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-strong)',
     borderRadius: '8px',
-    padding: '14px 16px',
-    color: 'var(--text-cream)',
+    padding: '11px 14px',
+    color: 'var(--color-text-heading)',
     fontSize: '0.95rem',
     boxSizing: 'border-box',
     outline: 'none',
-    marginBottom: '20px',
+    marginBottom: '18px',
     cursor: 'pointer',
-    transition: 'border-color 0.2s',
   },
   input: {
     width: '100%',
-    background: 'rgba(255,255,255,0.02)',
-    border: '1px solid var(--glass-border)',
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-strong)',
     borderRadius: '8px',
-    padding: '14px 16px',
-    color: 'var(--text-cream)',
+    padding: '11px 14px',
+    color: 'var(--color-text-heading)',
     fontSize: '0.95rem',
     boxSizing: 'border-box',
     outline: 'none',
-    marginBottom: '20px',
-    transition: 'border-color 0.2s',
+    marginBottom: '18px',
   },
   btn: {
     border: 'none',
-    borderRadius: '10px',
-    padding: '14px 28px',
-    fontSize: '1rem',
+    borderRadius: '8px',
+    padding: '12px 24px',
+    fontSize: '0.95rem',
     fontWeight: 600,
     cursor: 'pointer',
     display: 'flex',
@@ -116,29 +117,28 @@ const s = {
     gap: '8px',
   },
   success: {
-    background: 'rgba(201,168,76,0.1)',
-    border: '1px solid var(--gold-primary)',
-    color: 'var(--gold-highlight)',
+    background: 'var(--color-success-bg)',
+    border: '1px solid var(--color-success-border)',
+    color: 'var(--color-success)',
     borderRadius: '8px',
-    padding: '14px 16px',
-    marginBottom: '24px',
-    fontSize: '0.95rem',
+    padding: '12px 14px',
+    marginBottom: '20px',
+    fontSize: '0.9rem',
     fontWeight: 500,
   },
   logoutBtn: {
-    background: 'rgba(239,68,68,0.1)',
-    color: '#fca5a5',
-    border: '1px solid rgba(239,68,68,0.2)',
-    borderRadius: '10px',
-    padding: '12px 24px',
+    background: 'var(--color-error-bg)',
+    color: 'var(--color-error)',
+    border: '1px solid var(--color-error-border)',
+    borderRadius: '8px',
+    padding: '11px 20px',
     cursor: 'pointer',
-    fontSize: '0.95rem',
+    fontSize: '0.9rem',
     marginTop: '16px',
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
     fontWeight: 500,
-    transition: 'all 0.2s',
   },
 };
 
@@ -175,15 +175,15 @@ export default function Profile() {
   return (
     <div style={s.page}>
       <div style={s.wrap}>
-        <div style={s.title} className="font-playfair">
-          <UserCircle size={32} color="var(--gold-primary)" /> My Profile
+        <div style={s.title}>
+          <UserCircle size={28} color="var(--color-action-primary)" /> My Profile
         </div>
         <div style={s.subtitle}>Manage your account and hardware preferences.</div>
 
         {/* Account Info */}
-        <div style={s.card} className="glass-panel skeuo-shadow">
+        <div style={s.card}>
           <div style={s.cardTitle}>
-            <UserCircle size={20} color="var(--gold-primary)" /> Account Identity
+            <UserCircle size={18} color="var(--color-action-primary)" /> Account Info
           </div>
           <div style={s.infoRow}>
             <span style={s.key}>Name</span>
@@ -200,26 +200,26 @@ export default function Profile() {
         </div>
 
         {/* Device Profile */}
-        <div style={s.card} className="glass-panel skeuo-shadow">
+        <div style={s.card}>
           <div style={s.cardTitle}>
-            <Smartphone size={20} color="var(--gold-primary)" /> Hardware Signature
+            <Smartphone size={18} color="var(--color-action-primary)" /> Device Profile
           </div>
           <div
             style={{
-              color: 'var(--text-muted)',
-              fontSize: '0.9rem',
-              marginBottom: '24px',
+              color: 'var(--color-text-body)',
+              fontSize: '0.875rem',
+              marginBottom: '20px',
               lineHeight: 1.6,
             }}
           >
-            This helps our AI advisor curate the exact structural and aesthetic accessories for your
-            device fleet.
+            This helps our AI advisor recommend the right accessories for your device.
           </div>
           {msg && <div style={s.success}>{msg}</div>}
           <form onSubmit={handleSave}>
-            <label style={s.label}>Hardware Classification</label>
+            <label style={s.label}>Device Type</label>
             <select
               id="device-type"
+              className="input-field"
               style={s.select}
               value={device.deviceType}
               onChange={(e) => setDevice((f) => ({ ...f, deviceType: e.target.value, brand: '' }))}
@@ -231,9 +231,10 @@ export default function Profile() {
                 </option>
               ))}
             </select>
-            <label style={s.label}>Manufacturer</label>
+            <label style={s.label}>Brand</label>
             <select
               id="device-brand"
+              className="input-field"
               style={s.select}
               value={device.brand}
               onChange={(e) => setDevice((f) => ({ ...f, brand: e.target.value }))}
@@ -245,17 +246,19 @@ export default function Profile() {
                 </option>
               ))}
             </select>
-            <label style={s.label}>Exact Model ID</label>
+            <label style={s.label}>Device Model</label>
             <input
               id="device-model"
+              className="input-field"
               style={s.input}
               placeholder="e.g. iPhone 15 Pro Max, Galaxy S24 Ultra"
               value={device.model}
               onChange={(e) => setDevice((f) => ({ ...f, model: e.target.value }))}
             />
-            <label style={s.label}>Primary Use Case</label>
+            <label style={s.label}>Usage Pattern</label>
             <select
               id="usage-pattern"
+              className="input-field"
               style={s.select}
               value={device.usagePattern}
               onChange={(e) => setDevice((f) => ({ ...f, usagePattern: e.target.value }))}
@@ -268,13 +271,13 @@ export default function Profile() {
               ))}
             </select>
             <button id="save-profile" style={s.btn} className="shimmer-cta" type="submit">
-              <CheckCircle2 size={18} /> Synchronize Profile
+              <CheckCircle2 size={17} /> Save Profile
             </button>
           </form>
         </div>
 
-        <button id="logout-btn" style={s.logoutBtn} onClick={handleLogout}>
-          <LogOut size={16} /> Terminate Session
+        <button id="logout-btn" className="btn-danger" style={s.logoutBtn} onClick={handleLogout}>
+          <LogOut size={16} /> Sign Out
         </button>
       </div>
     </div>
