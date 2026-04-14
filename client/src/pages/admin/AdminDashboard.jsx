@@ -24,157 +24,170 @@ import {
 const s = {
   page: {
     minHeight: '100vh',
-    background: 'var(--bg-dark)',
+    background: 'var(--color-bg-base)',
     fontFamily: 'Inter, sans-serif',
-    color: 'var(--text-cream)',
+    color: 'var(--color-text-heading)',
     padding: '32px 24px',
     paddingBottom: '100px',
   },
   wrap: { maxWidth: '1200px', margin: '0 auto' },
   title: {
-    fontSize: '2rem',
-    fontWeight: 600,
-    marginBottom: '8px',
-    color: 'var(--text-cream)',
+    fontSize: '1.75rem',
+    fontWeight: 800,
+    marginBottom: '6px',
+    color: 'var(--color-text-heading)',
     display: 'flex',
     alignItems: 'center',
     gap: '12px',
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
   },
-  tabs: { display: 'flex', gap: '8px', marginBottom: '40px', padding: '6px', width: 'fit-content' },
+  tabs: {
+    display: 'flex',
+    gap: '4px',
+    marginBottom: '32px',
+    background: 'var(--color-bg-surface)',
+    padding: '4px',
+    borderRadius: '10px',
+    width: 'fit-content',
+  },
   tab: (active) => ({
-    padding: '12px 28px',
-    borderRadius: '12px',
+    padding: '10px 24px',
+    borderRadius: '8px',
     cursor: 'pointer',
     fontWeight: 600,
-    fontSize: '0.95rem',
-    border: active ? '1px solid var(--gold-primary)' : '1px solid transparent',
-    background: active ? 'rgba(201,168,76,0.1)' : 'transparent',
-    color: active ? 'var(--gold-primary)' : 'var(--text-muted)',
-    transition: 'all 0.2s',
+    fontSize: '0.9rem',
+    border: 'none',
+    background: active ? 'var(--color-bg-card)' : 'transparent',
+    color: active ? 'var(--color-action-primary)' : 'var(--color-text-body)',
+    transition: 'color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out)',
     display: 'flex',
     alignItems: 'center',
-    gap: '8px',
+    gap: '7px',
+    boxShadow: active ? 'var(--shadow-subtle)' : 'none',
   }),
-  card: { padding: '32px', marginBottom: '32px', display: 'flex', flexDirection: 'column' },
-  cardTitle: {
-    fontWeight: 600,
-    fontSize: '1.25rem',
+  card: {
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-subtle)',
+    borderRadius: '12px',
+    padding: '28px',
     marginBottom: '24px',
-    color: 'var(--text-cream)',
+    display: 'flex',
+    flexDirection: 'column',
+    boxShadow: 'var(--shadow-subtle)',
+  },
+  cardTitle: {
+    fontWeight: 700,
+    fontSize: '1.1rem',
+    marginBottom: '20px',
+    color: 'var(--color-text-heading)',
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
-    fontFamily: 'Playfair Display, serif',
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
   },
-  table: { width: '100%', borderCollapse: 'collapse', fontSize: '0.95rem' },
+  table: { width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' },
   th: {
     textAlign: 'left',
-    color: 'var(--gold-highlight)',
+    color: 'var(--color-text-body)',
     fontWeight: 600,
-    padding: '14px 16px',
-    borderBottom: '1px solid var(--glass-border)',
+    padding: '12px 14px',
+    borderBottom: '1px solid var(--color-border-subtle)',
+    fontSize: '0.82rem',
+    textTransform: 'uppercase',
+    letterSpacing: '0.04em',
   },
   td: {
-    padding: '16px',
-    borderBottom: '1px solid rgba(255,255,255,0.05)',
+    padding: '14px',
+    borderBottom: '1px solid var(--color-border-subtle)',
     verticalAlign: 'middle',
-    color: 'var(--text-cream)',
+    color: 'var(--color-text-heading)',
   },
   deleteBtn: {
-    background: 'rgba(239,68,68,0.1)',
-    color: '#fca5a5',
-    border: '1px solid rgba(239,68,68,0.2)',
-    borderRadius: '8px',
-    padding: '8px 14px',
+    background: 'var(--color-error-bg)',
+    color: 'var(--color-error)',
+    border: '1px solid var(--color-error-border)',
+    borderRadius: '7px',
+    padding: '7px 12px',
     cursor: 'pointer',
-    fontSize: '0.85rem',
+    fontSize: '0.82rem',
     display: 'flex',
     alignItems: 'center',
-    gap: '6px',
-    transition: 'all 0.2s',
-  },
-  editBtn: {
-    background: 'rgba(201,168,76,0.08)',
-    color: 'var(--gold-highlight)',
-    border: '1px solid rgba(201,168,76,0.2)',
-    borderRadius: '8px',
-    padding: '8px 14px',
-    cursor: 'pointer',
-    fontSize: '0.85rem',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '6px',
-    transition: 'all 0.2s',
-  },
-  input: {
-    background: 'rgba(255,255,255,0.02)',
-    border: '1px solid var(--glass-border)',
-    borderRadius: '8px',
-    padding: '12px 16px',
-    color: 'var(--text-cream)',
-    fontSize: '0.95rem',
-    outline: 'none',
-    marginBottom: '16px',
-    boxSizing: 'border-box',
-    transition: 'border-color 0.2s',
-  },
-  label: {
-    display: 'block',
-    color: 'var(--text-muted)',
-    fontSize: '0.85rem',
-    marginBottom: '8px',
+    gap: '5px',
     fontWeight: 500,
   },
+  editBtn: {
+    background: 'var(--color-action-tint-bg)',
+    color: 'var(--color-action-primary)',
+    border: '1px solid var(--color-action-tint-border)',
+    borderRadius: '7px',
+    padding: '7px 12px',
+    cursor: 'pointer',
+    fontSize: '0.82rem',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '5px',
+    fontWeight: 500,
+  },
+  input: {
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-strong)',
+    borderRadius: '8px',
+    padding: '10px 14px',
+    color: 'var(--color-text-heading)',
+    fontSize: '0.9rem',
+    outline: 'none',
+    marginBottom: '14px',
+    boxSizing: 'border-box',
+  },
+  label: { display: 'block', color: 'var(--color-text-label)', fontSize: '0.82rem', marginBottom: '6px', fontWeight: 500 },
   btn: {
     border: 'none',
     borderRadius: '8px',
-    padding: '14px 28px',
+    padding: '12px 24px',
     fontWeight: 600,
     cursor: 'pointer',
-    fontSize: '0.95rem',
+    fontSize: '0.9rem',
     alignSelf: 'flex-start',
   },
   select: {
-    background: 'var(--bg-dark)',
-    border: '1px solid var(--glass-border)',
-    borderRadius: '8px',
-    padding: '8px 12px',
-    color: 'var(--text-cream)',
-    fontSize: '0.9rem',
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-strong)',
+    borderRadius: '7px',
+    padding: '7px 11px',
+    color: 'var(--color-text-label)',
+    fontSize: '0.85rem',
     cursor: 'pointer',
     outline: 'none',
   },
   success: {
-    background: 'rgba(201,168,76,0.1)',
-    border: '1px solid var(--gold-primary)',
-    color: 'var(--gold-highlight)',
+    background: 'var(--color-success-bg)',
+    border: '1px solid var(--color-success-border)',
+    color: 'var(--color-success)',
     borderRadius: '8px',
-    padding: '12px 16px',
-    marginBottom: '24px',
-    fontSize: '0.9rem',
+    padding: '10px 14px',
+    marginBottom: '20px',
+    fontSize: '0.875rem',
     fontWeight: 500,
   },
   statGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
-    gap: '20px',
-    marginBottom: '40px',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+    gap: '16px',
+    marginBottom: '32px',
   },
   statCard: {
-    padding: '24px',
-    borderRadius: '16px',
+    background: 'var(--color-bg-card)',
+    border: '1px solid var(--color-border-subtle)',
+    padding: '22px',
+    borderRadius: '12px',
     display: 'flex',
     flexDirection: 'column',
-    gap: '8px',
+    gap: '6px',
+    boxShadow: 'var(--shadow-subtle)',
   },
-  statLabel: { color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: 500 },
-  statValue: {
-    color: 'var(--gold-primary)',
-    fontSize: '2rem',
-    fontWeight: 700,
-    fontFamily: 'Playfair Display, serif',
-  },
-  statSub: { color: 'var(--text-muted)', fontSize: '0.8rem' },
+  statLabel: { color: 'var(--color-text-body)', fontSize: '0.82rem', fontWeight: 500 },
+  statValue: { color: 'var(--color-action-primary)', fontSize: '1.8rem', fontWeight: 800, fontFamily: "'Plus Jakarta Sans', sans-serif" },
+  statSub: { color: 'var(--color-text-muted)', fontSize: '0.78rem' },
 };
 
 const EMPTY_FORM = {
@@ -189,16 +202,22 @@ const EMPTY_FORM = {
 };
 
 const statusColors = {
-  pending: 'rgba(251,191,36,0.15)',
-  processing: 'rgba(99,102,241,0.15)',
-  shipped: 'rgba(59,130,246,0.15)',
-  delivered: 'rgba(34,197,94,0.15)',
+  pending:    'var(--color-status-pending-bg)',
+  processing: 'var(--color-status-processing-bg)',
+  shipped:    'var(--color-status-shipped-bg)',
+  delivered:  'var(--color-status-delivered-bg)',
+};
+const statusBorderColors = {
+  pending:    'var(--color-status-pending-border)',
+  processing: 'var(--color-status-processing-border)',
+  shipped:    'var(--color-status-shipped-border)',
+  delivered:  'var(--color-status-delivered-border)',
 };
 const statusTextColors = {
-  pending: '#fbbf24',
-  processing: '#a5b4fc',
-  shipped: '#93c5fd',
-  delivered: '#86efac',
+  pending:    'var(--color-status-pending-text)',
+  processing: 'var(--color-status-processing-text)',
+  shipped:    'var(--color-status-shipped-text)',
+  delivered:  'var(--color-status-delivered-text)',
 };
 
 const VALID_TABS = ['overview', 'products', 'orders'];
@@ -335,13 +354,13 @@ export default function AdminDashboard() {
     <div style={s.page}>
       <div style={s.wrap}>
         <div style={s.title} className="font-playfair">
-          <Settings size={32} color="var(--gold-primary)" /> Admin Central
+          <Settings size={32} color="var(--color-action-primary)" /> Admin Central
         </div>
-        <div style={{ color: 'var(--text-muted)', marginBottom: '32px', fontSize: '1.05rem' }}>
-          Manage products and orders to maintain the premium experience.
+        <div style={{ color: 'var(--color-text-body)', marginBottom: '32px', fontSize: '1.05rem' }}>
+          Manage products and orders from one place.
         </div>
 
-        <div style={s.tabs} className="glass-panel">
+        <div style={s.tabs}>
           <button style={s.tab(tab === 'overview')} onClick={() => setTab('overview')}>
             <BarChart3 size={18} /> Overview
           </button>
@@ -361,37 +380,37 @@ export default function AdminDashboard() {
         {tab === 'overview' && (
           <>
             <div style={s.statGrid}>
-              <div style={s.statCard} className="glass-panel skeuo-shadow">
-                <TrendingUp size={22} color="var(--gold-primary)" />
+              <div style={s.statCard}>
+                <TrendingUp size={22} color="var(--color-action-primary)" />
                 <div style={s.statLabel}>Total Revenue</div>
                 <div style={s.statValue}>₹{totalRevenue.toFixed(0)}</div>
                 <div style={s.statSub}>from {orders.length} orders</div>
               </div>
-              <div style={s.statCard} className="glass-panel skeuo-shadow">
-                <Package size={22} color="var(--gold-primary)" />
+              <div style={s.statCard}>
+                <Package size={22} color="var(--color-action-primary)" />
                 <div style={s.statLabel}>Products in Catalog</div>
                 <div style={s.statValue}>{products.length}</div>
                 <div style={s.statSub}>
                   {outOfStock > 0 ? (
-                    <span style={{ color: '#fca5a5' }}>{outOfStock} out of stock</span>
+                    <span style={{ color: 'var(--color-error)' }}>{outOfStock} out of stock</span>
                   ) : (
                     'all in stock'
                   )}
                 </div>
               </div>
-              <div style={s.statCard} className="glass-panel skeuo-shadow">
-                <ShoppingBag size={22} color="var(--gold-primary)" />
+              <div style={s.statCard}>
+                <ShoppingBag size={22} color="var(--color-action-primary)" />
                 <div style={s.statLabel}>Total Orders</div>
                 <div style={s.statValue}>{orders.length}</div>
                 <div style={s.statSub}>all time</div>
               </div>
-              <div style={s.statCard} className="glass-panel skeuo-shadow">
-                <Clock size={22} color="var(--gold-primary)" />
+              <div style={s.statCard}>
+                <Clock size={22} color="var(--color-action-primary)" />
                 <div style={s.statLabel}>Pending Orders</div>
                 <div
                   style={{
                     ...s.statValue,
-                    color: pendingOrders > 0 ? '#fbbf24' : 'var(--gold-primary)',
+                    color: pendingOrders > 0 ? 'var(--color-warning)' : 'var(--color-action-primary)',
                   }}
                 >
                   {pendingOrders}
@@ -401,16 +420,16 @@ export default function AdminDashboard() {
             </div>
 
             {/* Recent Orders preview */}
-            <div style={s.card} className="glass-panel skeuo-shadow">
+            <div style={s.card}>
               <div style={s.cardTitle}>
-                <ReceiptText color="var(--gold-primary)" /> Recent Orders
+                <ReceiptText color="var(--color-action-primary)" /> Recent Orders
               </div>
               {ordersError && (
                 <div
                   style={{
-                    background: 'rgba(239,68,68,0.1)',
-                    border: '1px solid rgba(239,68,68,0.3)',
-                    color: '#fca5a5',
+                    background: 'var(--color-error-bg)',
+                    border: '1px solid var(--color-error-border)',
+                    color: 'var(--color-error)',
                     borderRadius: '8px',
                     padding: '12px 16px',
                     marginBottom: '16px',
@@ -437,20 +456,21 @@ export default function AdminDashboard() {
                           style={{
                             ...s.td,
                             fontFamily: 'monospace',
-                            color: 'var(--gold-highlight)',
+                            color: 'var(--color-action-primary)',
                           }}
                         >
                           #{o._id.slice(-8).toUpperCase()}
                         </td>
                         <td style={s.td}>{o.user?.name || '—'}</td>
-                        <td style={{ ...s.td, fontWeight: 700, color: 'var(--gold-primary)' }}>
+                        <td style={{ ...s.td, fontWeight: 700, color: 'var(--color-action-primary)' }}>
                           ₹{((o.totalPrice || 0) * 83).toFixed(0)}
                         </td>
                         <td style={s.td}>
                           <span
                             style={{
-                              background: statusColors[o.status] || 'transparent',
-                              color: statusTextColors[o.status] || 'var(--text-muted)',
+                              background: statusColors[o.status] || 'var(--color-bg-surface)',
+                              color: statusTextColors[o.status] || 'var(--color-text-body)',
+                              border: `1px solid ${statusBorderColors[o.status] || 'var(--color-border-subtle)'}`,
                               borderRadius: '6px',
                               padding: '4px 10px',
                               fontSize: '0.8rem',
@@ -468,6 +488,7 @@ export default function AdminDashboard() {
               </div>
               {orders.length > 5 && (
                 <button
+                  className="btn-outline"
                   style={{ ...s.editBtn, marginTop: '16px', alignSelf: 'flex-start' }}
                   onClick={() => setTab('orders')}
                 >
@@ -482,15 +503,15 @@ export default function AdminDashboard() {
         {tab === 'products' && (
           <>
             {/* Add / Edit Product Form */}
-            <div style={s.card} className="glass-panel skeuo-shadow">
+            <div style={s.card}>
               <div style={s.cardTitle}>
                 {editingId ? (
                   <>
-                    <Pencil color="var(--gold-primary)" /> Edit Product
+                    <Pencil color="var(--color-action-primary)" /> Edit Product
                   </>
                 ) : (
                   <>
-                    <PlusCircle color="var(--gold-primary)" /> Add New Product
+                    <PlusCircle color="var(--color-action-primary)" /> Add New Product
                   </>
                 )}
               </div>
@@ -498,9 +519,9 @@ export default function AdminDashboard() {
                 <div
                   style={{
                     ...s.success,
-                    background: msgOk ? 'rgba(201,168,76,0.1)' : 'rgba(239,68,68,0.1)',
-                    border: `1px solid ${msgOk ? 'var(--gold-primary)' : 'rgba(239,68,68,0.3)'}`,
-                    color: msgOk ? 'var(--gold-highlight)' : '#fca5a5',
+                    background: msgOk ? 'var(--color-success-bg)' : 'var(--color-error-bg)',
+                    border: `1px solid ${msgOk ? 'var(--color-success-border)' : 'var(--color-error-border)'}`,
+                    color: msgOk ? 'var(--color-success)' : 'var(--color-error)',
                   }}
                 >
                   {msg}
@@ -512,6 +533,7 @@ export default function AdminDashboard() {
                     <label style={s.label}>Article Name</label>
                     <input
                       id="prod-name"
+                      className="input-field"
                       style={inputStyle}
                       value={form.name}
                       onChange={setF('name')}
@@ -522,6 +544,7 @@ export default function AdminDashboard() {
                     <label style={s.label}>Price (₹)</label>
                     <input
                       id="prod-price"
+                      className="input-field"
                       style={inputStyle}
                       type="number"
                       step="1"
@@ -546,6 +569,7 @@ export default function AdminDashboard() {
                     <label style={s.label}>Category</label>
                     <select
                       id="prod-cat"
+                      className="input-field"
                       style={{
                         ...s.select,
                         width: '100%',
@@ -563,6 +587,7 @@ export default function AdminDashboard() {
                     <label style={s.label}>Sub-Category</label>
                     <input
                       id="prod-subcat"
+                      className="input-field"
                       style={inputStyle}
                       value={form.subCategory}
                       onChange={setF('subCategory')}
@@ -574,6 +599,7 @@ export default function AdminDashboard() {
                     <label style={s.label}>Stock</label>
                     <input
                       id="prod-stock"
+                      className="input-field"
                       style={inputStyle}
                       type="number"
                       value={form.stock}
@@ -585,6 +611,7 @@ export default function AdminDashboard() {
                     <label style={s.label}>Compatible Brands (comma-separated)</label>
                     <input
                       id="prod-brands"
+                      className="input-field"
                       style={inputStyle}
                       value={form.compatibleBrands}
                       onChange={setF('compatibleBrands')}
@@ -607,11 +634,12 @@ export default function AdminDashboard() {
                   {editingId && (
                     <button
                       type="button"
+                      className="btn-outline"
                       style={{
                         ...s.btn,
                         background: 'transparent',
-                        border: '1px solid var(--glass-border)',
-                        color: 'var(--text-muted)',
+                        border: '1px solid var(--color-border-subtle)',
+                        color: 'var(--color-text-body)',
                       }}
                       onClick={cancelEdit}
                     >
@@ -623,9 +651,9 @@ export default function AdminDashboard() {
             </div>
 
             {/* Products Table */}
-            <div style={s.card} className="glass-panel skeuo-shadow">
+            <div style={s.card}>
               <div style={s.cardTitle}>
-                <Package color="var(--gold-primary)" /> Catalog ({products.length})
+                <Package color="var(--color-action-primary)" /> Catalog ({products.length})
               </div>
               <div style={{ overflowX: 'auto' }}>
                 <table style={s.table}>
@@ -644,14 +672,14 @@ export default function AdminDashboard() {
                       <tr
                         key={p._id}
                         style={{
-                          background: editingId === p._id ? 'rgba(201,168,76,0.04)' : 'transparent',
+                          background: editingId === p._id ? 'var(--color-action-tint-bg)' : 'transparent',
                         }}
                       >
                         <td style={{ ...s.td, fontWeight: 500 }}>{p.name}</td>
                         <td style={s.td}>
                           <span
                             style={{
-                              color: 'var(--text-muted)',
+                              color: 'var(--color-text-body)',
                               fontSize: '0.85rem',
                               textTransform: 'uppercase',
                               letterSpacing: '0.05em',
@@ -660,20 +688,21 @@ export default function AdminDashboard() {
                             {p.category}
                           </span>
                         </td>
-                        <td style={{ ...s.td, color: 'var(--gold-primary)', fontWeight: 600 }}>
+                        <td style={{ ...s.td, color: 'var(--color-action-primary)', fontWeight: 600 }}>
                           ₹{((p.price || 0) * 83).toFixed(0)}
                         </td>
                         <td style={s.td}>
-                          <span style={{ color: p.stock === 0 ? '#fca5a5' : 'var(--text-cream)' }}>
+                          <span style={{ color: p.stock === 0 ? 'var(--color-error)' : 'var(--color-text-heading)' }}>
                             {p.stock === 0 ? 'Out of stock' : p.stock}
                           </span>
                         </td>
-                        <td style={{ ...s.td, color: 'var(--gold-highlight)' }}>
+                        <td style={{ ...s.td, color: 'var(--color-star)' }}>
                           {p.ratings > 0 ? `★ ${p.ratings}` : '—'}
                         </td>
                         <td style={s.td}>
                           <div style={{ display: 'flex', gap: '8px' }}>
                             <button
+                              className="btn-outline"
                               style={s.editBtn}
                               onClick={() => {
                                 startEdit(p);
@@ -684,6 +713,7 @@ export default function AdminDashboard() {
                             </button>
                             <button
                               id={`delete-${p._id}`}
+                              className="btn-danger"
                               style={s.deleteBtn}
                               onClick={() => handleDelete(p._id, p.name)}
                             >
@@ -702,16 +732,16 @@ export default function AdminDashboard() {
 
         {/* ── Orders Tab ── */}
         {tab === 'orders' && (
-          <div style={s.card} className="glass-panel skeuo-shadow">
+          <div style={s.card}>
             <div style={s.cardTitle}>
-              <ReceiptText color="var(--gold-primary)" /> All Orders ({orders.length})
+              <ReceiptText color="var(--color-action-primary)" /> All Orders ({orders.length})
             </div>
             {ordersError && (
               <div
                 style={{
-                  background: 'rgba(239,68,68,0.1)',
-                  border: '1px solid rgba(239,68,68,0.3)',
-                  color: '#fca5a5',
+                  background: 'var(--color-error-bg)',
+                  border: '1px solid var(--color-error-border)',
+                  color: 'var(--color-error)',
                   borderRadius: '8px',
                   padding: '12px 16px',
                   marginBottom: '16px',
@@ -737,25 +767,26 @@ export default function AdminDashboard() {
                   {orders.map((o) => (
                     <tr key={o._id}>
                       <td
-                        style={{ ...s.td, fontFamily: 'monospace', color: 'var(--gold-highlight)' }}
+                        style={{ ...s.td, fontFamily: 'monospace', color: 'var(--color-action-primary)' }}
                         title={o._id}
                       >
                         #{o._id.slice(-8).toUpperCase()}
                       </td>
                       <td style={s.td}>
                         <div style={{ fontWeight: 500 }}>{o.user?.name || '—'}</div>
-                        <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                        <div style={{ color: 'var(--color-text-body)', fontSize: '0.85rem' }}>
                           {o.user?.email}
                         </div>
                       </td>
                       <td style={s.td}>{o.items?.length} item(s)</td>
-                      <td style={{ ...s.td, fontWeight: 700, color: 'var(--gold-primary)' }}>
+                      <td style={{ ...s.td, fontWeight: 700, color: 'var(--color-action-primary)' }}>
                         ₹{((o.totalPrice || 0) * 83).toFixed(0)}
                       </td>
                       <td style={s.td}>{new Date(o.createdAt).toLocaleDateString()}</td>
                       <td style={s.td}>
                         <select
                           id={`status-${o._id}`}
+                          className="input-field"
                           style={s.select}
                           value={o.status}
                           onChange={(e) => handleStatusChange(o._id, e.target.value)}
